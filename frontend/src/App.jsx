@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import MemberPage from "./pages/MemberPage";
 import StaffPage from "./pages/StaffPage";
+import LoadingScreen from "./components/LoadingScreen";
 
 const navItems = [
   { to: "/", label: "Member Interface" },
@@ -38,7 +39,22 @@ const languageOptions = [
 function App() {
   const location = useLocation();
   const [language, setLanguage] = useState("en");
+  const [isLoading, setIsLoading] = useState(true);
+
   const copy = uiCopy[language] || uiCopy.en;
+
+  // Simulate loading on app start and route change
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="app-shell">
@@ -51,7 +67,7 @@ function App() {
         <div className="hero-tools">
           <label className="language-switcher">
             <span>{copy.languageLabel}</span>
-            <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            <select className="glass-select" value={language} onChange={(event) => setLanguage(event.target.value)}>
               {languageOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}

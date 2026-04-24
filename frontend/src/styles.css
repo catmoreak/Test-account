@@ -490,11 +490,65 @@ button:disabled {
   font-size: 0.82rem;
 }
 
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, var(--bg-2) 0%, var(--bg-1) 100%);
+  z-index: 9999;
+}
+
+.custom-loader {
+  width: 55px;
+  height: 55px;
+  border: 4px solid var(--border);
+  border-top-color: var(--teal-bright);
+  border-bottom-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  margin-bottom: 1.2rem;
+}
+
+.loading-text {
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.15em;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 @keyframes riseIn {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -502,6 +556,7 @@ button:disabled {
 }
 
 @media (max-width: 1024px) {
+
   .member-grid,
   .staff-grid {
     grid-template-columns: 1fr;
