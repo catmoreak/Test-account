@@ -9,12 +9,16 @@ const { initCaseStore } = require("./services/caseStore");
 const app = express();
 const PORT = process.env.PORT || 8787;
 
-app.use(cors({
-  origin: true, // Reflect the requesting origin
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// Total CORS bypass for hackathon
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
 app.use(express.json());
 
 app.get("/api/health", (_, res) => {
