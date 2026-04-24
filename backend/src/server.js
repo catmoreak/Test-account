@@ -9,29 +9,60 @@ const { initCaseStore } = require("./services/caseStore");
 const app = express();
 const PORT = process.env.PORT || 8787;
 
+const defaultAllowedOrigins = ["https://alvas.devorbit.cloud"];
+
+if (process.env.NODE_ENV !== "production") {
+  defaultAllowedOrigins.push(
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174"
+  );
+}
+
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://127.0.0.1:5173",
-  "http://127.0.0.1:5174",
-  "https://alvas.devorbit.cloud",
-  "https://backendalvas.devorbit.cloud",
+  ...defaultAllowedOrigins,
   ...(process.env.CORS_ORIGINS || "")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean)
 ];
 
+function isAllowedOrigin(origin) {
+  return allowedOrigins.includes(origin);
+}
+
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow any origin
-    callback(null, true);
+    if (!origin || isAllowedOrigin(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
   },
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-User-Id", "Accept", "Origin", "X-Requested-With"],
   optionsSuccessStatus: 204,
   credentials: true
 };
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (origin && isAllowedOrigin(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Vary", "Origin");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-User-Id, Accept, Origin, X-Requested-With");
+
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(204);
+    }
+  }
+
+  return next();
+});
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
