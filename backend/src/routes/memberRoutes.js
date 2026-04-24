@@ -6,6 +6,7 @@ const { createCase } = require("../services/caseStore");
 const { getAccountContext } = require("../services/authService");
 const { translateWithSarvam } = require("../services/sarvamClient");
 const { transcribeWithSarvam } = require("../services/speechToTextClient");
+const { synthesizeWithSarvam } = require("../services/textToSpeechClient");
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -160,6 +161,30 @@ router.post("/voice-to-text", upload.single("file"), async (req, res) => {
     });
   } catch (error) {
     return res.status(502).json({ error: error.message || "Speech transcription failed" });
+  }
+});
+
+router.post("/text-to-speech", async (req, res) => {
+  const { text, language = "en" } = req.body || {};
+
+  if (!text || typeof text !== "string") {
+    return res.status(400).json({ error: "text is required" });
+  }
+
+  try {
+    const speech = await synthesizeWithSarvam(text, language);
+
+    if (!speech.used) {
+      return res.status(502).json({ error: speech.error || "Text-to-speech failed" });
+    }
+
+    return res.json({
+      audioBase64: speech.audioBase64,
+      mimeType: speech.mimeType,
+      requestId: speech.requestId || null
+    });
+  } catch (error) {
+    return res.status(502).json({ error: error.message || "Text-to-speech failed" });
   }
 });
 

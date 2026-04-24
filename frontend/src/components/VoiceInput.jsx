@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Loader2, Mic, Square } from "lucide-react";
 import { transcribeVoiceMessage } from "../api/client";
 
 export default function VoiceInput({ onTranscript, onError, disabled, language = "en" }) {
@@ -105,7 +106,13 @@ export default function VoiceInput({ onTranscript, onError, disabled, language =
       title={recording ? "Stop recording" : "Speak your query"}
       aria-label={recording ? "Stop voice input" : "Start voice input"}
     >
-      {uploading ? "⏳" : recording ? "⏹️" : "🎙️"}
+      {uploading ? (
+        <Loader2 size={18} className="icon-spin" aria-hidden="true" />
+      ) : recording ? (
+        <Square size={16} fill="currentColor" aria-hidden="true" />
+      ) : (
+        <Mic size={18} aria-hidden="true" />
+      )}
     </button>
   );
 }

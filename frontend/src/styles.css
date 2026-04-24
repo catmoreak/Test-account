@@ -278,7 +278,14 @@ h1 {
   font-size: 0.92rem;
 }
 
-.composer button {
+.composer-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.composer .send-btn {
   align-self: flex-end;
   padding: 0.6rem 1.4rem;
   font-size: 0.9rem;
@@ -291,8 +298,8 @@ h1 {
   transition: transform 120ms ease, opacity 120ms ease;
 }
 
-.composer button:hover:not(:disabled) { transform: translateY(-1px); opacity: 0.92; }
-.composer button:disabled { opacity: 0.5; cursor: not-allowed; }
+.composer .send-btn:hover:not(:disabled) { transform: translateY(-1px); opacity: 0.92; }
+.composer .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .composer-hint {
   font-size: 0.74rem;
@@ -1620,7 +1627,10 @@ button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
   border-radius: 10px;
   width: 42px;
   height: 42px;
+  padding: 0;
+  line-height: 0;
   font-size: 1.1rem;
+  color: var(--teal-bright);
   cursor: pointer;
   transition: all 150ms ease;
   display: flex;
@@ -1723,6 +1733,55 @@ button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
   border-color: var(--danger);
   color: var(--danger);
   background: var(--danger-dim);
+}
+
+.bubble-content-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.tts-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  line-height: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(44,195,167,0.25);
+  background: rgba(44,195,167,0.1);
+  color: var(--teal-bright);
+  cursor: pointer;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 120ms ease;
+}
+
+.tts-btn:hover:not(:disabled) {
+  transform: scale(1.06);
+  background: rgba(44,195,167,0.2);
+}
+
+.tts-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.icon-spin {
+  animation: iconSpin 1s linear infinite;
+}
+
+.voice-btn svg,
+.tts-btn svg {
+  display: block;
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .hero-bottom-row {

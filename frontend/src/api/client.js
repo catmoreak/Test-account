@@ -34,6 +34,13 @@ export async function transcribeVoiceMessage(audioBlob, language = "en") {
   return response.json();
 }
 
+export async function synthesizeSpeech(text, language = "en") {
+  return request("/api/member/text-to-speech", {
+    method: "POST",
+    body: JSON.stringify({ text, language })
+  });
+}
+
 // Member chat — now sends userId for account context resolution
 export async function sendMemberMessage(payload) {
   return request("/api/member/message", {

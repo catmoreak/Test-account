@@ -55,6 +55,31 @@ MISTRAL_MODEL=mistral-small-latest
 
 If no key is configured, CreditAssist falls back to the deterministic RAG answer generator.
 
+## Sarvam Voice Setup (STT + TTS)
+
+To enable voice input (speech-to-text) and spoken responses (text-to-speech), add Sarvam env vars in `.env`:
+
+```powershell
+# Shared key (already used for translation/STT)
+SARVAM_API_KEY=<your_sarvam_key>
+
+# Optional dedicated key for TTS (preferred)
+SARVAM_TTS_API_KEY=<your_tts_key>
+
+# Alias supported for compatibility with existing naming
+SARM_TTS_API=<your_tts_key>
+
+# Optional TTS tuning
+SARVAM_TTS_MODEL=bulbul:v1
+SARVAM_TTS_SPEAKER=anushka
+SARVAM_TTS_SAMPLE_RATE=22050
+SARVAM_TTS_URL=https://api.sarvam.ai/text-to-speech
+```
+
+Use `SARVAM_TTS_MODEL=bulbul:v3` (or `bulbul:v3-beta`).
+
+If `SARVAM_TTS_API_KEY` is not set, the backend falls back to `SARM_TTS_API`, then `SARVAM_API_KEY`.
+
 ## PostgreSQL (Neon) Setup For Hosting
 
 Set `DATABASE_URL` in the backend environment (Render service env vars or root `.env` for local runs).
@@ -91,6 +116,8 @@ npm run dev
 ## API Endpoints
 
 - `POST /api/member/message`
+- `POST /api/member/voice-to-text`
+- `POST /api/member/text-to-speech`
 - `GET /api/staff/cases?status=all|auto-resolved|needs-attention`
 - `GET /api/staff/cases/:id`
 - `PATCH /api/staff/cases/:id/status`

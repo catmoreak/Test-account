@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { sendMemberMessage } from "../api/client";
+import { Loader2, Volume2 } from "lucide-react";
+import { Mic } from "lucide-react";
+import { sendMemberMessage, synthesizeSpeech } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 import VoiceInput from "../components/VoiceInput";
 
@@ -147,7 +149,9 @@ export default function MemberPage({ language = "en" }) {
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState("");
   const [voiceError, setVoiceError] = useState("");
+  const [speakingIndex, setSpeakingIndex] = useState(null);
   const historyRef                = useRef(null);
+  const audioRef = useRef(null);
 
   const canSend = useMemo(() => draft.trim().length > 0 && !loading, [draft, loading]);
 
@@ -156,6 +160,15 @@ export default function MemberPage({ language = "en" }) {
       historyRef.current.scrollTop = historyRef.current.scrollHeight;
     }
   }, [history, loading]);
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   async function submitMessage(messageText) {
     if (!messageText?.trim()) return;
@@ -209,6 +222,38 @@ export default function MemberPage({ language = "en" }) {
     setVoiceError(message);
   }
 
+  async function handleListen(text, index) {
+    if (!text || speakingIndex !== null) return;
+
+    setVoiceError("");
+    setSpeakingIndex(index);
+
+    try {
+      const result = await synthesizeSpeech(text, language);
+      if (!result?.audioBase64) {
+        throw new Error("No audio returned");
+      }
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+
+      const audio = new Audio(`data:${result.mimeType || "audio/wav"};base64,${result.audioBase64}`);
+      audioRef.current = audio;
+
+      audio.onended = () => {
+        setSpeakingIndex(null);
+      };
+
+      await audio.play();
+    } catch (ttsError) {
+      console.warn("[TTS] Playback failed:", ttsError);
+      setVoiceError("Text-to-speech is unavailable right now. Please try again.");
+      setSpeakingIndex(null);
+    }
+  }
+
   return (
     <section className="member-layout">
       {/* ── Chat panel ───────────────────────────────────────────── */}
@@ -218,7 +263,10 @@ export default function MemberPage({ language = "en" }) {
 
         <div className="panel-head" style={{ borderBottom: "1px solid var(--border)", paddingBottom: "1rem", marginBottom: "1rem" }}>
           <div>
-            <h2 style={{ margin: 0, fontWeight: 600 }}>{t.title}</h2>
+            <h2 style={{ margin: 0, fontWeight: 600, display: "flex", alignItems: "center", gap: "0.45rem" }}>
+              <Mic size={18} aria-hidden="true" />
+              {t.title}
+            </h2>
           </div>
         </div>
 
@@ -240,7 +288,25 @@ export default function MemberPage({ language = "en" }) {
               <div className="bubble-role">
                 {item.role === "member" ? `👤 ${user?.name || "You"}` : "🤖 CreditAssist AI"}
               </div>
-              <span style={{ whiteSpace: "pre-wrap" }}>{item.message}</span>
+              <div className="bubble-content-row">
+                <span style={{ whiteSpace: "pre-wrap", flex: 1 }}>{item.message}</span>
+                {item.role === "assistant" && (
+                  <button
+                    type="button"
+                    className="tts-btn"
+                    onClick={() => handleListen(item.message, index)}
+                    disabled={speakingIndex !== null}
+                    title="Listen to response"
+                    aria-label="Listen to response"
+                  >
+                    {speakingIndex === index ? (
+                      <Loader2 size={16} className="icon-spin" aria-hidden="true" />
+                    ) : (
+                      <Volume2 size={16} aria-hidden="true" />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
           ))}
           {loading && <TypingIndicator />}
@@ -258,24 +324,26 @@ export default function MemberPage({ language = "en" }) {
               rows={3}
               placeholder={t.placeholder}
             />
+          </div>
+          <div className="composer-actions">
             <VoiceInput
               onTranscript={handleVoiceTranscript}
               onError={handleVoiceError}
               disabled={loading}
               language={language}
             />
+            <button type="submit" className="send-btn" disabled={!canSend}>
+              {loading ? (
+                <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <span className="mini-spinner-inline" />
+                  {t.analyzing}
+                </span>
+              ) : (
+                `${t.send} ↗`
+              )}
+            </button>
           </div>
           {voiceError && <p className="error" style={{ marginTop: "0.5rem" }}>{voiceError}</p>}
-          <button type="submit" disabled={!canSend}>
-            {loading ? (
-              <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                <span className="mini-spinner-inline" />
-                {t.analyzing}
-              </span>
-            ) : (
-              `${t.send} ↗`
-            )}
-          </button>
         </form>
         <p className="composer-hint" style={{ textAlign: "center", fontSize: "0.75rem", color: "var(--muted)", marginTop: "0.5rem" }}>
           Bank intelligently. Enter to send, Shift+Enter for new line.
