@@ -20,7 +20,7 @@ function loadEnvFile() {
       if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) return;
 
       const [key, ...rest] = trimmed.split("=");
-      const value = rest.join("=").trim().replace(/^['\"]|['\"]$/g, "");
+      const value = rest.join("=").trim().replace(/^['"]|['"]$/g, "");
       if (!process.env[key.trim()]) {
         process.env[key.trim()] = value;
       }
@@ -38,7 +38,8 @@ function normalizeCaseRow(row) {
     status: row.status,
     conversation: row.conversation,
     contextSummary: row.context_summary,
-    escalationPacket: row.escalation_packet
+    escalationPacket: row.escalation_packet,
+    notes: row.notes || []
   };
 }
 
@@ -67,9 +68,15 @@ async function initCaseStore() {
       status TEXT NOT NULL,
       conversation JSONB NOT NULL,
       context_summary JSONB NOT NULL,
-      escalation_packet JSONB
+      escalation_packet JSONB,
+      notes JSONB DEFAULT '[]'::jsonb
     )
   `);
+
+  // Add notes column if missing (for existing tables)
+  await pool.query(`
+    ALTER TABLE support_cases ADD COLUMN IF NOT EXISTS notes JSONB DEFAULT '[]'::jsonb
+  `).catch(() => {});
 
   useDatabase = true;
   console.log("Case store connected to Postgres.");
@@ -78,14 +85,14 @@ async function initCaseStore() {
 async function createCase(caseData) {
   if (!useDatabase) {
     memoryCases.unshift(caseData);
-    return caseData;
+    return { ...caseData, notes: [] };
   }
 
   await pool.query(
     `
       INSERT INTO support_cases
-      (id, member_id, created_at, updated_at, language, status, conversation, context_summary, escalation_packet)
-      VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9::jsonb)
+      (id, member_id, created_at, updated_at, language, status, conversation, context_summary, escalation_packet, notes)
+      VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9::jsonb,$10::jsonb)
     `,
     [
       caseData.id,
@@ -96,11 +103,12 @@ async function createCase(caseData) {
       caseData.status,
       JSON.stringify(caseData.conversation),
       JSON.stringify(caseData.contextSummary),
-      caseData.escalationPacket ? JSON.stringify(caseData.escalationPacket) : null
+      caseData.escalationPacket ? JSON.stringify(caseData.escalationPacket) : null,
+      JSON.stringify([])
     ]
   );
 
-  return caseData;
+  return { ...caseData, notes: [] };
 }
 
 async function listCases() {
@@ -131,7 +139,6 @@ async function updateCaseStatus(caseId, status) {
     if (!existing) {
       return null;
     }
-
     existing.status = status;
     existing.updatedAt = new Date().toISOString();
     return existing;
@@ -154,10 +161,36 @@ async function updateCaseStatus(caseId, status) {
   return normalizeCaseRow(result.rows[0]);
 }
 
+async function addCaseNote(caseId, noteObj) {
+  if (!useDatabase) {
+    const existing = memoryCases.find((item) => item.id === caseId);
+    if (!existing) return null;
+    if (!existing.notes) existing.notes = [];
+    existing.notes.push(noteObj);
+    existing.updatedAt = new Date().toISOString();
+    return existing;
+  }
+
+  const result = await pool.query(
+    `
+      UPDATE support_cases
+      SET notes = COALESCE(notes, '[]'::jsonb) || $2::jsonb,
+          updated_at = NOW()
+      WHERE id = $1
+      RETURNING *
+    `,
+    [caseId, JSON.stringify([noteObj])]
+  );
+
+  if (!result.rows[0]) return null;
+  return normalizeCaseRow(result.rows[0]);
+}
+
 module.exports = {
   initCaseStore,
   createCase,
   listCases,
   getCaseById,
-  updateCaseStatus
+  updateCaseStatus,
+  addCaseNote
 };

@@ -16,6 +16,15 @@ async function request(path, options = {}) {
   return response.json();
 }
 
+// Auth
+export async function loginUser(username, password) {
+  return request("/api/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ username, password })
+  });
+}
+
+// Member chat — now sends userId for account context resolution
 export async function sendMemberMessage(payload) {
   return request("/api/member/message", {
     method: "POST",
@@ -23,6 +32,7 @@ export async function sendMemberMessage(payload) {
   });
 }
 
+// Staff cases
 export async function getCases(status = "all") {
   return request(`/api/staff/cases?status=${status}`);
 }
@@ -36,4 +46,24 @@ export async function updateCaseStatus(id, status) {
     method: "PATCH",
     body: JSON.stringify({ status })
   });
+}
+
+export async function addCaseNote(id, note, staffId = "staff") {
+  return request(`/api/staff/cases/${id}/notes`, {
+    method: "POST",
+    body: JSON.stringify({ note, staffId })
+  });
+}
+
+export async function searchKnowledge(q) {
+  return request(`/api/staff/search?q=${encodeURIComponent(q)}`);
+}
+
+export async function getKnowledgeOverview() {
+  return request("/api/staff/knowledge");
+}
+
+// Analytics
+export async function getAnalytics(days = 7) {
+  return request(`/api/staff/analytics?days=${days}`);
 }

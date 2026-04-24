@@ -4,125 +4,124 @@ const { generateGroundedResponse } = require("./llmClient");
 const INTENT_RULES = {
   balance_inquiry: {
     queue: "Member Support",
-    phrases: ["balance", "available balance", "current balance", "how much", "funds"],
+    phrases: ["balance", "available balance", "current balance", "how much", "funds", "account balance"],
     terms: ["balance", "available", "current", "funds"]
   },
   transaction_dispute: {
     queue: "Complaints Desk",
-    phrases: ["did not make", "didn't make", "do not recognize", "don't recognize", "unknown charge", "dispute", "fraud"],
+    phrases: ["did not make", "didn't make", "do not recognize", "don't recognize", "unknown charge", "dispute", "fraud", "unauthorized transaction"],
     terms: ["charge", "transaction", "purchase", "dispute", "fraud", "unrecognized", "overcharged", "unauthorized"]
   },
   loan_status: {
     queue: "Loan Desk",
-    phrases: ["loan status", "loan approval", "application status", "haven't heard", "have not heard", "sanction status"],
+    phrases: ["loan status", "loan approval", "application status", "haven't heard", "have not heard", "sanction status", "loan pending"],
     terms: ["loan", "application", "approval", "pending", "status", "documents", "sanction"]
   },
   loan_product: {
     queue: "Loan Desk",
     phrases: [
-      "education loan",
-      "msme loan",
-      "business loan",
-      "jewel loan",
-      "gold loan",
-      "surety loan",
-      "consumer loan",
-      "vehicle loan",
-      "mortgage loan",
-      "machinery loan",
-      "agriculture loan"
+      "education loan", "msme loan", "business loan", "jewel loan", "gold loan",
+      "surety loan", "consumer loan", "vehicle loan", "mortgage loan", "machinery loan",
+      "agriculture loan", "two wheeler loan", "four wheeler loan", "boat loan"
     ],
     terms: [
-      "education",
-      "msme",
-      "business",
-      "jewel",
-      "gold",
-      "surety",
-      "consumer",
-      "vehicle",
-      "mortgage",
-      "machinery",
-      "agriculture",
-      "loan",
-      "cibil",
-      "guarantor",
-      "margin"
+      "education", "msme", "business", "jewel", "gold", "surety",
+      "consumer", "vehicle", "mortgage", "machinery", "agriculture",
+      "loan", "cibil", "guarantor", "margin", "rate", "interest"
     ]
+  },
+  account_block: {
+    queue: "Member Support",
+    phrases: [
+      "block account", "block my account", "freeze account", "lock account",
+      "account blocked", "account locked", "suspend account", "deactivate account",
+      "how can i block", "how do i block", "want to block my", "stop my account"
+    ],
+    terms: ["block", "freeze", "lock", "suspend", "deactivate", "dormant", "flagged", "restricted"]
   },
   card_block: {
     queue: "ATM Card Desk",
-    phrases: ["card blocked", "card is blocked", "failed pin", "failed pins", "reactivate", "unblock", "replacement pin"],
-    terms: ["card", "blocked", "declined", "pin", "reactivate", "unblock", "locked", "atm"]
+    phrases: [
+      "card blocked", "card is blocked", "failed pin", "failed pins", "reactivate",
+      "unblock card", "replacement pin", "block my card", "block debit card", "atm card blocked",
+      "lost my card", "stolen card"
+    ],
+    terms: ["card", "blocked", "declined", "pin", "reactivate", "unblock", "locked", "atm", "debit"]
   },
   account_update: {
     queue: "Member Support",
-    phrases: ["update address", "change address", "registered address", "recently moved", "phone number", "email", "documents required"],
-    terms: ["update", "address", "moved", "residence", "profile", "phone", "email", "documents", "aadhaar", "pan"]
+    phrases: ["update address", "change address", "registered address", "recently moved", "phone number", "email", "documents required", "kyc update"],
+    terms: ["update", "address", "moved", "residence", "profile", "phone", "email", "documents", "aadhaar", "pan", "kyc"]
   },
   policy_question: {
     queue: "Member Support",
-    phrases: ["early closure", "before maturity", "what is the penalty", "premature closure"],
-    terms: ["penalty", "policy", "maturity", "terms", "closure", "premature"]
+    phrases: ["early closure", "before maturity", "what is the penalty", "premature closure", "456 days", "fd rate", "rd rate"],
+    terms: ["penalty", "policy", "maturity", "terms", "closure", "premature", "rate", "interest", "days"]
   },
   unresolved_complaint: {
     queue: "Complaints Desk",
-    phrases: ["called twice", "still unresolved", "not resolved", "nothing has been resolved", "for months", "three months"],
-    terms: ["complaint", "unresolved", "overcharged", "months", "again", "escalate"]
+    phrases: ["called twice", "still unresolved", "not resolved", "nothing has been resolved", "for months", "three months", "no one helping"],
+    terms: ["complaint", "unresolved", "overcharged", "months", "again", "escalate", "unacceptable", "frustrated"]
   },
   service_charge: {
     queue: "Member Support",
-    phrases: ["service charge", "service charges", "cheque book charge", "minimum balance charge", "stop payment", "neft charge", "rtgs charge", "atm annual fee"],
-    terms: ["charge", "charges", "fee", "fees", "cheque", "statement", "passbook", "neft", "rtgs", "dd", "locker", "atm", "gst"]
+    phrases: [
+      "service charge", "service charges", "cheque book charge", "minimum balance charge",
+      "stop payment", "neft charge", "rtgs charge", "atm annual fee", "how much charge",
+      "what is the fee", "what are the charges", "locker rent", "dd charge"
+    ],
+    terms: ["charge", "charges", "fee", "fees", "cheque", "statement", "passbook", "neft", "rtgs", "dd", "locker", "atm", "gst", "fine", "penalty"]
   },
   deposit_product: {
     queue: "Deposit Desk",
-    phrases: ["open fixed deposit", "open recurring deposit", "open savings account", "savings account", "fd rate", "rd rate", "loan against deposit", "senior citizen", "documents required"],
+    phrases: [
+      "open fixed deposit", "open recurring deposit", "open savings account", "savings account",
+      "fd rate", "rd rate", "loan against deposit", "senior citizen", "documents required",
+      "456 days", "interest rate on deposit", "savings interest"
+    ],
     terms: ["fixed", "recurring", "deposit", "savings", "saving", "account", "fd", "rd", "sb", "ssb", "installment", "nomination", "senior", "maturity", "documents", "aadhaar", "pan"]
   },
   privacy_question: {
     queue: "Digital Banking",
-    phrases: ["pps privacy", "positive pay", "privacy policy", "share my data", "collect my data", "account number masked"],
-    terms: ["pps", "privacy", "positive", "pay", "data", "pin", "masked", "security"]
+    phrases: ["pps privacy", "positive pay", "privacy policy", "share my data", "collect my data", "account number masked", "data security"],
+    terms: ["pps", "privacy", "positive", "pay", "data", "pin", "masked", "security", "policy"]
   },
   branch_service: {
     queue: "Branch Services",
-    phrases: ["e-stamp", "estamp", "which branch", "locker facility", "nre query", "whatsapp"],
-    terms: ["stamp", "branch", "facility", "service", "nre", "whatsapp", "pigmy", "sms"]
+    phrases: ["e-stamp", "estamp", "which branch", "locker facility", "nre query", "whatsapp", "pigmy deposit", "kiosk passbook", "h2h neft"],
+    terms: ["stamp", "branch", "facility", "service", "nre", "whatsapp", "pigmy", "sms", "kiosk", "host"]
   },
   locker_service: {
     queue: "Locker Desk",
-    phrases: ["locker rent", "locker key", "lost locker key", "locker operation", "delayed locker rent"],
-    terms: ["locker", "rent", "key", "operation", "delayed"]
+    phrases: ["locker rent", "locker key", "lost locker key", "locker operation", "delayed locker rent", "break open locker"],
+    terms: ["locker", "rent", "key", "operation", "delayed", "break", "open"]
   }
 };
 
 const DISTRESS_TERMS = [
-  "angry",
-  "frustrated",
-  "upset",
-  "overcharged",
-  "terrible",
-  "complaint",
-  "urgent",
-  "disappointed",
-  "unacceptable",
-  "again",
-  "still",
-  "months",
-  "twice",
-  "not resolved",
-  "nothing"
+  "angry", "frustrated", "upset", "overcharged", "terrible", "complaint",
+  "urgent", "disappointed", "unacceptable", "again", "still", "months",
+  "twice", "not resolved", "nothing", "escalate", "ridiculous", "horrible"
 ];
 
 const LANGUAGE_LABELS = {
   en: { name: "English", responsePrefix: "Response", escalationPrefix: "Escalation" },
   hi: { name: "Hindi", responsePrefix: "प्रतिक्रिया", escalationPrefix: "एस्केलेशन" },
-  kn: { name: "Kannada", responsePrefix: "ಪ್ರತಿಕ್ರಿಯೆ", escalationPrefix: "ಎಸ್ಕಲೇಶನ್" }
+  kn: { name: "Kannada", responsePrefix: "ಪ್ರತಿಕ್ರಿಯೆ", escalationPrefix: "ಎಸ್ಕಲೇಶನ್" },
+  ta: { name: "Tamil", responsePrefix: "பதில்", escalationPrefix: "மேலதிக விசாரணைக்கு" }
 };
 
+// Intent that MUST be escalated (require account access or bank action)
+const ALWAYS_ESCALATE_INTENTS = new Set([
+  "balance_inquiry",
+  "transaction_dispute",
+  "loan_status",
+  "card_block",
+  "account_block"
+]);
+
 function scoreIntent(message, history = []) {
-  const combined = [...history.slice(-3).map((entry) => entry.message), message].join(" ").toLowerCase();
+  const combined = message.toLowerCase();
   const tokens = new Set(tokenize(combined));
   const scores = {};
   const evidence = {};
@@ -133,7 +132,7 @@ function scoreIntent(message, history = []) {
 
     rule.phrases.forEach((phrase) => {
       if (combined.includes(phrase)) {
-        score += 3;
+        score += 4; // strong phrase match
         hits.push(phrase);
       }
     });
@@ -173,7 +172,7 @@ function classifyIntent(message, history) {
   const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const [topIntent, topScore] = ranked[0];
   const secondScore = ranked[1]?.[1] || 0;
-  const confidence = topScore === 0 ? 0 : Math.min(0.97, 0.48 + topScore * 0.08 + (topScore - secondScore) * 0.07);
+  const confidence = topScore === 0 ? 0 : Math.min(0.97, 0.48 + topScore * 0.07 + (topScore - secondScore) * 0.06);
 
   return {
     topIntent,
@@ -197,144 +196,82 @@ function detectSentiment(message, history = []) {
 }
 
 function planRetrievalQuery(message, history, classification) {
-  const recentMemberMessages = history
-    .filter((entry) => entry.role === "member")
-    .slice(-2)
-    .map((entry) => entry.message);
+  // Build a rich query including the intent and matched signals for better semantic retrieval
+  const intentPhrase = classification.topIntent.replace(/_/g, " ");
+  const signals = (classification.matchedSignals || []).slice(0, 4).join(" ");
 
-  return [
-    message,
-    ...recentMemberMessages,
-    classification.topIntent.replace(/_/g, " "),
-    ...(classification.matchedSignals || [])
-  ].join(" ");
+  return [message, intentPhrase, signals].join(" ").trim();
 }
 
 function normalizeLanguage(language) {
   const value = String(language || "en").toLowerCase();
   if (value.startsWith("hi")) return "hi";
   if (value.startsWith("kn") || value.startsWith("ka")) return "kn";
+  if (value.startsWith("ta")) return "ta";
   return "en";
-}
-
-function buildEchoResponse({ message, docs, language }) {
-  const label = LANGUAGE_LABELS[language] || LANGUAGE_LABELS.en;
-  const citations = citeDocs(docs);
-
-  return `${label.responsePrefix}: ${message}\n\nRetrieved policy references: ${citations.join("; ")}`;
-}
-
-function buildFocusedEvidence(intent, docs, message) {
-  const text = message.toLowerCase();
-  const topSnippet = docs[0]?.snippet || docs[0]?.content || "";
-
-  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("456")) {
-    return "MCC Bank's 456 days Fixed Deposit rate w.e.f. 02-04-2026 is 7.00%; the 456 days Senior Citizen Fixed Deposit rate w.e.f. 02-04-2026 is 7.50%.";
-  }
-
-  if (intent === "deposit_product" && (text.includes("savings") || text.includes("saving") || text.includes("ssb"))) {
-    return "MCC Bank Savings Bank Account requires minimum initial deposit of Rs. 1000. Savings interest is 3.00%, and SSB accounts maintaining above Rs. 1,00,000 get 5.00%. Cheque book facility requires minimum balance of Rs. 1000.";
-  }
-
-  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("recurring") && text.includes("document")) {
-    return "For a Recurring Deposit, MCC Bank requires identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, plus PAN card and photographs. Aadhaar is mandatory.";
-  }
-
-  if (
-    (intent === "policy_question" || intent === "deposit_product") &&
-    (text.includes("premature") || (text.includes("close") && text.includes("maturity")))
-  ) {
-    return "For premature Fixed Deposit closure, interest is paid at 1% less than the rate applicable for the period the deposit remained with MCC Bank. The 1% deduction does not apply if premature payment is due to the depositor's death.";
-  }
-
-  if (intent === "loan_product" && text.includes("education")) {
-    return "MCC Bank Education Loan is for higher studies in India and abroad. Interest rate is 10.50%, maximum repayment tenure is 15 years including moratorium, minimum margin is 15%, minimum CIBIL score is 600, and student with parent is the borrower.";
-  }
-
-  if (intent === "loan_product" && text.includes("msme")) {
-    return "MCC Bank MSME Business Loan rates are 11.50% for CIBIL 700 and above and 12.00% for 600 to 699. MSME CCL working capital rates are 11.00% for 700 and above and 12.00% for 600 to 699. Tenure is up to 120 months and margin is at least 25% of project cost.";
-  }
-
-  if (intent === "loan_product" && (text.includes("jewel") || text.includes("gold"))) {
-    return "MCC Bank Jewel Loan ROI is 10.75% per annum. Maximum permissible loan is 75% of the 30 days average market value. Membership is necessary, and minimum CIC score is 600.";
-  }
-
-  if (intent === "loan_product" && text.includes("vehicle")) {
-    return "MCC Bank Private Vehicle Loan new four-wheeler rates are 10.00% for CIBIL 650 and above and 11.00% for 600 to 649. Two-wheeler rate is 15.00%. Used LMV rates are 11.50% within 2 years and 13.00% for older than 2 years but less than 5 years.";
-  }
-
-  if (intent === "loan_product" && text.includes("mortgage")) {
-    return "MCC Bank Mortgage Loan rate is 13.50% floating, repayment tenure is up to 10 years, and maximum permissible amount is 60% of property valuation or 75% of estimate, whichever is lower.";
-  }
-
-  if (intent === "loan_product" && (text.includes("surety") || text.includes("consumer"))) {
-    return "MCC Bank Surety and Consumer Loan rate is 15.00% floating, tenure is up to 36 months, and maximum loan limit is Rs. 1,00,000. Minimum CIBIL score is 600.";
-  }
-
-  if (intent === "service_charge" && text.includes("stop")) {
-    return "Stop payment against a cheque is Rs 250 per instance for Savings Bank and Rs 500 per instance for Current Account or CCL. Revoking stop payment is Rs 100 per instance for SB/CA/CCL.";
-  }
-
-  if (intent === "locker_service") {
-    return "Locker rent w.e.f. 01-04-2025 is Rs 1250 for small, Rs 2000 for medium, Rs 3500 for large, and Rs 5000 for extra large lockers. Loss of locker key costs Rs 1500 plus actual break-open charges.";
-  }
-
-  if (intent === "branch_service" && (text.includes("e-stamp") || text.includes("estamp") || text.includes("stamp"))) {
-    return "e-Stamp facility is available at Founders, Ashoknagar, Kankanady, Kulshekar, Morgansgate, Shirva, Bajpe, Kinnigoli, Surathkal, Udupi, Puttur, B C Road, Karkala, Brahmavara, Belthangady, Belman, Byndoor, and Santhekatte branches.";
-  }
-
-  if (intent === "privacy_question" && text.includes("share")) {
-    return "MCC Bank says PPS information is not shared with other companies unless required by law or while handling disputes.";
-  }
-
-  return topSnippet;
 }
 
 function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, decision, message, language }) {
   const label = LANGUAGE_LABELS[language] || LANGUAGE_LABELS.en;
-  const citations = citeDocs(docs);
-  const evidence = buildFocusedEvidence(classification.topIntent, docs, message);
+  const topDoc = docs[0];
+  const intent = classification.topIntent;
+  const queue = INTENT_RULES[intent]?.queue || "Member Support";
 
   if (decision.escalate) {
-    return `${label.escalationPrefix}: I am escalating this to a staff specialist. Reason: ${decision.reason}.\n\nRelevant MCC Bank rule: ${evidence}\n\nGrounded in: ${citations.join("; ")}`;
+    const reason = decision.reason;
+    // Only include a policy snippet if the evidence is strong enough to be relevant
+    const isAlwaysEscalate = ALWAYS_ESCALATE_INTENTS.has(intent);
+    const snippet = (!isAlwaysEscalate && topDoc?.score >= 0.75 && topDoc?.snippet)
+      ? `\n\nFor context, here is a relevant MCC Bank policy [${topDoc.id}]: ${topDoc.snippet.substring(0, 200)}...`
+      : "";
+    return `${label.escalationPrefix}: Your request is being escalated to our ${queue} team. ${reason}.${snippet}\n\nA specialist will follow up with you shortly. Please keep your Member ID ready.`;
   }
 
-  if (evidenceGrade.label === "weak") {
-    return `${label.escalationPrefix}: I found weak policy evidence for this request, so a staff specialist should review it.\n\nGrounded in: ${citations.join("; ")}`;
+  if (evidenceGrade.label === "weak" || !topDoc) {
+    return `${label.escalationPrefix}: I couldn't find a precise policy match for your query. I'm connecting you with our ${queue} team who will assist you directly.`;
   }
 
-  return `${label.responsePrefix}: ${evidence}\n\nGrounded in: ${citations.join("; ")}`;
+  const snippet = topDoc.snippet || topDoc.content?.substring(0, 300) || "";
+  return `${label.responsePrefix}: Based on MCC Bank policy [${topDoc.id}] — ${snippet}\n\nGrounded in: ${docs.slice(0, 2).map(d => `${d.id}: ${d.title}`).join("; ")}`;
 }
 
 function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
   const text = message.toLowerCase();
-  const explicitEscalation = ["manager", "agent", "human", "escalate", "complaint"].some((word) => text.includes(word));
-  const needsAuthenticatedBankSystem = ["balance_inquiry", "transaction_dispute", "loan_status", "card_block"].includes(
-    classification.topIntent
-  );
+  const intent = classification.topIntent;
 
-  if (classification.topIntent === "unresolved_complaint") {
-    return { escalate: true, reason: "Repeated or unresolved complaint requires Tier-2 ownership" };
+  // Explicit requests for human help
+  const explicitEscalation = ["manager", "agent", "human", "escalate", "complaint", "speak to someone"].some((word) => text.includes(word));
+
+  // Intents that ALWAYS need account access / bank system action
+  if (ALWAYS_ESCALATE_INTENTS.has(intent)) {
+    const intentReasons = {
+      balance_inquiry: "Balance inquiries require account verification through our secure banking system",
+      transaction_dispute: "Transaction disputes require account verification and investigation by our Complaints Desk",
+      loan_status: "Loan status checks require access to our loan management system",
+      card_block: "Card blocking/unblocking requires authentication and action in our card management system",
+      account_block: "Account blocking/freezing requires identity verification and action by authorized staff"
+    };
+    return { escalate: true, reason: intentReasons[intent] || "This request requires secure system access" };
   }
 
-  if (needsAuthenticatedBankSystem) {
-    return { escalate: true, reason: "This request needs account verification or a bank core-system action" };
+  if (intent === "unresolved_complaint") {
+    return { escalate: true, reason: "Repeated or unresolved complaint requires Tier-2 ownership by our Complaints Desk" };
   }
 
   if (sentiment.label === "distressed") {
-    return { escalate: true, reason: "Distressed member sentiment detected" };
+    return { escalate: true, reason: "Distressed member sentiment detected — priority escalation" };
   }
 
-  if (explicitEscalation && sentiment.label !== "neutral") {
-    return { escalate: true, reason: "Member requested human help with elevated concern" };
+  if (explicitEscalation) {
+    return { escalate: true, reason: "Member explicitly requested human assistance" };
   }
 
-  if (classification.confidence < 0.48) {
-    return { escalate: true, reason: "Intent confidence is below resolution threshold" };
+  if (classification.confidence < 0.42) {
+    return { escalate: true, reason: "Intent confidence below resolution threshold — safety escalation" };
   }
 
   if (evidenceGrade.label === "weak") {
-    return { escalate: true, reason: "Knowledge base evidence is too weak for automatic resolution" };
+    return { escalate: true, reason: "Knowledge base evidence is too weak for reliable auto-resolution" };
   }
 
   return { escalate: false, reason: "Intent and policy evidence are sufficient for guided self-service" };
@@ -342,8 +279,8 @@ function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
 
 function citeDocs(docs) {
   const topScore = docs[0]?.score || 0;
-  const citationThreshold = Math.max(1.8, topScore * 0.45);
-  const citations = docs.filter((doc) => doc.score >= citationThreshold).slice(0, 2);
+  const citationThreshold = Math.max(0.70, topScore * 0.88);
+  const citations = docs.filter((doc) => doc.score >= citationThreshold).slice(0, 3);
   return (citations.length ? citations : docs.slice(0, 1)).map((doc) => `${doc.id}: ${doc.title}`);
 }
 
@@ -365,9 +302,10 @@ function buildEscalationPacket({ classification, sentiment, docs, reason, messag
       evidenceSnippets: docs.slice(0, 3).map((doc) => ({
         id: doc.id,
         title: doc.title,
-        snippet: doc.snippet
+        snippet: doc.snippet || doc.content?.substring(0, 200),
+        vectorScore: doc.score
       })),
-      requestedOutcome: "Review the member issue, apply the cited policy, and follow up without asking the member to repeat context.",
+      requestedOutcome: "Review the member issue, verify identity, take the required action, and follow up without asking the member to repeat context.",
       recentConversation
     }
   };
@@ -381,7 +319,7 @@ async function processMemberMessageWithLanguage(message, history = [], language 
   const uiLanguage = normalizeLanguage(language);
   const classification = classifyIntent(message, history);
   const retrievalQuery = planRetrievalQuery(message, history, classification);
-  const docs = retrieveRelevantDocs(retrievalQuery, { intent: classification.topIntent, topK: 4 });
+  const docs = await retrieveRelevantDocs(retrievalQuery, { intent: classification.topIntent, topK: 4 });
   const evidenceGrade = gradeEvidence(docs);
   const sentiment = detectSentiment(message, history);
   const decision = shouldEscalate({ classification, sentiment, evidenceGrade, message });
@@ -417,18 +355,19 @@ async function processMemberMessageWithLanguage(message, history = [], language 
       retrievalSignals: doc.retrievalSignals
     })),
     agenticPipeline: [
-      { step: "intake_normalization", output: "Member message and recent history normalized" },
-      { step: "intent_classification", output: classification.topIntent, confidence: classification.confidence },
-      { step: "query_planning", output: retrievalQuery },
-      { step: "knowledge_retrieval", output: docs.slice(0, 3).map((doc) => doc.id) },
-      { step: "evidence_grading", output: evidenceGrade.label },
+      { step: "intake_normalization", output: "Member message and recent history normalized", status: "done" },
+      { step: "intent_classification", output: classification.topIntent, confidence: classification.confidence, signals: classification.matchedSignals, status: "done" },
+      { step: "query_planning", output: retrievalQuery, status: "done" },
+      { step: "semantic_retrieval", output: docs.slice(0, 3).map((doc) => `${doc.id} (score: ${doc.score})`), model: "mistral-embed", status: "done" },
+      { step: "evidence_grading", output: evidenceGrade.label, topScore: evidenceGrade.topScore, status: "done" },
       {
         step: "grounded_generation",
-        output: llmResult.used ? "used" : "fallback",
-        model: llmResult.model,
-        reason: llmResult.reason
+        output: llmResult.used ? "LLM grounded response" : "fallback rule-based response",
+        model: llmResult.model || "fallback",
+        reason: llmResult.reason,
+        status: "done"
       },
-      { step: "resolution_or_escalation", output: decision.escalate ? "escalated" : "auto-resolved", reason: decision.reason }
+      { step: "resolution_or_escalation", output: decision.escalate ? "escalated" : "auto-resolved", reason: decision.reason, status: "done" }
     ],
     conversationHighlights: [...history.slice(-4), { role: "member", message }]
   };
@@ -454,5 +393,6 @@ module.exports = {
   processMemberMessage,
   processMemberMessageWithLanguage,
   normalizeLanguage,
-  LANGUAGE_LABELS
+  LANGUAGE_LABELS,
+  INTENT_RULES
 };

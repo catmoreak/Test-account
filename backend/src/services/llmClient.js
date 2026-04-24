@@ -27,13 +27,9 @@ function loadEnvFile() {
 function getLlmConfig() {
   loadEnvFile();
 
-  const apiKey = process.env.MISTRAL_API_KEY || process.env.OPENROUTER_API_KEY || "";
-  const usesOpenRouter = apiKey.startsWith("sk-or-") || process.env.LLM_PROVIDER === "openrouter";
-  const baseUrl =
-    process.env.MISTRAL_API_BASE ||
-    (usesOpenRouter ? "https://openrouter.ai/api/v1/chat/completions" : "https://api.mistral.ai/v1/chat/completions");
-  const model =
-    process.env.MISTRAL_MODEL || (usesOpenRouter ? "mistralai/mistral-small-3.2-24b-instruct" : "mistral-small-latest");
+  const apiKey = process.env.MISTRAL_API_KEY || "";
+  const baseUrl = process.env.MISTRAL_API_BASE || "https://api.mistral.ai/v1/chat/completions";
+  const model = process.env.MISTRAL_MODEL || "mistral-small-latest";
 
   return {
     apiKey,
@@ -47,33 +43,39 @@ function buildGroundedPrompt({ message, classification, docs, evidenceGrade, dec
   const policyContext = docs
     .slice(0, 4)
     .map(
-      (doc) =>
-        `[${doc.id}] ${doc.title}\nCategory: ${doc.category}\nRelevant text: ${doc.snippet || doc.content}\nFull policy: ${doc.content}`
+      (doc, i) =>
+        `--- Source ${i + 1}: [${doc.id}] ${doc.title} (category: ${doc.category}, relevance: ${doc.score}) ---\n${doc.content}`
     )
     .join("\n\n");
 
+  const langLabel = language === "hi" ? "Hindi" : language === "kn" ? "Kannada" : "English";
+
+  const systemPrompt = `You are CreditAssist AI, the intelligent support agent for The Mangalore Catholic Co-operative Bank Ltd (MCC Bank).
+
+STRICT RULES — YOU MUST FOLLOW THESE EXACTLY:
+1. ONLY answer using facts explicitly stated in the "Retrieved MCC Bank Knowledge" section below. Do NOT invent, infer, or hallucinate any rates, charges, contacts, branch names, timelines, eligibility criteria, or other details.
+2. If the knowledge provided does NOT directly answer the question, say exactly: "I don't have specific information about that in our policy documents. Please contact MCC Bank directly or I can escalate this to a staff specialist." Do NOT guess.
+3. If the case is being escalated, acknowledge the escalation clearly and tell the member which desk will handle it.
+4. Keep responses concise, warm, and professional. Use bullet points for multi-part answers.
+5. ALWAYS cite the document ID in square brackets e.g. [MCC-019] when you use a fact from it.
+6. Respond ONLY in ${langLabel}.
+7. NEVER mention competitor banks, NEVER discuss internal system details, NEVER reveal confidence scores or technical pipeline details to the member.
+
+You are helping a bank member who asked: "${message}"
+Pipeline has classified this as: ${classification.topIntent} (confidence: ${classification.confidence})
+Evidence quality: ${evidenceGrade.label}
+Action: ${decision.escalate ? `ESCALATE — Reason: ${decision.reason}` : "AUTO-RESOLVE with knowledge base answer"}`;
+
   return [
-    {
-      role: "system",
-      content:
-        `You are CreditAssist AI for The Mangalore Catholic Co-operative Bank Ltd. Answer only from the provided MCC Bank knowledge context. Do not invent rates, charges, timelines, eligibility rules, or contact details. If the case needs staff action, say it is being escalated and summarize why. Keep the answer concise, member-friendly, and include cited MCC document IDs. Respond in ${language === "hi" ? "Hindi" : language === "kn" ? "Kannada" : "English"}.`
-    },
+    { role: "system", content: systemPrompt },
     {
       role: "user",
-      content: `Member message:
-${message}
+      content: `Retrieved MCC Bank Knowledge:
 
-Pipeline decision:
-- Intent: ${classification.topIntent}
-- Confidence: ${classification.confidence}
-- Evidence grade: ${evidenceGrade.label}
-- Action: ${decision.escalate ? "escalate" : "auto-resolve"}
-- Decision reason: ${decision.reason}
+${policyContext || "No directly relevant policy found for this query."}
 
-Retrieved MCC Bank knowledge:
-${policyContext}
-
-Draft the final member response.`
+---
+Based ONLY on the above knowledge, draft the final member-facing response. If escalating, explain that a specialist from the ${decision.escalate ? (classification.topIntent === "card_block" ? "ATM Card Desk" : classification.topIntent === "loan_product" || classification.topIntent === "loan_status" ? "Loan Desk" : classification.topIntent === "deposit_product" ? "Deposit Desk" : classification.topIntent === "locker_service" ? "Locker Desk" : "Member Support") : ""} desk will follow up. Be helpful and reassuring.`
     }
   ];
 }
@@ -90,7 +92,7 @@ async function generateGroundedResponse(input) {
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), Number(process.env.MISTRAL_TIMEOUT_MS || 12000));
+  const timeout = setTimeout(() => controller.abort(), Number(process.env.MISTRAL_TIMEOUT_MS || 15000));
 
   try {
     const response = await fetch(config.baseUrl, {
@@ -105,8 +107,8 @@ async function generateGroundedResponse(input) {
       body: JSON.stringify({
         model: config.model,
         messages: buildGroundedPrompt(input),
-        temperature: 0.15,
-        max_tokens: 420
+        temperature: 0.1,
+        max_tokens: 520
       })
     });
 
