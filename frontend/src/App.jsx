@@ -16,6 +16,21 @@ const STAFF_DEMO_USER = {
   preferredLanguage: "en"
 };
 
+const MEMBER_DEMO_USER = {
+  id: "MCC-001",
+  username: "rahul.sharma",
+  name: "Rahul Sharma",
+  role: "member",
+  accountNumber: "1002003001",
+  balance: 47250.75,
+  savingsBalance: 12800.0,
+  fdBalance: 100000.0,
+  loanBalance: 45000.0,
+  loanStatus: "active",
+  cardStatus: "active",
+  preferredLanguage: "en"
+};
+
 const uiCopy = {
   en: {
     title: "CreditAssist Member Support",
@@ -55,10 +70,6 @@ function ProtectedRoute({ children, allowedRole }) {
   if (loading) return <LoadingScreen />;
   if (!user) return <Navigate to="/login" replace />;
   if (allowedRole && user.role !== allowedRole) {
-    // Let staff access member routes for testing/usage
-    if (user.role === "staff" && allowedRole === "member") {
-      return children;
-    }
     return <Navigate to={user.role === "staff" ? "/staff" : "/"} replace />;
   }
   return children;
@@ -127,9 +138,16 @@ function AppShell({ language, setLanguage }) {
                   Staff Login
                 </button>
               ) : (
-                <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+                <button
+                  className="nav-link"
+                  style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1rem", color: "inherit", fontWeight: "inherit", fontFamily: "inherit" }}
+                  onClick={() => {
+                    login(MEMBER_DEMO_USER);
+                    navigate("/");
+                  }}
+                >
                   {copy.nav.member}
-                </Link>
+                </button>
               )}
               {isStaff && (
                 <Link to="/staff" className={location.pathname === "/staff" ? "nav-link active" : "nav-link"}>

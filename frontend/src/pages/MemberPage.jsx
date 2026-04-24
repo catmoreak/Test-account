@@ -6,7 +6,7 @@ import VoiceInput from "../components/VoiceInput";
 const QUICK_PROMPTS = {
   en: [
     "What is my account balance?",
-    "Show my recent transactions",
+    
     "What is my loan status?",
     "How do I block my card?",
     "What is the FD interest rate for 456 days?",
@@ -14,7 +14,7 @@ const QUICK_PROMPTS = {
   ],
   hi: [
     "मेरा खाता शेष क्या है?",
-    "मेरे हाल के लेनदेन दिखाएं",
+   
     "मेरी ऋण स्थिति क्या है?",
     "मैं अपना कार्ड कैसे ब्लॉक करूं?",
     "456 दिनों के लिए FD ब्याज दर क्या है?",
@@ -22,7 +22,7 @@ const QUICK_PROMPTS = {
   ],
   kn: [
     "ನನ್ನ ಖಾತೆ ಬ್ಯಾಲೆನ್ಸ್ ಎಷ್ಟು?",
-    "ನನ್ನ ಇತ್ತೀಚಿನ ವ್ಯವಹಾರಗಳನ್ನು ತೋರಿಸಿ",
+    
     "ನನ್ನ ಸಾಲದ ಸ್ಥಿತಿ ಏನು?",
     "ಕಾರ್ಡ್ ಹೇಗೆ ಬ್ಲಾಕ್ ಮಾಡಬಹುದು?",
     "456 ದಿನಗಳಿಗೆ FD ಬಡ್ಡಿ ದರ ಎಷ್ಟು?",
@@ -30,7 +30,7 @@ const QUICK_PROMPTS = {
   ],
   ta: [
     "என் கணக்கு இருப்பு என்ன?",
-    "எனது சமீபத்திய பரிவர்த்தனைகளை காட்டு",
+   
     "எனது கடன் நிலை என்ன?",
     "எனது கார்டை எப்படி முடக்குவது?",
     "456 நாட்களுக்கான FD வட்டி விகிதம் என்ன?",
@@ -146,6 +146,7 @@ export default function MemberPage({ language = "en" }) {
   const [caseResult, setCaseResult] = useState(null);
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState("");
+  const [voiceError, setVoiceError] = useState("");
   const historyRef                = useRef(null);
 
   const canSend = useMemo(() => draft.trim().length > 0 && !loading, [draft, loading]);
@@ -200,7 +201,12 @@ export default function MemberPage({ language = "en" }) {
   }
 
   function handleVoiceTranscript(text) {
+    setVoiceError("");
     setDraft((prev) => (prev ? `${prev} ${text}` : text));
+  }
+
+  function handleVoiceError(message) {
+    setVoiceError(message);
   }
 
   return (
@@ -254,10 +260,12 @@ export default function MemberPage({ language = "en" }) {
             />
             <VoiceInput
               onTranscript={handleVoiceTranscript}
+              onError={handleVoiceError}
               disabled={loading}
               language={language}
             />
           </div>
+          {voiceError && <p className="error" style={{ marginTop: "0.5rem" }}>{voiceError}</p>}
           <button type="submit" disabled={!canSend}>
             {loading ? (
               <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>

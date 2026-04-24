@@ -16,6 +16,24 @@ async function request(path, options = {}) {
   return response.json();
 }
 
+export async function transcribeVoiceMessage(audioBlob, language = "en") {
+  const formData = new FormData();
+  formData.append("file", audioBlob, "voice-input.webm");
+  formData.append("language", language);
+
+  const response = await fetch(`${API_BASE_URL}/api/member/voice-to-text`, {
+    method: "POST",
+    body: formData
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Voice transcription failed");
+  }
+
+  return response.json();
+}
+
 // Member chat — now sends userId for account context resolution
 export async function sendMemberMessage(payload) {
   return request("/api/member/message", {

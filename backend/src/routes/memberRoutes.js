@@ -1,11 +1,14 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const multer = require("multer");
 const { processMemberMessageWithLanguage } = require("../services/intelligenceEngine");
 const { createCase } = require("../services/caseStore");
 const { getAccountContext } = require("../services/authService");
 const { translateWithSarvam } = require("../services/sarvamClient");
+const { transcribeWithSarvam } = require("../services/speechToTextClient");
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Detect if the message is asking about account-specific data (balance, transactions, card status, loan)
 function detectAccountQuery(message) {
@@ -135,6 +138,29 @@ router.post("/message", async (req, res) => {
     reply: responseMessage,
     case: caseRecord
   });
+});
+
+router.post("/voice-to-text", upload.single("file"), async (req, res) => {
+  if (!req.file?.buffer) {
+    return res.status(400).json({ error: "audio file is required" });
+  }
+
+  try {
+    const language = req.body.language || "en";
+    const transcription = await transcribeWithSarvam(req.file.buffer, language, req.file.mimetype);
+
+    if (!transcription.used) {
+      return res.status(502).json({ error: transcription.error || "Speech transcription failed" });
+    }
+
+    return res.json({
+      transcript: transcription.transcript,
+      languageCode: transcription.languageCode,
+      requestId: transcription.requestId
+    });
+  } catch (error) {
+    return res.status(502).json({ error: error.message || "Speech transcription failed" });
+  }
 });
 
 module.exports = router;
