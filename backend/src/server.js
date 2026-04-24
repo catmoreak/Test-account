@@ -9,8 +9,22 @@ const { initCaseStore } = require("./services/caseStore");
 const app = express();
 const PORT = process.env.PORT || 8787;
 
-// Total CORS bypass for hackathon using the cors package
-app.use(cors({ origin: true, credentials: true }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://alvas.devorbit.cloud',
+  'https://backendalvas.devorbit.cloud'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, origin); // Always allow for hackathon, but echo the origin to avoid strict checks
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/api/health", (_, res) => {
