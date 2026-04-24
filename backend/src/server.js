@@ -10,21 +10,36 @@ const app = express();
 const PORT = process.env.PORT || 8787;
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://alvas.devorbit.cloud',
-  'https://backendalvas.devorbit.cloud'
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5174",
+  "https://alvas.devorbit.cloud",
+  "https://backendalvas.devorbit.cloud",
+  ...(process.env.CORS_ORIGINS || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(null, origin); // Always allow for hackathon, but echo the origin to avoid strict checks
+const corsOptions = {
+  origin(origin, callback) {
+    const isDevorbitSubdomain = /^https:\/\/[a-z0-9-]+\.devorbit\.cloud$/i.test(origin || "");
+
+    if (!origin || allowedOrigins.includes(origin) || isDevorbitSubdomain) {
+      return callback(null, true);
     }
+
+    return callback(new Error(`Origin ${origin} is not allowed by CORS`));
   },
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-User-Id"],
+  optionsSuccessStatus: 204,
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json());
 
 app.get("/api/health", (_, res) => {
