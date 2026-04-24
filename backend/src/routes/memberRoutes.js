@@ -54,6 +54,15 @@ function buildAccountResponse(queryType, ctx, language = "en") {
   return null;
 }
 
+async function normalizeMessageForAnalysis(message, language = "en") {
+  if (language === "en") {
+    return message;
+  }
+
+  const translated = await translateWithSarvam(message, "en", language);
+  return translated.used && translated.translated ? translated.translated : message;
+}
+
 // POST /api/member/message
 router.post("/message", async (req, res) => {
   const { memberId = "anonymous", message, history = [], language = "en", userId } = req.body;
@@ -62,12 +71,14 @@ router.post("/message", async (req, res) => {
     return res.status(400).json({ error: "message is required" });
   }
 
+  const normalizedMessage = await normalizeMessageForAnalysis(message, language);
+
   // --- Account context shortcut ---
   let accountReply = null;
   if (userId) {
     const ctx = getAccountContext(userId);
     if (ctx) {
-      const queryType = detectAccountQuery(message);
+      const queryType = detectAccountQuery(normalizedMessage);
       if (queryType) {
         accountReply = buildAccountResponse(queryType, ctx, language);
       }
@@ -110,7 +121,7 @@ router.post("/message", async (req, res) => {
   }
 
   // --- Standard AI pipeline ---
-  const analysis = await processMemberMessageWithLanguage(message, history, language);
+  const analysis = await processMemberMessageWithLanguage(normalizedMessage, history, language);
 
   let responseMessage = analysis.responseMessage;
 

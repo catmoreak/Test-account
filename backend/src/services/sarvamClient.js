@@ -20,7 +20,7 @@ async function translateWithSarvam(text, targetLanguage, sourceLanguage = "en") 
   }
 
   // If source and target are same, skip
-  if (sourceLanguage === targetLanguage || targetLanguage === "en") {
+  if (sourceLanguage === targetLanguage) {
     return { translated: text, used: false };
   }
 
