@@ -43,7 +43,7 @@ function getLlmConfig() {
   };
 }
 
-function buildGroundedPrompt({ message, classification, docs, evidenceGrade, decision, fallbackAnswer }) {
+function buildGroundedPrompt({ message, classification, docs, evidenceGrade, decision, language }) {
   const policyContext = docs
     .slice(0, 4)
     .map(
@@ -56,7 +56,7 @@ function buildGroundedPrompt({ message, classification, docs, evidenceGrade, dec
     {
       role: "system",
       content:
-        "You are CreditAssist AI for The Mangalore Catholic Co-operative Bank Ltd. Answer only from the provided MCC Bank knowledge context. Do not invent rates, charges, timelines, eligibility rules, or contact details. If the case needs staff action, say it is being escalated and summarize why. Keep the answer concise, member-friendly, and include cited MCC document IDs."
+        `You are CreditAssist AI for The Mangalore Catholic Co-operative Bank Ltd. Answer only from the provided MCC Bank knowledge context. Do not invent rates, charges, timelines, eligibility rules, or contact details. If the case needs staff action, say it is being escalated and summarize why. Keep the answer concise, member-friendly, and include cited MCC document IDs. Respond in ${language === "hi" ? "Hindi" : language === "kn" ? "Kannada" : "English"}.`
     },
     {
       role: "user",
@@ -72,9 +72,6 @@ Pipeline decision:
 
 Retrieved MCC Bank knowledge:
 ${policyContext}
-
-Deterministic fallback answer:
-${fallbackAnswer}
 
 Draft the final member response.`
     }

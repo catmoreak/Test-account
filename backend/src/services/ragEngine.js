@@ -36,6 +36,7 @@ const STOP_WORDS = new Set([
 
 const QUERY_EXPANSIONS = {
   balance: ["available", "current", "funds", "account"],
+  application: ["loan", "status"],
   charge: ["transaction", "card", "dispute", "chargeback"],
   charges: ["service", "fee", "fees"],
   fee: ["charge", "charges", "service"],
@@ -44,8 +45,22 @@ const QUERY_EXPANSIONS = {
   fraud: ["unrecognized", "suspicious", "transaction", "dispute"],
   overcharged: ["complaint", "billing", "dispute", "escalation"],
   loan: ["application", "approval", "pending", "status"],
+  education: ["loan", "student", "studies", "cibil"],
+  student: ["education", "loan", "studies"],
+  msme: ["business", "ccl", "working", "capital", "machinery"],
+  business: ["msme", "loan", "industrialist"],
   ccl: ["loan", "renewal", "limit", "processing"],
   jewel: ["loan", "gold", "service", "charge"],
+  gold: ["jewel", "loan", "market", "value"],
+  surety: ["consumer", "loan", "guarantor"],
+  consumer: ["surety", "loan", "household"],
+  vehicle: ["loan", "four", "wheeler", "two", "wheeler"],
+  mortgage: ["loan", "property", "renovation", "marriage"],
+  machinery: ["msme", "hypothecation", "loan"],
+  agriculture: ["allied", "crop", "boat", "poultry", "dairy"],
+  savings: ["account", "sb", "interest", "passbook"],
+  saving: ["savings", "account", "sb"],
+  ssb: ["savings", "interest", "account"],
   card: ["debit"],
   atm: ["card", "pin", "annual", "replacement"],
   blocked: ["locked", "declined", "reactivation", "security"],
@@ -76,7 +91,8 @@ const QUERY_EXPANSIONS = {
 const INTENT_CATEGORY_BOOSTS = {
   balance_inquiry: ["account-management"],
   transaction_dispute: ["disputes", "security", "service"],
-  loan_status: ["loans"],
+  loan_status: ["loans", "loan-products"],
+  loan_product: ["loan-products", "loans"],
   card_block: ["cards", "security"],
   account_update: ["account-management"],
   policy_question: ["deposits", "service-charges", "privacy-security", "lockers"],
@@ -178,7 +194,7 @@ function phraseScore(query, doc) {
 
 function categoryBoost(intent, doc) {
   const categories = INTENT_CATEGORY_BOOSTS[intent] || [];
-  return categories.includes(doc.category) ? 1.25 : 0;
+  return categories.includes(doc.category) ? 2.5 : 0;
 }
 
 function buildSnippet(doc, queryTokens) {

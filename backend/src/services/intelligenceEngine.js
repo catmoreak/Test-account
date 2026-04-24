@@ -17,6 +17,39 @@ const INTENT_RULES = {
     phrases: ["loan status", "loan approval", "application status", "haven't heard", "have not heard", "sanction status"],
     terms: ["loan", "application", "approval", "pending", "status", "documents", "sanction"]
   },
+  loan_product: {
+    queue: "Loan Desk",
+    phrases: [
+      "education loan",
+      "msme loan",
+      "business loan",
+      "jewel loan",
+      "gold loan",
+      "surety loan",
+      "consumer loan",
+      "vehicle loan",
+      "mortgage loan",
+      "machinery loan",
+      "agriculture loan"
+    ],
+    terms: [
+      "education",
+      "msme",
+      "business",
+      "jewel",
+      "gold",
+      "surety",
+      "consumer",
+      "vehicle",
+      "mortgage",
+      "machinery",
+      "agriculture",
+      "loan",
+      "cibil",
+      "guarantor",
+      "margin"
+    ]
+  },
   card_block: {
     queue: "ATM Card Desk",
     phrases: ["card blocked", "card is blocked", "failed pin", "failed pins", "reactivate", "unblock", "replacement pin"],
@@ -44,8 +77,8 @@ const INTENT_RULES = {
   },
   deposit_product: {
     queue: "Deposit Desk",
-    phrases: ["open fixed deposit", "open recurring deposit", "fd rate", "rd rate", "loan against deposit", "senior citizen", "documents required"],
-    terms: ["fixed", "recurring", "deposit", "fd", "rd", "installment", "nomination", "senior", "maturity", "documents", "aadhaar", "pan"]
+    phrases: ["open fixed deposit", "open recurring deposit", "open savings account", "savings account", "fd rate", "rd rate", "loan against deposit", "senior citizen", "documents required"],
+    terms: ["fixed", "recurring", "deposit", "savings", "saving", "account", "fd", "rd", "sb", "ssb", "installment", "nomination", "senior", "maturity", "documents", "aadhaar", "pan"]
   },
   privacy_question: {
     queue: "Digital Banking",
@@ -82,62 +115,10 @@ const DISTRESS_TERMS = [
   "nothing"
 ];
 
-const RESOLUTION_PLAYBOOK = {
-  balance_inquiry: {
-    action: "identity_verification",
-    template:
-      "I cannot display an account balance in this demo. MCC Bank does provide SMS alerts for transactions and branch-assisted service, so a staff member should verify identity before sharing account-specific balance information."
-  },
-  transaction_dispute: {
-    action: "escalate_complaint",
-    template:
-      "MCC Bank's PPS privacy policy says customer information is not shared with other companies unless required by law or while handling disputes. For an unrecognised transaction, this should be escalated through the complaint contacts so staff can verify account and transaction details."
-  },
-  loan_status: {
-    action: "loan_staff_review",
-    template:
-      "The MCC Bank knowledge base provided here has loan service charges and sanction-related fees, but it does not include a live loan-status lookup or standard approval timeline. A loan desk staff member should review the application reference."
-  },
-  card_block: {
-    action: "atm_card_staff_review",
-    template:
-      "The MCC Bank service-charge document lists ATM card annual, additional card, replacement card, and replacement PIN fees, but it does not provide a self-service unblock rule. A staff member should verify the cardholder before reactivation or PIN replacement."
-  },
-  account_update: {
-    action: "collect_documents",
-    template:
-      "For deposit account opening, MCC Bank requires identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, plus PAN card and photographs. Aadhaar is mandatory. For address changes, staff should verify the current document requirement before updating records."
-  },
-  policy_question: {
-    action: "answer_policy",
-    template:
-      "For MCC Bank Fixed Deposit premature closure, interest is paid at 1% less than the rate applicable for the period the deposit remained with the bank. If the depositor has died, this 1% deduction is not applicable for premature payment."
-  },
-  service_charge: {
-    action: "answer_service_charge",
-    template:
-      "MCC Bank service charges are governed by the service-charge schedule. GST is collected in addition to applicable service charges, and the schedule notes the present GST rate as 18%."
-  },
-  deposit_product: {
-    action: "answer_deposit_product",
-    template:
-      "MCC Bank offers Fixed Deposit and Recurring Deposit products with minimum opening or instalment amounts of Rs. 100, nomination facility, mandatory Aadhaar for account opening, and loan against deposit or RD up to 85% where applicable."
-  },
-  privacy_question: {
-    action: "answer_privacy",
-    template:
-      "MCC Bank's PPS application may collect registration, account, contact, transaction, and PPS usage information. It does not collect extra mobile-device information through cookies, and it does not share information with other companies unless required by law or for dispute handling."
-  },
-  branch_service: {
-    action: "answer_branch_service",
-    template:
-      "MCC Bank provides services such as e-Stamp at selected branches, locker facility at all branches, any branch banking, Pigmy deposit at doorstep, SMS alerts, H2H NEFT/RTGS, and NRE WhatsApp support."
-  },
-  locker_service: {
-    action: "answer_locker_service",
-    template:
-      "MCC Bank locker rent depends on locker size. The service-charge schedule also defines charges for lost locker key, operations beyond 12 per year, and delayed annual locker-rent payment."
-  }
+const LANGUAGE_LABELS = {
+  en: { name: "English", responsePrefix: "Response", escalationPrefix: "Escalation" },
+  hi: { name: "Hindi", responsePrefix: "प्रतिक्रिया", escalationPrefix: "एस्केलेशन" },
+  kn: { name: "Kannada", responsePrefix: "ಪ್ರತಿಕ್ರಿಯೆ", escalationPrefix: "ಎಸ್ಕಲೇಶನ್" }
 };
 
 function scoreIntent(message, history = []) {
@@ -229,6 +210,102 @@ function planRetrievalQuery(message, history, classification) {
   ].join(" ");
 }
 
+function normalizeLanguage(language) {
+  const value = String(language || "en").toLowerCase();
+  if (value.startsWith("hi")) return "hi";
+  if (value.startsWith("kn") || value.startsWith("ka")) return "kn";
+  return "en";
+}
+
+function buildEchoResponse({ message, docs, language }) {
+  const label = LANGUAGE_LABELS[language] || LANGUAGE_LABELS.en;
+  const citations = citeDocs(docs);
+
+  return `${label.responsePrefix}: ${message}\n\nRetrieved policy references: ${citations.join("; ")}`;
+}
+
+function buildFocusedEvidence(intent, docs, message) {
+  const text = message.toLowerCase();
+  const topSnippet = docs[0]?.snippet || docs[0]?.content || "";
+
+  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("456")) {
+    return "MCC Bank's 456 days Fixed Deposit rate w.e.f. 02-04-2026 is 7.00%; the 456 days Senior Citizen Fixed Deposit rate w.e.f. 02-04-2026 is 7.50%.";
+  }
+
+  if (intent === "deposit_product" && (text.includes("savings") || text.includes("saving") || text.includes("ssb"))) {
+    return "MCC Bank Savings Bank Account requires minimum initial deposit of Rs. 1000. Savings interest is 3.00%, and SSB accounts maintaining above Rs. 1,00,000 get 5.00%. Cheque book facility requires minimum balance of Rs. 1000.";
+  }
+
+  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("recurring") && text.includes("document")) {
+    return "For a Recurring Deposit, MCC Bank requires identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, plus PAN card and photographs. Aadhaar is mandatory.";
+  }
+
+  if (
+    (intent === "policy_question" || intent === "deposit_product") &&
+    (text.includes("premature") || (text.includes("close") && text.includes("maturity")))
+  ) {
+    return "For premature Fixed Deposit closure, interest is paid at 1% less than the rate applicable for the period the deposit remained with MCC Bank. The 1% deduction does not apply if premature payment is due to the depositor's death.";
+  }
+
+  if (intent === "loan_product" && text.includes("education")) {
+    return "MCC Bank Education Loan is for higher studies in India and abroad. Interest rate is 10.50%, maximum repayment tenure is 15 years including moratorium, minimum margin is 15%, minimum CIBIL score is 600, and student with parent is the borrower.";
+  }
+
+  if (intent === "loan_product" && text.includes("msme")) {
+    return "MCC Bank MSME Business Loan rates are 11.50% for CIBIL 700 and above and 12.00% for 600 to 699. MSME CCL working capital rates are 11.00% for 700 and above and 12.00% for 600 to 699. Tenure is up to 120 months and margin is at least 25% of project cost.";
+  }
+
+  if (intent === "loan_product" && (text.includes("jewel") || text.includes("gold"))) {
+    return "MCC Bank Jewel Loan ROI is 10.75% per annum. Maximum permissible loan is 75% of the 30 days average market value. Membership is necessary, and minimum CIC score is 600.";
+  }
+
+  if (intent === "loan_product" && text.includes("vehicle")) {
+    return "MCC Bank Private Vehicle Loan new four-wheeler rates are 10.00% for CIBIL 650 and above and 11.00% for 600 to 649. Two-wheeler rate is 15.00%. Used LMV rates are 11.50% within 2 years and 13.00% for older than 2 years but less than 5 years.";
+  }
+
+  if (intent === "loan_product" && text.includes("mortgage")) {
+    return "MCC Bank Mortgage Loan rate is 13.50% floating, repayment tenure is up to 10 years, and maximum permissible amount is 60% of property valuation or 75% of estimate, whichever is lower.";
+  }
+
+  if (intent === "loan_product" && (text.includes("surety") || text.includes("consumer"))) {
+    return "MCC Bank Surety and Consumer Loan rate is 15.00% floating, tenure is up to 36 months, and maximum loan limit is Rs. 1,00,000. Minimum CIBIL score is 600.";
+  }
+
+  if (intent === "service_charge" && text.includes("stop")) {
+    return "Stop payment against a cheque is Rs 250 per instance for Savings Bank and Rs 500 per instance for Current Account or CCL. Revoking stop payment is Rs 100 per instance for SB/CA/CCL.";
+  }
+
+  if (intent === "locker_service") {
+    return "Locker rent w.e.f. 01-04-2025 is Rs 1250 for small, Rs 2000 for medium, Rs 3500 for large, and Rs 5000 for extra large lockers. Loss of locker key costs Rs 1500 plus actual break-open charges.";
+  }
+
+  if (intent === "branch_service" && (text.includes("e-stamp") || text.includes("estamp") || text.includes("stamp"))) {
+    return "e-Stamp facility is available at Founders, Ashoknagar, Kankanady, Kulshekar, Morgansgate, Shirva, Bajpe, Kinnigoli, Surathkal, Udupi, Puttur, B C Road, Karkala, Brahmavara, Belthangady, Belman, Byndoor, and Santhekatte branches.";
+  }
+
+  if (intent === "privacy_question" && text.includes("share")) {
+    return "MCC Bank says PPS information is not shared with other companies unless required by law or while handling disputes.";
+  }
+
+  return topSnippet;
+}
+
+function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, decision, message, language }) {
+  const label = LANGUAGE_LABELS[language] || LANGUAGE_LABELS.en;
+  const citations = citeDocs(docs);
+  const evidence = buildFocusedEvidence(classification.topIntent, docs, message);
+
+  if (decision.escalate) {
+    return `${label.escalationPrefix}: I am escalating this to a staff specialist. Reason: ${decision.reason}.\n\nRelevant MCC Bank rule: ${evidence}\n\nGrounded in: ${citations.join("; ")}`;
+  }
+
+  if (evidenceGrade.label === "weak") {
+    return `${label.escalationPrefix}: I found weak policy evidence for this request, so a staff specialist should review it.\n\nGrounded in: ${citations.join("; ")}`;
+  }
+
+  return `${label.responsePrefix}: ${evidence}\n\nGrounded in: ${citations.join("; ")}`;
+}
+
 function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
   const text = message.toLowerCase();
   const explicitEscalation = ["manager", "agent", "human", "escalate", "complaint"].some((word) => text.includes(word));
@@ -270,56 +347,6 @@ function citeDocs(docs) {
   return (citations.length ? citations : docs.slice(0, 1)).map((doc) => `${doc.id}: ${doc.title}`);
 }
 
-function buildFocusedEvidence(intent, docs, message) {
-  const text = message.toLowerCase();
-
-  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("456")) {
-    return "MCC Bank's 456 days Fixed Deposit rate w.e.f. 02-04-2026 is 7.00%; the 456 days Senior Citizen Fixed Deposit rate w.e.f. 02-04-2026 is 7.50%.";
-  }
-
-  if ((intent === "deposit_product" || intent === "policy_question") && text.includes("recurring") && text.includes("document")) {
-    return "For a Recurring Deposit, MCC Bank requires identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, plus PAN card and photographs. Aadhaar is mandatory.";
-  }
-
-  if (
-    (intent === "policy_question" || intent === "deposit_product") &&
-    (text.includes("premature") || (text.includes("close") && text.includes("maturity")))
-  ) {
-    return "For premature Fixed Deposit closure, interest is paid at 1% less than the rate applicable for the period the deposit remained with MCC Bank. The 1% deduction does not apply if premature payment is due to the depositor's death.";
-  }
-
-  if (intent === "service_charge" && text.includes("stop")) {
-    return "Stop payment against a cheque is Rs 250 per instance for Savings Bank and Rs 500 per instance for Current Account or CCL. Revoking stop payment is Rs 100 per instance for SB/CA/CCL.";
-  }
-
-  if (intent === "locker_service") {
-    return "Locker rent w.e.f. 01-04-2025 is Rs 1250 for small, Rs 2000 for medium, Rs 3500 for large, and Rs 5000 for extra large lockers. Loss of locker key costs Rs 1500 plus actual break-open charges.";
-  }
-
-  if (intent === "branch_service" && (text.includes("e-stamp") || text.includes("estamp") || text.includes("stamp"))) {
-    return "e-Stamp facility is available at Founders, Ashoknagar, Kankanady, Kulshekar, Morgansgate, Shirva, Bajpe, Kinnigoli, Surathkal, Udupi, Puttur, B C Road, Karkala, Brahmavara, Belthangady, Belman, Byndoor, and Santhekatte branches.";
-  }
-
-  if (intent === "privacy_question" && text.includes("share")) {
-    return "MCC Bank says PPS information is not shared with other companies unless required by law or while handling disputes.";
-  }
-
-  return docs[0]?.snippet || "";
-}
-
-function buildResolution(intent, docs, evidenceGrade, message) {
-  const playbook = RESOLUTION_PLAYBOOK[intent];
-  const citations = citeDocs(docs);
-  const focusedEvidence = buildFocusedEvidence(intent, docs, message);
-  const bestEvidence = focusedEvidence ? `\n\nRelevant MCC Bank rule: ${focusedEvidence}` : "";
-
-  if (!playbook || evidenceGrade.label === "weak") {
-    return "I found related policy context, but this request needs a staff specialist to avoid giving you an incomplete answer.";
-  }
-
-  return `${playbook.template}${bestEvidence}\n\nGrounded in: ${citations.join("; ")}`;
-}
-
 function buildEscalationPacket({ classification, sentiment, docs, reason, message, history }) {
   const priority = sentiment.label === "distressed" || classification.topIntent === "unresolved_complaint" ? "P1" : "P2";
   const queue = INTENT_RULES[classification.topIntent]?.queue || "Member Support";
@@ -347,6 +374,11 @@ function buildEscalationPacket({ classification, sentiment, docs, reason, messag
 }
 
 async function processMemberMessage(message, history = []) {
+  return processMemberMessageWithLanguage(message, history, "en");
+}
+
+async function processMemberMessageWithLanguage(message, history = [], language = "en") {
+  const uiLanguage = normalizeLanguage(language);
   const classification = classifyIntent(message, history);
   const retrievalQuery = planRetrievalQuery(message, history, classification);
   const docs = retrieveRelevantDocs(retrievalQuery, { intent: classification.topIntent, topK: 4 });
@@ -354,22 +386,22 @@ async function processMemberMessage(message, history = []) {
   const sentiment = detectSentiment(message, history);
   const decision = shouldEscalate({ classification, sentiment, evidenceGrade, message });
 
-  const fallbackResponseMessage = decision.escalate
-    ? "I am escalating this to a staff specialist with the issue type, policy references, sentiment, and recent conversation so you do not need to repeat yourself."
-    : buildResolution(classification.topIntent, docs, evidenceGrade, message);
-
   const llmResult = await generateGroundedResponse({
     message,
     classification,
     docs,
     evidenceGrade,
     decision,
-    fallbackAnswer: fallbackResponseMessage
+    language: uiLanguage,
+    fallbackAnswer: buildGroundedFallbackResponse({ classification, docs, evidenceGrade, decision, message, language: uiLanguage })
   });
 
-  const responseMessage = llmResult.used ? llmResult.content : fallbackResponseMessage;
+  const responseMessage = llmResult.used
+    ? llmResult.content
+    : buildGroundedFallbackResponse({ classification, docs, evidenceGrade, decision, message, language: uiLanguage });
 
   const contextSummary = {
+    language: uiLanguage,
     topIntent: classification.topIntent,
     intentProbabilities: classification.probabilities,
     intentScores: classification.scores,
@@ -391,7 +423,7 @@ async function processMemberMessage(message, history = []) {
       { step: "knowledge_retrieval", output: docs.slice(0, 3).map((doc) => doc.id) },
       { step: "evidence_grading", output: evidenceGrade.label },
       {
-        step: "mistral_grounded_generation",
+        step: "grounded_generation",
         output: llmResult.used ? "used" : "fallback",
         model: llmResult.model,
         reason: llmResult.reason
@@ -419,5 +451,8 @@ async function processMemberMessage(message, history = []) {
 }
 
 module.exports = {
-  processMemberMessage
+  processMemberMessage,
+  processMemberMessageWithLanguage,
+  normalizeLanguage,
+  LANGUAGE_LABELS
 };

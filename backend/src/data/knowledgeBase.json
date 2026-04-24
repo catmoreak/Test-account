@@ -134,6 +134,76 @@
   },
   {
     "id": "MCC-020",
+    "title": "Savings Bank Account Eligibility, Opening Amount, and Documents",
+    "category": "savings-account",
+    "content": "MCC Bank Savings Bank Account can be opened by an individual in own name, two or more individuals jointly with suitable repayment instructions, a guardian on behalf of a minor, and clubs, societies, associations, educational institutions, trusts, firms, partnership concerns, executors and administrators. Secretaries, treasurers, managers, or other duly constituted officers of corporations may open accounts after furnishing rules and required information in writing. Nomination facility is available. Initial deposit is minimum Rs. 1000. Minimum amount for cheque book facility is Rs. 1000. Required documents are identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, PAN card, and photographs. Aadhaar card is mandatory.",
+    "tags": ["savings account", "sb account", "eligibility", "minimum balance", "cheque book", "documents", "aadhaar", "pan"]
+  },
+  {
+    "id": "MCC-021",
+    "title": "Savings Bank Interest, Facilities, Passbook, and Minimum Balance",
+    "category": "savings-account",
+    "content": "MCC Bank Savings Bank Account interest rate is 3.00%. SSB account maintaining above Rs. 1,00,000 gets 5.00%. Interest is paid at rates applicable for the period of deposit as prescribed under Reserve Bank of India rules, directives, and guidelines from time to time and fixed by the Bank. Cheque book facility is provided to account holders maintaining minimum balance of Rs. 1000. First CTS cheque book is free of cost and subsequent cheque book is charged. Passbook issued on account opening has no charge. Duplicate passbook is issued on payment of applicable charges. NEFT/RTGS and Demand Draft facilities are available. Non-maintenance of minimum balance will be charged.",
+    "tags": ["savings account", "sb interest", "ssb", "5.00", "3.00", "passbook", "neft", "rtgs", "demand draft"]
+  },
+  {
+    "id": "MCC-022",
+    "title": "Education Loan Purpose, Rate, Tenure, Security, and Terms",
+    "category": "loan-products",
+    "content": "MCC Bank Education Loan is for higher studies in India and abroad. Maximum repayment tenure is 15 years including moratorium period. Borrower is the student along with parent. Interest rate is 10.50% with immediate effect irrespective of percentage of collateral security. Minimum one guarantor with sufficient net worth is required. Security is mortgage of unencumbered immovable property belonging to the applicant situated within the jurisdiction of the Bank; in direct finance it should be within the territorial jurisdiction of the branch where the loan is availed. Minimum margin is 15%. Membership is necessary for borrower and sureties. Rate is floating. Minimum CIBIL score is 600.",
+    "tags": ["education loan", "student loan", "higher studies", "10.50", "15 years", "moratorium", "cibil 600", "guarantor"]
+  },
+  {
+    "id": "MCC-023",
+    "title": "MSME Business and CCL Loan Interest, Tenure, Security, and Margin",
+    "category": "loan-products",
+    "content": "MCC Bank MSME Loan eligibility and purpose cover any activity defined under MSME. MSME Business Loan rates for businessmen and industrialists are: CIBIL 700 and above - 11.50%; 600 to 699 - 12.00%; (-1) or up to 100 as per new norms - 11.50%; above 100 up to 200 as per new norms - 12.00%. MSME CCL working capital rates are: 700 and above - 11.00%; 600 to 699 - 12.00%; (-1) or up to 100 as per new norms - 11.00%; above 100 up to 200 as per new norms - 12.00%. Repayment tenure is up to 120 months in equated monthly instalments. Minimum one guarantor with sufficient net worth is required. Security is any tangible asset belonging to the applicant situated within bank jurisdiction; for direct finance, within branch territorial jurisdiction. Margin is at least 25% of total project cost. Membership is necessary for borrower and sureties. Rates are floating.",
+    "tags": ["msme loan", "business loan", "ccl", "working capital", "11.50", "12.00", "120 months", "margin 25"]
+  },
+  {
+    "id": "MCC-024",
+    "title": "MSME Transport Operator and Machinery Loan Rates",
+    "category": "loan-products",
+    "content": "MCC Bank MSME Transport Operator rates: new Light Motor Vehicle 700 and above - 11.50%, 600 to 699 - 12.50%, (-1) or up to 100 - 11.50%, above 100 up to 200 - 12.50%; new Heavy Motor Vehicle 700 and above - 12.50%, 600 to 699 - 13.50%, (-1) or up to 100 - 12.50%, above 100 up to 200 - 13.50%; used commercial LMV - 13.00%, used commercial heavy vehicle - 14.00%, boat repair or vehicle repair - 13.50%. Repayment tenure is up to 120 months, with minimum one guarantor, tangible asset security, at least 25% project-cost margin, and membership for borrower and sureties. Hypothecation Loan on Machinery covers MSME machinery purchase. New plant and machinery up to Rs 25 lakhs is 11.50%; above Rs 25 lakhs is 12.00% for 700 and above, 12.50% for 600 to 699, 11.00% for (-1) up to 100, and 12.50% for above 100 up to 200. Old unit purchase or takeover for CIBIL 600 and above is 12.00% up to Rs 50 lakhs and 12.00% above Rs 50 lakhs. Margin is 25% of invoice or quotation for new machinery and 50% of valuation for used machinery. Machinery repayment tenure is up to 7 years.",
+    "tags": ["transport loan", "machinery loan", "hypothecation", "msme", "lmv", "heavy vehicle", "boat", "7 years"]
+  },
+  {
+    "id": "MCC-025",
+    "title": "Agriculture Allied Activity Loan Rates",
+    "category": "loan-products",
+    "content": "MCC Bank agriculture and allied activity loan rates are: Boat Loans - 13.00%; Boat Loans used or repair - 14.00%; Poultry, Piggery, Dairy and other allied activities - 11.00%; Commercial Crop Loans - 11.00%. Rates are floating.",
+    "tags": ["agriculture loan", "allied activities", "boat loan", "poultry", "piggery", "dairy", "crop loan"]
+  },
+  {
+    "id": "MCC-026",
+    "title": "Jewel Loan Eligibility, Rate, Margin, and Terms",
+    "category": "loan-products",
+    "content": "MCC Bank Jewel Loan eligibility covers any person with assured monthly income acceptable to the Bank. Gold loan is granted to Associate and Regular Members at the discretion of the Branch Manager or authorised officer. The borrower should be a good and regular customer or introduced as per KYC norms. Jewel Loan ROI is 10.75% per annum for priority Agricultural and MSME, and 10.75% for non-priority up to Rs. 4,00,000 for 1 year and above Rs. 4,00,000. Loan amount is based on market price. Maximum permissible loan is 75% of the 30 days average market value. Membership is necessary. No processing charges for Jewel Loans above Rs 4 lakhs repayable in monthly instalments, but Jewel Appraiser fees are charged. Minimum CIC score is 600.",
+    "tags": ["jewel loan", "gold loan", "10.75", "75%", "market value", "cic 600", "appraiser"]
+  },
+  {
+    "id": "MCC-027",
+    "title": "Surety and Consumer Loan Rate, Limit, Purpose, and Terms",
+    "category": "loan-products",
+    "content": "MCC Bank Surety Loan and Consumer Loan eligibility is any person with assured monthly income. Interest rate is 15.00% floating. Repayment tenure is up to 36 months. Maximum loan limit is Rs. 1,00,000. Purpose includes purchase of household articles or furniture, house repairs or renovation, marriage, and similar needs. Minimum one guarantor with sufficient net worth is required. Security is hypothecation of purchased items out of bank finance and any other acceptable movable item. Margin is 25% of quotation amount. Membership is necessary for borrower and sureties. Minimum CIBIL score is 600.",
+    "tags": ["surety loan", "consumer loan", "15.00", "36 months", "1,00,000", "household", "cibil 600"]
+  },
+  {
+    "id": "MCC-028",
+    "title": "Private Vehicle Loan New and Used Vehicle Terms",
+    "category": "loan-products",
+    "content": "MCC Bank Private Vehicle Loan eligibility is any person with assured monthly income acceptable to the Bank. New vehicle loan purpose is purchase of new vehicle. Used vehicle loan purpose is purchase of used vehicle below 5 years. New four-wheeler rates are: CIBIL 650 and above - 10.00%; 600 to 649 - 11.00%; (-1) or up to 100 as per new norms - 10.00%; above 100 up to 200 as per new norms - 11.00%. New two-wheeler rate is 15.00%. Used LMV private vehicle below 5 years rates are: model within 2 years - 11.50%; vehicle older than 2 years and less than 5 years - 13.00%. Repayment tenure is up to 7 years for new vehicles and depending on model for used vehicles. Minimum one guarantor is required. Security is new vehicle plus additional security insisted by Bank, or used vehicle plus additional security. Margin is at least 25% of quotation value for two-wheeler and 15% for four-wheeler. Used three/four wheelers and above need 30% of valuation for age up to 3 years and 50% for age above 3 years up to 5 years. Membership is necessary for borrower and sureties.",
+    "tags": ["vehicle loan", "private vehicle", "four wheeler", "two wheeler", "used vehicle", "10.00", "15.00", "7 years"]
+  },
+  {
+    "id": "MCC-029",
+    "title": "Mortgage Loan Eligibility, Rate, Tenure, Security, and Margin",
+    "category": "loan-products",
+    "content": "MCC Bank Mortgage Loan eligibility is any person with assured monthly income acceptable to the Bank. Purpose includes repair, renovation, furnishing of house, construction of compound wall, and meeting marriage expenses of self or close relatives. Interest rate is 13.50% floating. Repayment tenure is up to 10 years. Minimum one guarantor with sufficient net worth is required. Security is mortgage of unencumbered immovable property belonging to the applicant. Maximum permissible amount is 60% of property valuation or 75% of estimate, whichever is lower. Membership is necessary for borrower and sureties.",
+    "tags": ["mortgage loan", "13.50", "10 years", "renovation", "marriage", "property", "60%", "75%"]
+  },
+  {
+    "id": "MCC-030",
     "title": "Complaints and Human Escalation Contacts",
     "category": "complaints",
     "content": "For complaints, MCC Bank provides email contacts gm@mccbank.in and chairman@mccbank.in. Mobile contacts listed for complaints are 7090701115 and 9845278901. NRE account queries can be raised over WhatsApp at 7090701104. Privacy questions about PPS can be sent to info@mccbank.in.",

@@ -1,19 +1,45 @@
 import { useMemo, useState } from "react";
 import { sendMemberMessage } from "../api/client";
 
-const quickIssues = [
-  "What is the fixed deposit rate for 456 days for senior citizens?",
-  "What happens if I close my fixed deposit before maturity?",
-  "What documents are required to open a recurring deposit?",
-  "Which MCC Bank branches provide e-Stamp facility?",
-  "What is the locker rent and lost locker key charge?",
-  "What are the stop payment charges for a cheque?",
-  "Does PPS share my account information with other companies?",
-  "I have a complaint and this is still unresolved."
-];
+const copy = {
+  en: {
+    title: "Member Support Chat",
+    memberId: "Member ID",
+    placeholder: "Type your real issue in your own words.",
+    send: "Send Message",
+    analyzing: "Analyzing...",
+    helperTitle: "Live Input",
+    helperBody: "Enter the member issue.",
+    caseTitle: "Case Confirmation",
+    labels: { id: "ID", status: "Status", intent: "Intent", confidence: "Confidence", sentiment: "Sentiment" }
+  },
+  hi: {
+    title: "सदस्य सहायता चैट",
+    memberId: "सदस्य आईडी",
+    placeholder: "अपनी वास्तविक समस्या अपने शब्दों में लिखें।",
+    send: "संदेश भेजें",
+    analyzing: "विश्लेषण हो रहा है...",
+    helperTitle: "लाइव इनपुट",
+    helperBody: "सदस्य की समस्या दर्ज करें।",
+    caseTitle: "केस पुष्टि",
+    labels: { id: "आईडी", status: "स्थिति", intent: "इरादा", confidence: "विश्वास", sentiment: "भावना" }
+  },
+  kn: {
+    title: "ಸದಸ್ಯ ಬೆಂಬಲ ಚಾಟ್",
+    memberId: "ಸದಸ್ಯ ಐಡಿ",
+    placeholder: "ನಿಮ್ಮ ನಿಜವಾದ ಸಮಸ್ಯೆಯನ್ನು ನಿಮ್ಮದೇ ಪದಗಳಲ್ಲಿ ಬರೆಯಿರಿ.",
+    send: "ಸಂದೇಶ ಕಳುಹಿಸಿ",
+    analyzing: "ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತಿದೆ...",
+    helperTitle: "ಲೈವ್ ಇನ್‌ಪುಟ್",
+    helperBody: "ಸದಸ್ಯರ ಸಮಸ್ಯೆ ನಮೂದಿಸಿ.",
+    caseTitle: "ಕೇಸ್ ದೃಢೀಕರಣ",
+    labels: { id: "ಐಡಿ", status: "ಸ್ಥಿತಿ", intent: "ಉದ್ದೇಶ", confidence: "ವಿಶ್ವಾಸ", sentiment: "ಭಾವನೆ" }
+  }
+};
 
-function MemberPage() {
-  const [memberId, setMemberId] = useState("M-10021");
+function MemberPage({ language = "en" }) {
+  const t = copy[language] || copy.en;
+  const [memberId, setMemberId] = useState("");
   const [draft, setDraft] = useState("");
   const [history, setHistory] = useState([]);
   const [caseResult, setCaseResult] = useState(null);
@@ -31,7 +57,8 @@ function MemberPage() {
       const response = await sendMemberMessage({
         memberId,
         message: messageText,
-        history
+        history,
+        language
       });
 
       setHistory([...nextHistory, { role: "assistant", message: response.reply }]);
@@ -55,20 +82,20 @@ function MemberPage() {
     <section className="grid member-grid">
       <article className="panel chat-panel">
         <div className="panel-head">
-          <h2>Member Support Chat</h2>
+          <h2>{t.title}</h2>
           <span className="pill">RAG Enabled</span>
         </div>
 
         <div className="inline-field">
           <label className="field compact">
-            Member ID
+            {t.memberId}
             <input value={memberId} onChange={(event) => setMemberId(event.target.value)} />
           </label>
         </div>
 
         <div className="history">
           {history.length === 0 ? (
-            <p className="empty">Describe your issue in natural language. CreditAssist will resolve or escalate with context.</p>
+            <p className="empty">{t.helperBody}</p>
           ) : (
             history.map((item, index) => (
               <div key={`${item.role}-${index}`} className={item.role === "member" ? "bubble user" : "bubble bot"}>
@@ -83,9 +110,9 @@ function MemberPage() {
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             rows={4}
-            placeholder="Example: What is the premature closure rule for MCC Bank fixed deposits?"
+            placeholder={t.placeholder}
           />
-          <button disabled={!canSend}>{loading ? "Analyzing..." : "Send Message"}</button>
+          <button disabled={!canSend}>{loading ? t.analyzing : t.send}</button>
         </form>
 
         {error && <p className="error">{error}</p>}
@@ -93,34 +120,28 @@ function MemberPage() {
 
       <article className="panel side-panel">
         <div className="panel-head">
-          <h3>Issue Shortcuts</h3>
+          <h3>{t.helperTitle}</h3>
         </div>
-        <div className="quick-list tidy">
-          {quickIssues.map((issue) => (
-            <button key={issue} className="ghost" onClick={() => submitMessage(issue)} disabled={loading}>
-              {issue}
-            </button>
-          ))}
-        </div>
+        <p className="helper-note">{t.helperBody}</p>
 
         {caseResult && (
           <div className="case-card">
-            <h4>Case Confirmation</h4>
+            <h4>{t.caseTitle}</h4>
             <div className="kv-list">
               <p>
-                <strong>ID:</strong> {caseResult.id}
+                <strong>{t.labels.id}:</strong> {caseResult.id}
               </p>
               <p>
-                <strong>Status:</strong> {caseResult.status}
+                <strong>{t.labels.status}:</strong> {caseResult.status}
               </p>
               <p>
-                <strong>Intent:</strong> {caseResult.contextSummary.topIntent}
+                <strong>{t.labels.intent}:</strong> {caseResult.contextSummary.topIntent}
               </p>
               <p>
-                <strong>Confidence:</strong> {caseResult.contextSummary.confidence}
+                <strong>{t.labels.confidence}:</strong> {caseResult.contextSummary.confidence}
               </p>
               <p>
-                <strong>Sentiment:</strong> {caseResult.contextSummary.sentiment.label}
+                <strong>{t.labels.sentiment}:</strong> {caseResult.contextSummary.sentiment.label}
               </p>
             </div>
           </div>
