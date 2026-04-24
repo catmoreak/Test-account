@@ -5,7 +5,7 @@ const copy = {
   en: {
     title: "Member Support Chat",
     memberId: "Member ID",
-    placeholder: "Type your real issue in your own words.",
+    placeholder: "Enter your issue here",
     send: "Send Message",
     analyzing: "Analyzing...",
     helperTitle: "Live Input",
@@ -93,17 +93,15 @@ function MemberPage({ language = "en" }) {
           </label>
         </div>
 
-        <div className="history">
-          {history.length === 0 ? (
-            <p className="empty">{t.helperBody}</p>
-          ) : (
-            history.map((item, index) => (
+        {history.length > 0 && (
+          <div className="history">
+            {history.map((item, index) => (
               <div key={`${item.role}-${index}`} className={item.role === "member" ? "bubble user" : "bubble bot"}>
                 {item.message}
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="composer">
           <textarea
