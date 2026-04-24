@@ -23,17 +23,12 @@ const allowedOrigins = [
 ];
 
 const corsOptions = {
-  origin(origin, callback) {
-    const isDevorbitSubdomain = /^https:\/\/[a-z0-9-]+\.devorbit\.cloud$/i.test(origin || "");
-
-    if (!origin || allowedOrigins.includes(origin) || isDevorbitSubdomain) {
-      return callback(null, true);
-    }
-
-    return callback(new Error(`Origin ${origin} is not allowed by CORS`));
+  origin: function (origin, callback) {
+    // Allow any origin
+    callback(null, true);
   },
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-User-Id"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-User-Id", "Accept", "Origin", "X-Requested-With"],
   optionsSuccessStatus: 204,
   credentials: true
 };
