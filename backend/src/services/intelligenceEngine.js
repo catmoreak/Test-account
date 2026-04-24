@@ -111,15 +111,6 @@ const LANGUAGE_LABELS = {
   ta: { name: "Tamil", responsePrefix: "பதில்", escalationPrefix: "மேலதிக விசாரணைக்கு" }
 };
 
-// Intent that MUST be escalated (require account access or bank action)
-const ALWAYS_ESCALATE_INTENTS = new Set([
-  "balance_inquiry",
-  "transaction_dispute",
-  "loan_status",
-  "card_block",
-  "account_block"
-]);
-
 function scoreIntent(message, history = []) {
   const combined = message.toLowerCase();
   const tokens = new Set(tokenize(combined));
@@ -220,15 +211,14 @@ function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, de
   if (decision.escalate) {
     const reason = decision.reason;
     // Only include a policy snippet if the evidence is strong enough to be relevant
-    const isAlwaysEscalate = ALWAYS_ESCALATE_INTENTS.has(intent);
-    const snippet = (!isAlwaysEscalate && topDoc?.score >= 0.75 && topDoc?.snippet)
+    const snippet = (topDoc?.score >= 0.75 && topDoc?.snippet)
       ? `\n\nFor context, here is a relevant MCC Bank policy [${topDoc.id}]: ${topDoc.snippet.substring(0, 200)}...`
       : "";
     return `${label.escalationPrefix}: Your request is being escalated to our ${queue} team. ${reason}.${snippet}\n\nA specialist will follow up with you shortly. Please keep your Member ID ready.`;
   }
 
   if (evidenceGrade.label === "weak" || !topDoc) {
-    return `${label.escalationPrefix}: I couldn't find a precise policy match for your query. I'm connecting you with our ${queue} team who will assist you directly.`;
+    return `${label.responsePrefix}: Based on available MCC Bank policies — I found limited direct guidance on your specific query. Here's what I can share: For comprehensive support on this topic, please visit your nearest branch or use our mobile app for additional resources.\n\nQueue: ${queue}`;
   }
 
   const snippet = topDoc.snippet || topDoc.content?.substring(0, 300) || "";
@@ -242,38 +232,32 @@ function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
   // Explicit requests for human help
   const explicitEscalation = ["manager", "agent", "human", "escalate", "complaint", "speak to someone"].some((word) => text.includes(word));
 
-  // Intents that ALWAYS need account access / bank system action
-  if (ALWAYS_ESCALATE_INTENTS.has(intent)) {
-    const intentReasons = {
-      balance_inquiry: "Balance inquiries require account verification through our secure banking system",
-      transaction_dispute: "Transaction disputes require account verification and investigation by our Complaints Desk",
-      loan_status: "Loan status checks require access to our loan management system",
-      card_block: "Card blocking/unblocking requires authentication and action in our card management system",
-      account_block: "Account blocking/freezing requires identity verification and action by authorized staff"
-    };
-    return { escalate: true, reason: intentReasons[intent] || "This request requires secure system access" };
+  // Fraud and unauthorized transactions require escalation (account verification + investigation)
+  if (intent === "transaction_dispute") {
+    return { escalate: true, reason: "Transaction disputes require verification and investigation by our Complaints Desk" };
   }
 
+  // Repeated or unresolved complaints require priority escalation
   if (intent === "unresolved_complaint") {
     return { escalate: true, reason: "Repeated or unresolved complaint requires Tier-2 ownership by our Complaints Desk" };
   }
 
+  // Distressed member sentiment → priority escalation
   if (sentiment.label === "distressed") {
     return { escalate: true, reason: "Distressed member sentiment detected — priority escalation" };
   }
 
+  // Explicit request for human assistance
   if (explicitEscalation) {
     return { escalate: true, reason: "Member explicitly requested human assistance" };
   }
 
+  // Very low intent confidence → safety escalation
   if (classification.confidence < 0.42) {
     return { escalate: true, reason: "Intent confidence below resolution threshold — safety escalation" };
   }
 
-  if (evidenceGrade.label === "weak") {
-    return { escalate: true, reason: "Knowledge base evidence is too weak for reliable auto-resolution" };
-  }
-
+  // All other intents can be auto-resolved with best available information
   return { escalate: false, reason: "Intent and policy evidence are sufficient for guided self-service" };
 }
 
