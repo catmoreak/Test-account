@@ -9,6 +9,7 @@ CreditAssist AI is a full-stack, AI-powered member support and resolution assist
   - intent classification with probability distribution,
   - sentiment probability scoring,
   - RAG retrieval over a mock credit union knowledge base,
+  - optional Mistral/OpenRouter grounded response generation,
   - structured escalation packets for unresolved cases.
 - Staff dashboard to:
   - view all incoming cases,
@@ -39,6 +40,20 @@ CreditAssist AI is a full-stack, AI-powered member support and resolution assist
 - `frontend/`: Member UI + Staff dashboard
 - `backend/`: API, RAG retrieval, intelligence engine, case routing
 - `backend/src/data/knowledgeBase.json`: mock KB (12 entries)
+
+## Optional Mistral / OpenRouter Setup
+
+Create a local `.env` file from `.env.example` and set `MISTRAL_API_KEY`.
+
+The app never needs the key in source code. If the key starts with `sk-or`, the backend uses OpenRouter's chat completions endpoint and a Mistral model. With a direct Mistral key, set:
+
+```powershell
+LLM_PROVIDER=mistral
+MISTRAL_API_BASE=https://api.mistral.ai/v1/chat/completions
+MISTRAL_MODEL=mistral-small-latest
+```
+
+If no key is configured, CreditAssist falls back to the deterministic RAG answer generator.
 
 ## Local Run
 

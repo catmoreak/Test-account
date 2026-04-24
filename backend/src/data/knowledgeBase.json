@@ -1,86 +1,142 @@
 [
   {
-    "id": "KB-001",
-    "title": "Checking and Savings Balance Access Policy",
-    "category": "account-management",
-    "content": "Members can view current and available balances instantly in online banking and mobile app. Phone support can disclose balances only after identity verification using member ID, last 4 digits of SSN, and one-time passcode.",
-    "tags": ["balance", "account", "verification"]
+    "id": "MCC-001",
+    "title": "MCC Bank Identity and PPS Privacy Policy",
+    "category": "privacy-security",
+    "content": "The Mangalore Catholic Co-operative Bank Ltd is a Primary Urban Co-operative Bank in Karnataka with Head Office at Hampankatta, Mangalore - 575001. The PPS Privacy Policy applies to users of the bank's Positive Pay System application. By viewing or using the PPS application, users consent to the collection, use, and disclosure practices stated in the policy.",
+    "tags": ["mcc bank", "positive pay", "pps", "privacy", "head office", "mangalore"]
   },
   {
-    "id": "KB-002",
-    "title": "Debit Card Locked After Failed PIN Attempts",
-    "category": "cards",
-    "content": "Debit cards are temporarily locked for 24 hours after 3 consecutive failed PIN attempts. Members can request immediate reactivation by completing identity verification and answering card security questions with an agent.",
-    "tags": ["debit card", "blocked", "pin", "reactivation"]
+    "id": "MCC-002",
+    "title": "PPS Data Collection, Sharing, and Security",
+    "category": "privacy-security",
+    "content": "Through the PPS application, MCC Bank may collect information voluntarily disclosed at registration, including name, account numbers, mobile number, contact information, transaction information, and PPS usage activity. The PPS application does not gather additional mobile-device information through cookies or similar technologies. MCC Bank does not share this information with other companies unless required by law or while handling disputes. PPS reply messages mask the first few characters of account numbers, and users must type their bank-provided or self-set PIN to authorize access. Users should not share their PIN with anyone.",
+    "tags": ["pps", "data collection", "account number", "pin", "masking", "security", "privacy"]
   },
   {
-    "id": "KB-003",
-    "title": "Transaction Dispute and Chargeback Procedure",
-    "category": "disputes",
-    "content": "For unrecognized card transactions, members must submit a dispute within 60 calendar days from statement date. Provisional credit is typically issued within 10 business days while investigation is in progress.",
-    "tags": ["dispute", "chargeback", "fraud", "transaction"]
+    "id": "MCC-003",
+    "title": "PPS Privacy Policy Updates and Contact",
+    "category": "privacy-security",
+    "content": "The PPS Privacy Policy is effective from 23/05/2024. MCC Bank may update the policy at any time, and changes become effective immediately after being posted. Continued use after changes means the user acknowledges and accepts the modified policy. MCC Bank is not responsible for separately informing each registered customer about privacy-policy changes. Material changes will be prominently mentioned by notice on the authorised website. Privacy questions can be sent to info@mccbank.in.",
+    "tags": ["privacy", "policy update", "effective date", "info@mccbank.in", "23/05/2024"]
   },
   {
-    "id": "KB-004",
-    "title": "Personal Loan Application Status Timeline",
+    "id": "MCC-004",
+    "title": "General Banking Services and Contact Channels",
+    "category": "services",
+    "content": "MCC Bank services include locker facility at all branches, any branch banking, Pigmy deposit at doorstep, SMS alerts for transactions, personalised cheque book printing, Host to Host H2H NEFT/RTGS, and kiosk passbook printing at Founders Branch. NRE account queries can be sent by WhatsApp to 7090701104. Complaints can be emailed to gm@mccbank.in and chairman@mccbank.in, or raised by mobile on 7090701115 and 9845278901.",
+    "tags": ["services", "locker", "any branch banking", "pigmy", "sms alert", "nre", "complaints", "whatsapp"]
+  },
+  {
+    "id": "MCC-005",
+    "title": "e-Stamp Facility Branches",
+    "category": "services",
+    "content": "MCC Bank e-Stamp facility is available at Founders, Ashoknagar, Kankanady, Kulshekar, Morgansgate, Shirva, Bajpe, Kinnigoli, Surathkal, Udupi, Puttur, B C Road, Karkala, Brahmavara, Belthangady, Belman, Byndoor, and Santhekatte branches.",
+    "tags": ["e-stamp", "branches", "founders", "udupi", "puttur", "surathkal", "karkala"]
+  },
+  {
+    "id": "MCC-006",
+    "title": "Recurring Deposit Eligibility and Documents",
+    "category": "deposits",
+    "content": "Recurring Deposit accounts can be opened by resident individuals singly or jointly, by a natural guardian such as father or mother on behalf of a minor with date of birth declared, by a guardian appointed by court, and by a Co-operative Society through persons authorised by its Board of Directors. Minimum monthly instalment is Rs. 100. Documents required are identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, PAN card, and photographs. Aadhaar card is mandatory to open the account.",
+    "tags": ["recurring deposit", "rd", "eligibility", "documents", "aadhaar", "pan", "minimum installment"]
+  },
+  {
+    "id": "MCC-007",
+    "title": "Recurring Deposit Operations and Interest Rates",
+    "category": "deposits",
+    "content": "Recurring Deposit monthly instalments must be paid before the end of the month. Standing instructions from Savings Bank or Current accounts for monthly instalments are accepted and effected free of charge until maturity. Each depositor receives a pass book. Nomination facility is available. MCC Bank may grant loans on Recurring Deposit security up to 85% of the balance at credit. RD interest rates are 6.75% for 1 year to less than 2 years and 6.50% for 2 years and above but less than 5 years. Senior citizens get an additional 0.50%.",
+    "tags": ["recurring deposit", "rd", "interest rate", "standing instruction", "nomination", "loan against rd", "senior citizen"]
+  },
+  {
+    "id": "MCC-008",
+    "title": "Fixed Deposit Eligibility, Minimum Amount, and Documents",
+    "category": "deposits",
+    "content": "Fixed Deposit can be opened by an individual in own name, two or more individuals jointly with repayment instructions, a guardian on behalf of a minor, and in the name of clubs, societies, associations, educational institutions, trusts, firms, partnership concerns, joint stock companies, executors, and administrators. Nomination facility is available. Minimum initial deposit is Rs. 100. Documents required are identity proof and address proof such as Passport, Aadhaar card, Driving Licence, or Voter ID card, PAN card, and photographs. Aadhaar card is mandatory.",
+    "tags": ["fixed deposit", "fd", "eligibility", "minimum deposit", "documents", "aadhaar", "pan", "nomination"]
+  },
+  {
+    "id": "MCC-009",
+    "title": "Fixed Deposit Interest Rates Effective 02-04-2026",
+    "category": "deposits",
+    "content": "MCC Bank Fixed Deposit interest rates are: 15 days to 45 days - 4.00%; 46 days to 90 days - 4.75%; 91 days to 180 days - 5.25%; 181 days to 364 days - 6.00%; 1 year to less than 2 years - 6.75%; 2 years and above but less than 5 years - 6.50%; 456 days Fixed Deposit w.e.f. 02-04-2026 - 7.00%; 456 days Fixed Deposit Senior Citizen w.e.f. 02-04-2026 - 7.50%. Senior citizens get additional 0.50%. Co-operative Societies and Banks get additional 0.50% only for 456 days and deposits above Rs 25,00,000.",
+    "tags": ["fixed deposit", "fd", "interest rate", "456 days", "senior citizen", "02-04-2026", "7.00", "7.50"]
+  },
+  {
+    "id": "MCC-010",
+    "title": "Fixed Deposit Maturity, Premature Closure, Renewal, Loan, and Transfer",
+    "category": "deposits",
+    "content": "Fixed Deposit is repayable on the maturity date shown on the deposit receipt. For premature closure, interest is paid at 1% less than the rate applicable for the period the deposit remained with the bank. In the event of the depositor's death, the 1% interest deduction is not applicable for premature payment. Matured deposits can be renewed fully or partly from maturity date to a future date if renewal is for at least 15 days beyond renewal date and is made within 15 days from maturity. Loan against deposit is available up to 85% of deposit amount. Loan interest is 1% higher than deposit interest for Rs 25 Lakhs and above, and 2% higher for loan amount less than Rs 25 Lakhs. Fixed Deposit can be transferred from one branch to another only on maturity.",
+    "tags": ["fixed deposit", "fd", "premature closure", "maturity", "renewal", "loan against deposit", "transfer"]
+  },
+  {
+    "id": "MCC-011",
+    "title": "Deposit and Account Service Charges Effective 01-10-2024",
+    "category": "service-charges",
+    "content": "As per MCC Bank service charges w.e.f. 01-10-2024: Savings account cheque book has no charges up to 20 leaves per calendar year, then Rs 4 per leaf. Current Account or CCL cheque book is Rs 5 per leaf. Ledger folio charge for Current Account or CCL is Rs 50 per page per calendar year, treating 40 entries as a page or part. Statement of Account where pass book is issued is Rs 20 per page. Duplicate SOA or pass book with latest entry is Rs 100; with earlier old entries is Rs 100 plus Rs 40 per page. Account closure within one year is Rs 200 for Savings or available balance whichever is lower, and Rs 300 for Current or available balance whichever is lower. Non-maintenance of minimum average balance is Rs 100 per quarter for Savings and Rs 250 per quarter for Current; minimum quarterly average balance is Rs 1000 for Savings and Rs 3000 for Current.",
+    "tags": ["service charges", "cheque book", "statement", "pass book", "account closure", "minimum balance", "savings", "current account"]
+  },
+  {
+    "id": "MCC-012",
+    "title": "Stop Payment, Standing Instruction, and Account Certificates Charges",
+    "category": "service-charges",
+    "content": "MCC Bank stop payment charges w.e.f. 01-10-2024: noting stop payment against cheque issued is Rs 250 per instance for Savings Bank and Rs 500 for Current Account or CCL. Stop payment for loss of cheque book is Rs 250 per instance for Savings and Rs 500 for Current Account or CCL. Revoking stop payment is Rs 100 per instance for SB/CA/CCL. Registering standing instruction is Rs 200 excluding interest on deposits, RD instalment, and loan instalment. Standing instruction funds transfer to other banks is Rs 50 per transaction plus applicable DD/NEFT/RTGS charges; transfer within the bank is Rs 20 per transaction. Duplicate deposit receipt is Rs 250. Balance certificate, account maintaining certificate, or cheque honoured certificate is Rs 150 per instance. Photo attestation is Rs 500. Addition or deletion of names in SB deposits is Rs 250 per instance, waived for Associations and Institutions. Nomination modification or change is NIL. Dormant account activation is NIL.",
+    "tags": ["stop payment", "standing instruction", "duplicate deposit receipt", "balance certificate", "nomination", "dormant account"]
+  },
+  {
+    "id": "MCC-013",
+    "title": "DD, NEFT, RTGS, and Collection Service Charges",
+    "category": "service-charges",
+    "content": "MCC Bank remittance and collection charges w.e.f. 01-10-2024 include DD/PO issue up to Rs 10,000 at Rs 50 per instrument; above Rs 10,000 at Rs 5 per thousand per instrument, minimum Rs 100 and maximum Rs 5000. DD/PO cancellation is Rs 250 or actual amount of DD/PO whichever is lower per instrument. DD/PO revalidation is Rs 100 per instrument. RTGS charges are Rs 25 for Rs 2,00,000 to Rs 5,00,000 and Rs 50 above Rs 5,00,000. No NEFT/RTGS charges apply for customers maintaining average balance of Rs 1,00,000 and above in SB/CA. Outstation cheque collection charges are Rs 50 up to Rs 10,000, Rs 100 above Rs 10,000 to Rs 1,00,000, Rs 500 above Rs 1,00,000 to Rs 10,00,000, and Rs 1000 above Rs 10,00,000. Charges up to Rs 1,00,000 are mandated by RBI and inclusive of out-of-pocket expenses such as post/courier charges.",
+    "tags": ["dd", "pay order", "neft", "rtgs", "collection", "outstation cheque", "remittance charges"]
+  },
+  {
+    "id": "MCC-014",
+    "title": "Cheque Return and Bill Return Service Charges",
+    "category": "service-charges",
+    "content": "MCC Bank inward cheque return or ECS return charges for cheques drawn on the bank are Rs 100 up to Rs 5,00,000 and Rs 300 above Rs 5,00,000 for SB/CA/CCL. No charge applies if returned for technical reasons, not at customer fault, or where stop payment is noted. Outward cheque returns are Rs 200 for Savings Bank and Rs 300 for CA/CCL. Inward or outward bills returned under IBC/OBC are Rs 500 per bill.",
+    "tags": ["cheque return", "ecs return", "outward cheque", "inward cheque", "bill return", "charges"]
+  },
+  {
+    "id": "MCC-015",
+    "title": "Loan Processing and Upfront Service Charges",
     "category": "loans",
-    "content": "Personal loan applications are usually reviewed within 3 to 7 business days. If additional documents are needed, status remains pending until documents are received and validated.",
-    "tags": ["loan", "application", "status", "pending"]
+    "content": "MCC Bank service charges w.e.f. 01-10-2024: Upfront fee on term loans except CCL, loan to vehicles, Jewel Loan, and Loan against Deposit is 1.00% of loan amount with minimum Rs 2000 up to Rs 20 lakhs, and 0.50% of entire loan amount with minimum Rs 20000 and maximum Rs 400000 above Rs 20 lakhs. For transport operators, upfront fee is 1.00% up to Rs 75 lakhs with minimum Rs 2000, and 0.50% above Rs 75 lakhs with minimum Rs 75000 and maximum Rs 400000. Education loan upfront fee is 0.50% of loan amount with minimum Rs 2000. Private vehicle and MCL upfront fee is 1% for two-wheeler with minimum Rs 1000, 0.50% for four-wheeler with minimum Rs 1000, and 1% for MCL with minimum Rs 500.",
+    "tags": ["loan", "processing charge", "upfront fee", "vehicle loan", "education loan", "term loan", "mcl"]
   },
   {
-    "id": "KB-005",
-    "title": "Address Change Requirements",
-    "category": "account-management",
-    "content": "To update a registered address, members must provide a government-issued photo ID and proof of residence dated within the last 90 days (utility bill, bank statement, or lease). Online updates may require multi-factor authentication.",
-    "tags": ["address", "update", "kyc", "proof"]
+    "id": "MCC-016",
+    "title": "CCL, Loan Revalidation, Preclosure, and Documentation Charges",
+    "category": "loans",
+    "content": "MCC Bank CCL processing charges w.e.f. 01-10-2024: new limit is 0.75% of limit with minimum Rs 2000 and maximum Rs 400000; renewal without enhancement is 0.50% of limit with minimum Rs 1000 and maximum Rs 250000; renewal with enhancement is 0.50% on existing limit plus 0.75% on additional limit, all-in-all minimum Rs 2000 and maximum Rs 400000. Loan sanction revalidation is Rs 1500 irrespective of loan type and amount. Loan preclosure other than takeover by other financial institutions, for loans closed before 1 year, is 2% of outstanding liability or drawing power whichever is higher. Preclosure by takeover by other FIs is 4% of outstanding liability or drawing power whichever is higher for all loans, and/or sanctioned CCL limit. Loan documentation charges are Rs 1500 per mortgage where mortgage is involved, Rs 750 per loan where mortgage is not involved, and Rs 200 per MCL or other unsecured loan.",
+    "tags": ["ccl", "loan renewal", "loan revalidation", "preclosure", "loan documentation", "mortgage"]
   },
   {
-    "id": "KB-006",
-    "title": "Fixed Deposit Early Closure Penalty",
-    "category": "deposits",
-    "content": "Early closure of fixed deposits before maturity incurs a penalty equal to 1.5% of the principal amount or forfeiture of accrued interest for the current quarter, whichever is higher.",
-    "tags": ["fixed deposit", "penalty", "maturity"]
+    "id": "MCC-017",
+    "title": "Loan Reports, Notices, Certificates, and Safe Custody Charges",
+    "category": "loans",
+    "content": "MCC Bank loan-related charges include CIC report Rs 100 for Housing Loan, Education Loan, CCL, and Private Vehicle Loan; Rs 250 for all other loans including CCL renewal; and Rs 500 for Commercial CIC. CERSAI search report is Rs 50, registration or modification of charge is Rs 100, and satisfaction of charge is NIL. Release of security or change in sanction terms is Rs 1000 per instance plus legal opinion and valuation charges where applicable. Jewel Loan service charge is 0.50% of loan amount up to Rs 4,00,000 with minimum Rs 250; above Rs 4,00,000 is NIL. Loan notice by RPAD/courier is Rs 100 per packet or actual charges whichever is higher; ordinary post is Rs 50 per packet or actual charges whichever is higher. Certified copies of loan documents are Rs 30 per document. No Due or No Objection Certificate is Rs 250 per instance. Loan balance certificate to other bank is Rs 100 per instance. Safe custody charge is Rs 100 per month or part for mortgage documents or jewels not taken within one month of loan closure.",
+    "tags": ["loan certificate", "cic", "cersai", "jewel loan", "loan notice", "no due certificate", "safe custody"]
   },
   {
-    "id": "KB-007",
-    "title": "Escalation and Complaint Resolution SLA",
-    "category": "service",
-    "content": "Complex complaints are escalated to Tier-2 support with a target first response in 4 business hours and a full resolution target of 5 business days. Repeated unresolved complaints are automatically flagged as high priority.",
-    "tags": ["complaint", "escalation", "sla", "tier-2"]
+    "id": "MCC-018",
+    "title": "Locker Rent and Locker Service Charges Effective 01-04-2025",
+    "category": "lockers",
+    "content": "MCC Bank locker and other service charges w.e.f. 01-04-2025: small locker size up to 0.50 cubic feet rent Rs 1250; medium locker size 0.51 to 1.50 cubic feet rent Rs 2000; large locker size 1.51 to 2.50 cubic feet rent Rs 3500; extra large locker size above 2.50 cubic feet rent Rs 5000. Loss of locker key costs Rs 1500 plus actual break open charges. Up to 12 locker operations per year are NIL; above 12 operations, Rs 50 per operation. Penal charges on delayed annual locker rent are 10% of rent up to first quarter, 20% up to second quarter, 30% up to third quarter, 40% up to fourth quarter, and 50% for 1 year and above.",
+    "tags": ["locker", "locker rent", "locker key", "locker operation", "delayed rent", "01-04-2025"]
   },
   {
-    "id": "KB-008",
-    "title": "Account Freeze for Suspicious Activity",
-    "category": "security",
-    "content": "Accounts may be temporarily restricted if fraud-monitoring systems detect abnormal transactions, unusual geolocation shifts, or rapid failed authentication attempts. Members must complete enhanced verification to restore full access.",
-    "tags": ["flagged", "suspicious", "fraud", "freeze"]
+    "id": "MCC-019",
+    "title": "Cash, ATM Card, GST, and Service Charge Notes",
+    "category": "service-charges",
+    "content": "MCC Bank cash handling charges are NIL. ATM card annual fee is Rs 150 per card, additional card is Rs 100 per card, replacement card is Rs 250 per card, and replacement PIN is Rs 50 per PIN. GST is applicable on all types of service charge and must be collected in addition to the service charge; the present GST rate shown in the service-charge document is 18%. Total amount should be rounded off to the nearest rupee. There are no charges on loan against deposit. Staff are exempt from service charges other than locker rent.",
+    "tags": ["cash handling", "atm card", "pin replacement", "gst", "18%", "loan against deposit", "staff exemption"]
   },
   {
-    "id": "KB-009",
-    "title": "Member Contact Information Update Rules",
-    "category": "account-management",
-    "content": "Phone number and email updates can be completed digitally after two-factor authentication. Changes to legal name, address, or tax residency require manual review and supporting documents.",
-    "tags": ["email", "phone", "profile", "update"]
-  },
-  {
-    "id": "KB-010",
-    "title": "Debit Card International Usage and Blocks",
-    "category": "cards",
-    "content": "International transactions may be declined if travel notice is not enabled. Members can request temporary international card enablement for up to 30 days after identity verification.",
-    "tags": ["international", "declined", "card", "travel"]
-  },
-  {
-    "id": "KB-011",
-    "title": "Direct Deposit Posting Window",
-    "category": "deposits",
-    "content": "Direct deposits post between 12:00 AM and 9:00 AM local time on business days. Delays can occur on bank holidays or when payer files are received after cutoff.",
-    "tags": ["deposit", "salary", "delay", "posting"]
-  },
-  {
-    "id": "KB-012",
-    "title": "Digital Banking Access Recovery",
-    "category": "security",
-    "content": "If online access is locked, members can reset credentials using secure recovery. After 5 failed login attempts, account access is locked for 30 minutes or until identity verification with support.",
-    "tags": ["locked", "online banking", "password", "access"]
+    "id": "MCC-020",
+    "title": "Complaints and Human Escalation Contacts",
+    "category": "complaints",
+    "content": "For complaints, MCC Bank provides email contacts gm@mccbank.in and chairman@mccbank.in. Mobile contacts listed for complaints are 7090701115 and 9845278901. NRE account queries can be raised over WhatsApp at 7090701104. Privacy questions about PPS can be sent to info@mccbank.in.",
+    "tags": ["complaint", "escalation", "gm@mccbank.in", "chairman@mccbank.in", "mobile", "nre", "privacy"]
   }
 ]

@@ -2,12 +2,14 @@ import { useMemo, useState } from "react";
 import { sendMemberMessage } from "../api/client";
 
 const quickIssues = [
-  "What is my current account balance?",
-  "I see a charge I did not make. I want to dispute it.",
-  "I applied for a personal loan 5 days ago, any status update?",
-  "My debit card got blocked after failed PIN attempts.",
-  "I moved recently and need to update my registered address.",
-  "I am overcharged for months and this is still unresolved."
+  "What is the fixed deposit rate for 456 days for senior citizens?",
+  "What happens if I close my fixed deposit before maturity?",
+  "What documents are required to open a recurring deposit?",
+  "Which MCC Bank branches provide e-Stamp facility?",
+  "What is the locker rent and lost locker key charge?",
+  "What are the stop payment charges for a cheque?",
+  "Does PPS share my account information with other companies?",
+  "I have a complaint and this is still unresolved."
 ];
 
 function MemberPage() {
@@ -81,7 +83,7 @@ function MemberPage() {
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             rows={4}
-            placeholder="Example: My card is blocked after 3 failed PIN attempts, how can I reactivate it?"
+            placeholder="Example: What is the premature closure rule for MCC Bank fixed deposits?"
           />
           <button disabled={!canSend}>{loading ? "Analyzing..." : "Send Message"}</button>
         </form>
