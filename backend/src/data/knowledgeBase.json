@@ -1,0 +1,86 @@
+[
+  {
+    "id": "KB-001",
+    "title": "Checking and Savings Balance Access Policy",
+    "category": "account-management",
+    "content": "Members can view current and available balances instantly in online banking and mobile app. Phone support can disclose balances only after identity verification using member ID, last 4 digits of SSN, and one-time passcode.",
+    "tags": ["balance", "account", "verification"]
+  },
+  {
+    "id": "KB-002",
+    "title": "Debit Card Locked After Failed PIN Attempts",
+    "category": "cards",
+    "content": "Debit cards are temporarily locked for 24 hours after 3 consecutive failed PIN attempts. Members can request immediate reactivation by completing identity verification and answering card security questions with an agent.",
+    "tags": ["debit card", "blocked", "pin", "reactivation"]
+  },
+  {
+    "id": "KB-003",
+    "title": "Transaction Dispute and Chargeback Procedure",
+    "category": "disputes",
+    "content": "For unrecognized card transactions, members must submit a dispute within 60 calendar days from statement date. Provisional credit is typically issued within 10 business days while investigation is in progress.",
+    "tags": ["dispute", "chargeback", "fraud", "transaction"]
+  },
+  {
+    "id": "KB-004",
+    "title": "Personal Loan Application Status Timeline",
+    "category": "loans",
+    "content": "Personal loan applications are usually reviewed within 3 to 7 business days. If additional documents are needed, status remains pending until documents are received and validated.",
+    "tags": ["loan", "application", "status", "pending"]
+  },
+  {
+    "id": "KB-005",
+    "title": "Address Change Requirements",
+    "category": "account-management",
+    "content": "To update a registered address, members must provide a government-issued photo ID and proof of residence dated within the last 90 days (utility bill, bank statement, or lease). Online updates may require multi-factor authentication.",
+    "tags": ["address", "update", "kyc", "proof"]
+  },
+  {
+    "id": "KB-006",
+    "title": "Fixed Deposit Early Closure Penalty",
+    "category": "deposits",
+    "content": "Early closure of fixed deposits before maturity incurs a penalty equal to 1.5% of the principal amount or forfeiture of accrued interest for the current quarter, whichever is higher.",
+    "tags": ["fixed deposit", "penalty", "maturity"]
+  },
+  {
+    "id": "KB-007",
+    "title": "Escalation and Complaint Resolution SLA",
+    "category": "service",
+    "content": "Complex complaints are escalated to Tier-2 support with a target first response in 4 business hours and a full resolution target of 5 business days. Repeated unresolved complaints are automatically flagged as high priority.",
+    "tags": ["complaint", "escalation", "sla", "tier-2"]
+  },
+  {
+    "id": "KB-008",
+    "title": "Account Freeze for Suspicious Activity",
+    "category": "security",
+    "content": "Accounts may be temporarily restricted if fraud-monitoring systems detect abnormal transactions, unusual geolocation shifts, or rapid failed authentication attempts. Members must complete enhanced verification to restore full access.",
+    "tags": ["flagged", "suspicious", "fraud", "freeze"]
+  },
+  {
+    "id": "KB-009",
+    "title": "Member Contact Information Update Rules",
+    "category": "account-management",
+    "content": "Phone number and email updates can be completed digitally after two-factor authentication. Changes to legal name, address, or tax residency require manual review and supporting documents.",
+    "tags": ["email", "phone", "profile", "update"]
+  },
+  {
+    "id": "KB-010",
+    "title": "Debit Card International Usage and Blocks",
+    "category": "cards",
+    "content": "International transactions may be declined if travel notice is not enabled. Members can request temporary international card enablement for up to 30 days after identity verification.",
+    "tags": ["international", "declined", "card", "travel"]
+  },
+  {
+    "id": "KB-011",
+    "title": "Direct Deposit Posting Window",
+    "category": "deposits",
+    "content": "Direct deposits post between 12:00 AM and 9:00 AM local time on business days. Delays can occur on bank holidays or when payer files are received after cutoff.",
+    "tags": ["deposit", "salary", "delay", "posting"]
+  },
+  {
+    "id": "KB-012",
+    "title": "Digital Banking Access Recovery",
+    "category": "security",
+    "content": "If online access is locked, members can reset credentials using secure recovery. After 5 failed login attempts, account access is locked for 30 minutes or until identity verification with support.",
+    "tags": ["locked", "online banking", "password", "access"]
+  }
+]
