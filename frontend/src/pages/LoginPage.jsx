@@ -146,10 +146,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Footer */}
-        <p className="login-footer">
-          Protected by 256-bit SSL encryption • Demo environment
-        </p>
+      
       </div>
     </div>
   );

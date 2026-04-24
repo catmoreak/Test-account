@@ -9,7 +9,12 @@ const { initCaseStore } = require("./services/caseStore");
 const app = express();
 const PORT = process.env.PORT || 8787;
 
-app.use(cors());
+app.use(cors({
+  origin: true, // Reflect the requesting origin
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 app.get("/api/health", (_, res) => {
