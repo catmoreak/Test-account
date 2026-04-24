@@ -3,9 +3,9 @@ const { listCases, getCaseById, updateCaseStatus } = require("../services/caseSt
 
 const router = express.Router();
 
-router.get("/cases", (req, res) => {
+router.get("/cases", async (req, res) => {
   const { status = "all" } = req.query;
-  const allCases = listCases();
+  const allCases = await listCases();
 
   const filtered = status === "all" ? allCases : allCases.filter((item) => item.status === status);
 
@@ -19,8 +19,8 @@ router.get("/cases", (req, res) => {
   return res.json({ stats, cases: filtered });
 });
 
-router.get("/cases/:id", (req, res) => {
-  const found = getCaseById(req.params.id);
+router.get("/cases/:id", async (req, res) => {
+  const found = await getCaseById(req.params.id);
   if (!found) {
     return res.status(404).json({ error: "Case not found" });
   }
@@ -28,13 +28,13 @@ router.get("/cases/:id", (req, res) => {
   return res.json(found);
 });
 
-router.patch("/cases/:id/status", (req, res) => {
+router.patch("/cases/:id/status", async (req, res) => {
   const { status } = req.body;
   if (!["auto-resolved", "needs-attention", "in-progress", "resolved"].includes(status)) {
     return res.status(400).json({ error: "Invalid status" });
   }
 
-  const updated = updateCaseStatus(req.params.id, status);
+  const updated = await updateCaseStatus(req.params.id, status);
   if (!updated) {
     return res.status(404).json({ error: "Case not found" });
   }

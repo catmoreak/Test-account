@@ -33,7 +33,7 @@ CreditAssist AI is a full-stack, AI-powered member support and resolution assist
 - Frontend: React + Vite
 - Backend: Node.js + Express
 - RAG: in-memory retrieval with TF-IDF + cosine similarity over mock KB docs
-- Data store: in-memory case store (for hackathon demo speed)
+- Data store: PostgreSQL (Neon via `DATABASE_URL`), with in-memory fallback if unset
 
 ## Project Structure
 
@@ -54,6 +54,18 @@ MISTRAL_MODEL=mistral-small-latest
 ```
 
 If no key is configured, CreditAssist falls back to the deterministic RAG answer generator.
+
+## PostgreSQL (Neon) Setup For Hosting
+
+Set `DATABASE_URL` in the backend environment (Render service env vars or root `.env` for local runs).
+
+Example format:
+
+```powershell
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require&channel_binding=require
+```
+
+The backend auto-creates the `support_cases` table at startup and stores all member/staff case data there.
 
 ## Local Run
 

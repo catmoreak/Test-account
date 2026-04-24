@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const memberRoutes = require("./routes/memberRoutes");
 const staffRoutes = require("./routes/staffRoutes");
+const { initCaseStore } = require("./services/caseStore");
 
 const app = express();
 const PORT = process.env.PORT || 8787;
@@ -16,6 +17,15 @@ app.get("/api/health", (_, res) => {
 app.use("/api/member", memberRoutes);
 app.use("/api/staff", staffRoutes);
 
-app.listen(PORT, () => {
-  console.log(`CreditAssist backend running on port ${PORT}`);
+async function startServer() {
+  await initCaseStore();
+
+  app.listen(PORT, () => {
+    console.log(`CreditAssist backend running on port ${PORT}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error("Failed to start backend:", error);
+  process.exit(1);
 });

@@ -14,7 +14,7 @@ router.post("/message", async (req, res) => {
 
   const analysis = await processMemberMessageWithLanguage(message, history, language);
 
-  const caseRecord = createCase({
+  const caseRecord = await createCase({
     id: `CASE-${uuidv4().split("-")[0].toUpperCase()}`,
     memberId,
     createdAt: new Date().toISOString(),
