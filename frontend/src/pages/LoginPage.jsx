@@ -1,10 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { loginUser } from "../api/client";
 
 const DEMO_ACCOUNTS = [
-  { username: "rahul.sharma", password: "bank123", label: "Rahul Sharma (Member)", role: "member", icon: "👤" }
+  {
+    id: "MCC-001",
+    username: "rahul.sharma",
+    password: "bank123",
+    name: "Rahul Sharma",
+    role: "member",
+    accountNumber: "1002003001",
+    balance: 47250.75,
+    savingsBalance: 12800.0,
+    fdBalance: 100000.0,
+    loanBalance: 45000.0,
+    loanStatus: "active",
+    cardStatus: "active",
+    label: "Rahul Sharma (Member)",
+    icon: "👤"
+  },
+  {
+    id: "STAFF-001",
+    username: "staff.admin",
+    password: "staff123",
+    name: "Manjunath Rao",
+    role: "staff",
+    department: "Member Support",
+    employeeId: "EMP-4501",
+    label: "Manjunath Rao (Staff)",
+    icon: "🛡️"
+  }
 ];
 
 export default function LoginPage() {
@@ -26,14 +51,21 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
     try {
-      const { user } = await loginUser(username.trim(), password.trim());
+      const matchedUser = DEMO_ACCOUNTS.find(
+        (account) =>
+          account.username === username.trim() && account.password === password.trim()
+      );
+
+      if (!matchedUser) {
+        setError("Invalid username or password.");
+        return;
+      }
+
+      const { password: _hiddenPassword, label: _label, icon: _icon, ...user } = matchedUser;
       login(user);
       navigate(user.role === "staff" ? "/staff" : "/");
-    } catch (err) {
-      const msg = (() => {
-        try { return JSON.parse(err.message).error; } catch { return err.message; }
-      })();
-      setError(msg || "Login failed. Please try again.");
+    } catch {
+      setError("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link, Route, Routes, useLocation, Navigate, useNavigate } from "react-router-dom";
-import { loginUser } from "./api/client";
 import MemberPage from "./pages/MemberPage";
 import StaffPage from "./pages/StaffPage";
 import LoginPage from "./pages/LoginPage";
 import LoadingScreen from "./components/LoadingScreen";
 import { useAuth } from "./context/AuthContext";
+
+const STAFF_DEMO_USER = {
+  id: "STAFF-001",
+  username: "staff.admin",
+  name: "Manjunath Rao",
+  role: "staff",
+  department: "Member Support",
+  employeeId: "EMP-4501",
+  preferredLanguage: "en"
+};
 
 const uiCopy = {
   en: {
@@ -110,14 +119,9 @@ function AppShell({ language, setLanguage }) {
                 <button
                   className="nav-link"
                   style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1rem", color: "inherit", fontWeight: "inherit", fontFamily: "inherit" }}
-                  onClick={async () => {
-                    try {
-                      const { user: staffUser } = await loginUser("staff.admin", "staff123");
-                      login(staffUser);
-                      navigate("/staff");
-                    } catch (err) {
-                      console.error("Staff login failed:", err);
-                    }
+                  onClick={() => {
+                    login(STAFF_DEMO_USER);
+                    navigate("/staff");
                   }}
                 >
                   Staff Login

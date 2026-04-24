@@ -16,14 +16,6 @@ async function request(path, options = {}) {
   return response.json();
 }
 
-// Auth
-export async function loginUser(username, password) {
-  return request("/api/auth/login", {
-    method: "POST",
-    body: JSON.stringify({ username, password })
-  });
-}
-
 // Member chat — now sends userId for account context resolution
 export async function sendMemberMessage(payload) {
   return request("/api/member/message", {
