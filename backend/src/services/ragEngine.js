@@ -1,5 +1,4 @@
 const { Pinecone } = require("@pinecone-database/pinecone");
-const { Mistral } = require("@mistralai/mistralai");
 const fs = require("fs");
 const path = require("path");
 const knowledgeBase = require("../data/knowledgeBase.json");
@@ -70,6 +69,7 @@ let pcClient = null;
 let mistralClient = null;
 let index = null;
 let envLoaded = false;
+let mistralModulePromise = null;
 
 function loadEnvFile() {
   if (envLoaded) return;
@@ -104,13 +104,37 @@ function getClients() {
   if (!mistralClient) {
     const mistralApiKey = process.env.MISTRAL_API_KEY;
     if (!mistralApiKey) throw new Error("MISTRAL_API_KEY is not set in environment variables.");
-    mistralClient = new Mistral({ apiKey: mistralApiKey });
   }
   return { mistral: mistralClient, index };
 }
 
+async function getMistralClient() {
+  loadEnvFile();
+
+  if (mistralClient) {
+    return mistralClient;
+  }
+
+  const mistralApiKey = process.env.MISTRAL_API_KEY;
+  if (!mistralApiKey) throw new Error("MISTRAL_API_KEY is not set in environment variables.");
+
+  if (!mistralModulePromise) {
+    mistralModulePromise = import("@mistralai/mistralai");
+  }
+
+  const mistralModule = await mistralModulePromise;
+  const Mistral = mistralModule.Mistral || mistralModule.default?.Mistral;
+
+  if (typeof Mistral !== "function") {
+    throw new Error("Mistral SDK could not be loaded correctly.");
+  }
+
+  mistralClient = new Mistral({ apiKey: mistralApiKey });
+  return mistralClient;
+}
+
 async function embedText(text) {
-  const { mistral } = getClients();
+  const mistral = await getMistralClient();
   const response = await mistral.embeddings.create({
     model: process.env.MISTRAL_EMBEDDING_MODEL || "mistral-embed",
     inputs: [text]
