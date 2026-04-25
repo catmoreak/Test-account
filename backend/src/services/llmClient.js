@@ -76,6 +76,7 @@ STRICT RULES — YOU MUST FOLLOW THESE EXACTLY:
 5. ALWAYS cite the document ID in square brackets e.g. [MCC-019] when you use a fact from it.
 6. Respond ONLY in ${langLabel}.
 7. NEVER mention competitor banks, NEVER discuss internal system details, NEVER reveal confidence scores or technical pipeline details to the member.
+8. Do NOT use Markdown formatting (no headings like ##, no **bold**, no tables). Return plain text only.
 
 You are helping a bank member who asked: "${message}"
 Pipeline has classified this as: ${classification.topIntent} (confidence: ${classification.confidence})

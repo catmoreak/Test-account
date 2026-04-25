@@ -153,6 +153,20 @@ function splitTextForTts(text, maxChars = TTS_MAX_CHARS) {
   return chunks;
 }
 
+function formatAssistantMessage(text) {
+  return (text || "")
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/__(.*?)__/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/_(.*?)_/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+    .replace(/^\s*[-*+]\s+/gm, "- ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function TypingIndicator() {
   return (
     <div className="bubble bot typing-bubble">
@@ -304,7 +318,7 @@ export default function MemberPage({ language = "en" }) {
 
       setHistory((prev) => [...prev, {
         role: "assistant",
-        message: response.reply,
+        message: formatAssistantMessage(response.reply),
         ui: response.ui
       }]);
       setCaseResult(response.case);
