@@ -208,5 +208,495 @@
     "category": "complaints",
     "content": "For complaints, MCC Bank provides email contacts gm@mccbank.in and chairman@mccbank.in. Mobile contacts listed for complaints are 7090701115 and 9845278901. NRE account queries can be raised over WhatsApp at 7090701104. Privacy questions about PPS can be sent to info@mccbank.in.",
     "tags": ["complaint", "escalation", "gm@mccbank.in", "chairman@mccbank.in", "mobile", "nre", "privacy"]
+  },
+  {
+    "id": "MCC-031",
+    "title": "Current Account Eligibility and Opening Requirements",
+    "category": "current-account",
+    "content": "MCC Bank Current Account can be opened by sole proprietors, firms, partnerships, joint stock companies, corporate bodies, trusts, educational and charitable institutions. Limited liability partnerships and NGOs registered under Societies Registration Act are also eligible. Minimum initial deposit is Rs. 5000. Nomination facility is available. Required documents include business registration certificate, partnership deed, incorporation certificate, latest audited financial statements, trade license, and PAN certificate. Individual proprietor must provide identity and address proofs such as Passport, Aadhaar card, or Driving Licence.",
+    "tags": ["current account", "ca", "business account", "partnership", "company", "ngo", "5000"]
+  },
+  {
+    "id": "MCC-032",
+    "title": "Current Account Features and Facilities",
+    "category": "current-account",
+    "content": "MCC Bank Current Account holders enjoy unlimited cheque book facility, any branch banking across all MCC Bank branches, unlimited deposits and withdrawals without daily limits, quarterly interest-free overdraft facility up to sanctioned limit, standing instructions for fund transfers at no cost, multi-signature authority as per organization requirements, online banking with API integration for corporate clients, and regular account statements. Business hours for deposits vary from 9:00 AM to 2:00 PM, and cash counters close at 2:00 PM on all working days.",
+    "tags": ["current account", "ca", "cheque", "overdraft", "standing instruction", "api", "online banking"]
+  },
+  {
+    "id": "MCC-033",
+    "title": "Current Account Interest Rates and Minimum Balance",
+    "category": "current-account",
+    "content": "MCC Bank Current Account interest on deposits is 2.50% per annum on daily balance above Rs. 2 Lakhs. Minimum average balance requirement is Rs. 3000 per calendar quarter. Failure to maintain minimum balance attracts a penalty of Rs. 250 per quarter. Premium Current Accounts maintaining average balance of Rs. 10 Lakhs or above receive preferential rates at 3.75% per annum and waiver of minimum balance penalty. All current account interest is calculated and credited quarterly.",
+    "tags": ["current account", "interest rate", "2.50", "3.75", "minimum balance", "3000", "10 lakhs"]
+  },
+  {
+    "id": "MCC-034",
+    "title": "Account Overdraft and Cash Credit Limit Facilities",
+    "category": "account-facilities",
+    "content": "MCC Bank provides overdraft facility on Current and Savings accounts based on approved limits. Overdraft limit is determined by bank after creditworthiness assessment and valid collateral security. For Current Accounts, overdraft interest rate is 2% higher than the lending rate for the respective category. For Savings Bank Overdraft, rate is 3% higher than the standard lending rate. Overdraft facility is reviewed annually and can be cancelled with 30 days notice. Overdraft utilization beyond sanctioned limit attracts penal interest at 4% higher than applicable rate. Monthly statement clearly shows overdraft utilization and interest charged.",
+    "tags": ["overdraft", "cash credit", "ccl", "collateral", "interest rate", "facility", "sanctioned limit"]
+  },
+  {
+    "id": "MCC-035",
+    "title": "Non-Resident External Account NRE Features and Rules",
+    "category": "nre-account",
+    "content": "MCC Bank Non-Resident External (NRE) accounts are opened by Indian citizens residing abroad and Non-Resident Indians (NRI). NRE Savings account minimum balance is Rs. 2000. NRE Fixed Deposit minimum investment is Rs. 1000. Funds in NRE accounts must be remitted from abroad in foreign currency through banking channels. NRE deposits are fully repatriable. Interest earned on NRE accounts is exempted from Indian income tax. NRE account holder can nominate a resident Indian to receive funds in case of death. Annual Percentage Yield on NRE deposits depends on tenor and ranges from 4.50% to 7.00%.",
+    "tags": ["nre", "non-resident", "nri", "repatriable", "foreign currency", "tax exempt", "overseas"]
+  },
+  {
+    "id": "MCC-036",
+    "title": "NRO Account Non-Resident Ordinary Account Guidelines",
+    "category": "nro-account",
+    "content": "MCC Bank Non-Resident Ordinary (NRO) account is opened by Non-Resident Indians (NRI) to manage locally earned income and local obligations. NRO account can receive remittance from NRE account, local income within India, and foreign inward remittance. NRO deposits are not directly repatriable but interest and dividend income can be repatriated with RBI approval. Minimum balance for NRO Savings Account is Rs. 1000. NRO Fixed Deposit minimum is Rs. 1000. Interest on NRO deposits is taxable as per Indian income tax laws. NRO account operates under Indian income tax rules and local banking regulations.",
+    "tags": ["nro", "non-resident ordinary", "nri", "local income", "taxable", "repatriation", "obligations"]
+  },
+  {
+    "id": "MCC-037",
+    "title": "Standing Instruction Setup and Execution Rules",
+    "category": "account-operations",
+    "content": "MCC Bank Standing Instruction is an automated recurring fund transfer scheduled at specified intervals. Standing Instructions can be set up for fixed amount transfers, variable amount transfers based on formulas, or transfers on specific dates. Frequency options include daily, weekly, bi-weekly, monthly, quarterly, semi-annually, or annually. Standing Instructions from Savings or Current Account to accounts within MCC Bank are free of charge. Transfers to accounts in other banks via NEFT or RTGS attract applicable charges. Standing Instruction can be modified or cancelled anytime with written request. Failed Standing Instruction due to insufficient balance is re-attempted up to 3 times within 5 working days.",
+    "tags": ["standing instruction", "auto transfer", "neft", "rtgs", "recurring", "fund transfer", "frequency"]
+  },
+  {
+    "id": "MCC-038",
+    "title": "Multi-City Cheque Clearing and MCC Clearing House",
+    "category": "clearing-operations",
+    "content": "MCC Bank participates in Multi-City Clearing (MCC) House operated under RBI guidelines. Cheques deposited for collection through MCC Clearing are credited within 2-3 working days. Local cheques are cleared within 1 working day in most locations. Cheques drawn on MCC Bank branches are cleared on the same day if deposited before 12:00 PM at collection branch. Collection charges for local cheques are NIL for maintaining average balance of Rs. 1 Lakh and above. Out-of-station cheques are cleared based on RBI guidelines. Return charges apply if cheques are dishonoured due to insufficient funds or other reasons.",
+    "tags": ["cheque clearing", "mcc clearing", "multi-city", "clearing charges", "dishonor", "collection"]
+  },
+  {
+    "id": "MCC-039",
+    "title": "Demand Draft Issue and Cancellation Procedure",
+    "category": "remittance-services",
+    "content": "MCC Bank issues Demand Drafts (DD) as a safe mode of remittance. DD can be issued in Indian Rupees up to any amount. DD validity is 6 months from the date of issue. DD can be cancelled if unused by presenting the original DD and requesting cancellation at the issuing branch. Cancellation charges are Rs. 100 or actual DD value loss, whichever is lower. Cancelled DD amount is credited back to customer account within 3 working days after deducting cancellation charges. Duplicate DD can be issued if original DD is lost with payment of Rs. 100 duplicate DD charges. DD is payable at par across all MCC Bank branches and authorized centers.",
+    "tags": ["demand draft", "dd", "remittance", "payable", "cancellation", "6 months", "cheque"]
+  },
+  {
+    "id": "MCC-040",
+    "title": "RTGS Real Time Gross Settlement Facility and Rates",
+    "category": "remittance-services",
+    "content": "MCC Bank provides Real Time Gross Settlement (RTGS) facility for urgent fund transfers to other bank accounts. RTGS is available for amounts above Rs. 2,00,000. Settlement happens in real-time as soon as receiving bank accepts the payment. RTGS charges are Rs. 25 for amount Rs. 2,00,000 to Rs. 5,00,000 and Rs. 50 for amount above Rs. 5,00,000. RTGS charges are waived for customers maintaining average balance of Rs. 1 Lakh and above in Savings or Current account. RTGS timing is 9:00 AM to 4:30 PM on working days. Failed RTGS payments are reversed to sender's account within 2-3 working days.",
+    "tags": ["rtgs", "real time settlement", "funds transfer", "2,00,000", "charges", "working hours"]
+  },
+  {
+    "id": "MCC-041",
+    "title": "NEFT National Electronic Funds Transfer System",
+    "category": "remittance-services",
+    "content": "MCC Bank provides National Electronic Funds Transfer (NEFT) facility for non-urgent fund transfers to other bank accounts. NEFT is available for any amount. NEFT operates in hourly batches throughout the day. Credit of NEFT is usually within 1-2 hours. NEFT charges are Rs. 2.50 for amount up to Rs. 10,000 and Rs. 5 for amount above Rs. 10,000. NEFT charges are waived for customers maintaining average balance of Rs. 1 Lakh and above. NEFT is available 6 days a week from 8:00 AM to 7:00 PM. NEFT offers good audit trail for corporate and institutional customers.",
+    "tags": ["neft", "electronic funds transfer", "hourly batches", "2.50", "5", "audit trail"]
+  },
+  {
+    "id": "MCC-042",
+    "title": "Mobile Banking Security and OTP Verification",
+    "category": "digital-banking",
+    "content": "MCC Bank mobile banking app requires Two-Factor Authentication (2FA) using OTP (One-Time Password). OTP is sent to registered mobile number for every login attempt and transaction. Mobile Banking PIN must be set during first login and changed regularly. Biometric authentication (fingerprint/face recognition) is available on supported devices for faster access. Session timeout after 15 minutes of inactivity for security. Transaction limit on mobile banking is Rs. 2,00,000 per transaction and Rs. 5,00,000 per day for Savings Account. Mobile banking is available 24x7 on all days. Lost transaction confirmation SMS is sent after every successful transaction.",
+    "tags": ["mobile banking", "2fa", "otp", "biometric", "security", "transaction limit", "24x7"]
+  },
+  {
+    "id": "MCC-043",
+    "title": "Internet Banking Features and Access Control",
+    "category": "digital-banking",
+    "content": "MCC Bank Internet Banking portal provides online account management accessible 24x7 from any location. Features include fund transfer, bill payment, loan application, deposit renewal, and account statement download. Internet Banking uses SSL encryption for data security. Multi-user access is available for business accounts with role-based permissions. Email and SMS notification alerts are sent for all transactions. Login requires password and OTP. Session logout happens automatically after 30 minutes of inactivity. Regular security updates and patches are deployed automatically. Customer support for internet banking is available through live chat and email.",
+    "tags": ["internet banking", "online", "24x7", "ssl encryption", "alerts", "role-based", "business"]
+  },
+  {
+    "id": "MCC-044",
+    "title": "Account Statement Download and Frequency Options",
+    "category": "account-management",
+    "content": "MCC Bank account statement can be downloaded from internet banking portal or mobile app in PDF format. Customers can download statements for last 12 months online without any charge. Statement frequency options include daily, weekly, monthly, or quarterly statements. Email delivery of statements can be auto-configured on monthly basis. Physical passbook is provided for all account types with regular updates at branch. Statement clearly shows all transactions, interest credits, and charges applied. Account statement also displays available balance, reserved amount, and any holds on the account.",
+    "tags": ["statement", "download", "pdf", "passbook", "email", "transaction", "12 months"]
+  },
+  {
+    "id": "MCC-045",
+    "title": "Account Linking and Co-Operative Banking Principles",
+    "category": "account-management",
+    "content": "MCC Bank follows co-operative banking principles of member participation, democratic control, and mutual aid. All account holders become associate or regular members based on account type and tenure. Members have voting rights on bank policies and participate in annual general meetings. Member surplus is distributed as dividend at year-end if bank makes profit. Membership is transferable to legal heirs in case of death. Co-operative Banking Regulation Act, 1912 governs MCC Bank operations. Member education programs on banking practices and financial literacy are conducted quarterly at branches.",
+    "tags": ["cooperative banking", "member", "voting rights", "dividend", "annual meeting", "principles", "agm"]
+  },
+  {
+    "id": "MCC-046",
+    "title": "Account Closure and Settlement Procedure",
+    "category": "account-management",
+    "content": "MCC Bank account closure requires written request submitted to branch with identification proof. Account must be cleared of all outstanding dues and cheques before closure. Account closure within one year of opening attracts Rs. 200 charge for Savings account and Rs. 300 for Current account or available balance, whichever is lower. Account closure after one year is free. Closing balance along with interest accrued is credited to customer's nominated bank account or issued as cheque. NOC (No Objection Certificate) is issued on request after closure. Membership is automatically terminated on account closure.",
+    "tags": ["account closure", "settlement", "closure charges", "noc", "outstanding dues", "balance transfer"]
+  },
+  {
+    "id": "MCC-047",
+    "title": "Dormant Account Activation and Revival Process",
+    "category": "account-management",
+    "content": "MCC Bank account is classified as dormant if there is no customer-initiated transaction for 12 consecutive months. Dormant accounts are flagged in the system but funds remain safe. Account activation is free and requires submission of written application with identification proof. Funds in dormant account earn zero interest. Account statements for dormant accounts are available only after reactivation. Dormant account can be reactivated anytime by customer request or visit to branch. All previous cheques issued from dormant account become invalid and new cheque book is issued on activation. Customer receives welcome back SMS or email notification on dormant account activation.",
+    "tags": ["dormant account", "12 months", "no transaction", "activation", "free revival", "zero interest"]
+  },
+  {
+    "id": "MCC-048",
+    "title": "Nomination Modification and Succession Planning",
+    "category": "account-management",
+    "content": "MCC Bank allows account holders to nominate one or more beneficiaries for account succession. Nomination can be made at account opening or modified anytime later. Nomination modification is free and requires written request with new nominee details and identification proof. Multiple nominees can be designated with specified percentage share. Nomination is applicable on Fixed Deposits, Recurring Deposits, and Savings Accounts. In case of account holder's death, nominee can claim the account amount with original death certificate and legal heirship proof. Bank processes nomination claim within 30 days of receiving all required documents.",
+    "tags": ["nomination", "beneficiary", "succession", "death", "legal heir", "share", "30 days"]
+  },
+  {
+    "id": "MCC-049",
+    "title": "Account Restrictions and Compliance Requirements",
+    "category": "compliance",
+    "content": "MCC Bank implements RBI guidelines for account monitoring and Know Your Customer (KYC) compliance. Accounts with suspicious transaction patterns are flagged for investigation per anti-money laundering guidelines. Customer Due Diligence (CDD) is mandatory for all accounts exceeding Rs. 10 Lakhs annual turnover. Enhanced Due Diligence (EDD) is required for high-risk customers as per RBI norms. Account can be restricted if KYC documents are not updated within prescribed timeline. Regular CDD renewal is required every 2 years for existing customers. Non-compliance with KYC requirements may result in account closure without prior notice.",
+    "tags": ["kyc", "compliance", "aml", "cdd", "edd", "monitoring", "guidelines", "rbi"]
+  },
+  {
+    "id": "MCC-050",
+    "title": "GST Registration and Tax Compliance for Businesses",
+    "category": "business-account",
+    "content": "MCC Bank requires GST Registration Certificate for business accounts if turnover exceeds Rs. 20 Lakhs per annum. GST registration number must be provided for new business account opening or within 30 days of obtaining GST. Business account statements are required by tax authorities for income tax compliance. MCC Bank provides quarterly business account analysis report showing cash flow and transaction trends. Bank provides tax compliance certificate on request for audit purposes. Business accounts need to file quarterly return of sorts (RoS) certificate with bank. Bank freezes account if GST tax dues are pending as per tax department notification.",
+    "tags": ["gst", "business", "tax compliance", "20 lakhs", "registration", "tax certificate", "ros"]
+  },
+  {
+    "id": "MCC-051",
+    "title": "Savings Bank Account Interest Calculation and Crediting",
+    "category": "savings-account",
+    "content": "MCC Bank Savings Account interest is calculated on daily balance basis. Interest is computed at 3.00% per annum for regular Savings Account and 5.00% for Savings Account maintaining above Rs. 1,00,000. Super Saver Account earns 6.00% interest on deposits above Rs. 5,00,000. Interest calculation considers lowest balance between 10th and last day of calendar month. Interest is credited to account on last day of calendar month. Partial period interest is calculated on pro-rata basis. Interest is calculated and credited independently for each calendar month. Senior citizen accounts get additional 0.50% interest across all Savings Account categories.",
+    "tags": ["savings account", "interest calculation", "daily balance", "3.00", "5.00", "6.00", "senior citizen"]
+  },
+  {
+    "id": "MCC-052",
+    "title": "Cheque Book Printing and Delivery Service",
+    "category": "account-services",
+    "content": "MCC Bank provides personalized cheque book printing with customer name and account details. Cheque book of 20 leaves is provided free of cost annually for Savings Bank account. Additional cheque books are charged at Rs. 4 per leaf for Savings Account and Rs. 5 per leaf for Current Account. Cheque book delivery is free at branch or can be sent by courier at Rs. 100 plus shipping charges. Expedited cheque book delivery is available within 3 business days for additional charge of Rs. 250. Cheque leaf serial number tracking prevents fraud. Customized cheque books with corporate logo available for business accounts.",
+    "tags": ["cheque book", "personalised", "20 leaves", "4 per leaf", "5 per leaf", "courier", "customised"]
+  },
+  {
+    "id": "MCC-053",
+    "title": "Loan Against Deposit TAD Facility and Terms",
+    "category": "loan-products",
+    "content": "MCC Bank offers Loan Against Deposit (TAD) where customer can borrow against existing Fixed or Recurring Deposit without premature closure. TAD loan amount is up to 85% of deposit value. Interest rate on TAD is 1% higher than deposit rate for loan amount up to Rs. 25 Lakhs and 2% higher for amount less than Rs. 25 Lakhs. Repayment tenure is up to maturity date of underlying deposit. TAD loan can be availed for emergency needs without processing charges. Monthly EMI payment option available for TAD loans. Original deposit continues to earn interest and can be renewed after TAD loan closure.",
+    "tags": ["tad", "loan against deposit", "85%", "1%", "2%", "repayment", "emergency"]
+  },
+  {
+    "id": "MCC-054",
+    "title": "Credit Card Facility and EMI Conversion Options",
+    "category": "credit-products",
+    "content": "MCC Bank credit cards are issued to eligible account holders based on income and creditworthiness. Credit limit ranges from Rs. 10,000 to Rs. 10,00,000. Annual card fee is Rs. 500 for primary card and Rs. 250 for supplementary cards, waived if annual spending exceeds Rs. 2,00,000. Interest rate on credit card outstanding balance is 18.00% per annum. Credit card offers 45 days interest-free credit period. EMI conversion option available for purchase amount above Rs. 5,000. EMI tenure options are 3, 6, 9, 12, and 24 months. Reward points earned at 1 point per Rs. 100 spent, redeemable for cash back or shopping vouchers.",
+    "tags": ["credit card", "10,000", "10,00,000", "18%", "45 days", "emi", "reward points"]
+  },
+  {
+    "id": "MCC-055",
+    "title": "Card Fraud Protection and Zero Liability Policy",
+    "category": "card-security",
+    "content": "MCC Bank implements zero liability policy for unauthorized card transactions if reported within 24 hours of noticing fraud. Customer is protected against fraudulent ATM withdrawals and online transactions. Card can be blocked immediately through mobile app, internet banking, or phone call. Replacement card is issued free of charge within 3-5 business days after blocking. ATM card skimming incidents are covered under bank's fraud protection insurance. Lost card should be reported immediately to block further transactions. Bank reverses fraudulent transaction amount within 7-10 business days after investigation. Card fraud alert SMS is sent within 1 minute of every transaction attempt.",
+    "tags": ["fraud protection", "zero liability", "unauthorized", "card block", "insurance", "skimming", "24 hours"]
+  },
+  {
+    "id": "MCC-056",
+    "title": "International Money Transfer and Foreign Remittance",
+    "category": "international-services",
+    "content": "MCC Bank facilitates inbound and outbound international money transfers through correspondent banks. Inbound remittance from abroad is received in Rupees or foreign currency as per customer preference. Outbound remittance for resident customers is allowed up to resident annual limit as per FEMA regulations. International wire transfer charges are Rs. 750 plus applicable bank charges from correspondent banks. Foreign currency accounts can receive remittance in USD, EUR, GBP, JPY, and AED. Remittance documents required are beneficiary account details, IFSC code, SWIFT code, and proof of fund source. International fund transfer takes 3-5 business days for processing and settlement.",
+    "tags": ["remittance", "international transfer", "fema", "correspondent bank", "foreign currency", "swift", "3-5 days"]
+  },
+  {
+    "id": "MCC-057",
+    "title": "Forex Services and Currency Exchange Rates",
+    "category": "forex-services",
+    "content": "MCC Bank provides forex services for currency exchange and foreign currency accounts. Exchange rate is updated daily based on RBI reference rate plus bank markup of 0.25%. Customer can exchange domestic currency for foreign currency for travel or business purposes. Exchange rate locked for 3 days from quotation. Forex exchange requires passport and travel itinerary for travel purposes. Maximum forex exchange limit per financial year is USD 250,000 equivalent under resident normal route. Forex exchange for business purposes requires business registration and business invoice. Online forex booking available through internet banking portal.",
+    "tags": ["forex", "currency exchange", "exchange rate", "rbi", "markup", "usd", "travel", "business"]
+  },
+  {
+    "id": "MCC-058",
+    "title": "Locker Access Hours and Security Protocols",
+    "category": "lockers",
+    "content": "MCC Bank locker access is available during bank working hours from 9:00 AM to 2:00 PM on all working days. Safe deposit locker access requires unique key and entry in access register with customer signature. Dual custody protocol requires bank staff presence during locker opening. Video surveillance of locker facility is continuous for security. Lost locker key must be reported immediately and replacement key is provided at Rs. 1500 plus break open charges if necessary. Locker contents insurance is optional and can be taken for additional Rs. 500 per annum. Bank is not liable for loss of valuable items kept in locker unless insured. Locker can be transferred to nominee on death of locker holder.",
+    "tags": ["locker", "access hours", "security", "dual custody", "surveillance", "key", "insurance"]
+  },
+  {
+    "id": "MCC-059",
+    "title": "Safe Custody and Valuables Storage Service",
+    "category": "safe-custody",
+    "content": "MCC Bank provides safe custody service for storing valuable documents and items. Safe custody charges are Rs. 100 per month or part thereof for documents kept in bank locker or strongroom. Valuable items like gold, jewelry, important documents, insurance policies, property deeds, and wills can be stored. Each item is assigned unique reference number and photographed for documentation. Itemized receipt is provided to customer with detailed description. Customer can retrieve items on demand with 24 hours notice. In case of death, authorized heirs can retrieve items with original death certificate and succession certificate. Safe custody items are covered under bank's general insurance.",
+    "tags": ["safe custody", "valuable storage", "100 per month", "documents", "jewelry", "gold", "insurance"]
+  },
+  {
+    "id": "MCC-060",
+    "title": "Dispute Resolution and Customer Complaint Escalation",
+    "category": "grievances",
+    "content": "MCC Bank has formal complaint resolution procedure with multiple escalation levels. Level 1 complaint is registered at branch and resolved within 7 days. Level 2 escalation to Regional Manager is done if Level 1 resolution is unsatisfactory, resolved within 14 days. Level 3 escalation to General Manager for complex cases, resolved within 30 days. Level 4 complaint can be lodged with RBI Banking Ombudsman if internal resolution is not satisfactory. Customer receives unique complaint reference number and SMS confirmation on complaint registration. Complaint status can be tracked online on internet banking portal. Compensation or settlement is offered based on complaint investigation findings.",
+    "tags": ["complaint", "grievance", "escalation", "7 days", "14 days", "30 days", "ombudsman", "rbi"]
+  },
+  {
+    "id": "MCC-061",
+    "title": "RBI Banking Ombudsman and External Resolution",
+    "category": "regulatory",
+    "content": "MCC Bank customers can lodge complaint with RBI Banking Ombudsman if not satisfied with bank's internal resolution. Ombudsman complaint must be filed within 1 year of complaint to bank. Ombudsman office has no jurisdictional limit and covers all MCC Bank branches. Ombudsman complaint is filed online on rbidocs.rbi.org.in portal at no cost. Ombudsman decision is binding on bank and should be implemented within 30 days. RBI Ombudsman office is located in major cities across India. Average resolution time at Ombudsman office is 2-3 months. Ombudsman has power to award compensation up to Rs. 10,00,000 for customer grievance.",
+    "tags": ["ombudsman", "rbi", "grievance", "1 year", "30 days", "10 lakhs", "rbidocs", "resolution"]
+  },
+  {
+    "id": "MCC-062",
+    "title": "Consumer Protection Act and Customer Rights",
+    "category": "consumer-protection",
+    "content": "MCC Bank operations are governed by Consumer Protection Act, 2019 providing comprehensive protection to consumers. Bank is liable for deficient service as per Act definition. Customer has right to lodge complaint under Consumer Protection Act at consumer court or commission. Limitation period for filing consumer complaint is 2 years from date of complaint event. Consumer court has jurisdiction for claim value up to Rs. 1 crore. Consumer protection includes protection against misleading advertisements and unfair trade practices. Bank must provide clear disclosure of all charges and terms before opening any product. Customer has right to access own records and obtain certified copies.",
+    "tags": ["consumer protection", "cpa 2019", "consumer court", "2 years", "1 crore", "deficient service", "disclosure"]
+  },
+  {
+    "id": "MCC-063",
+    "title": "Personal Loan Features and Eligibility Criteria",
+    "category": "loan-products",
+    "content": "MCC Bank Personal Loan is available to salaried and self-employed individuals with regular income source. Loan amount ranges from Rs. 50,000 to Rs. 10,00,000. Interest rate for Personal Loan is 14.00% per annum floating. Repayment tenure is 12 to 60 months. Minimum CIBIL score required is 600. Processing charges are 1.50% of loan amount up to Rs. 20 Lakhs. Personal loan requires one guarantor with income proof. Minimal documentation required including salary slips, identity proof, and address proof. Loan approval within 24 hours of document submission. Personal loan eligibility is subject to debt-to-income ratio not exceeding 50%.",
+    "tags": ["personal loan", "14.00", "50,000", "10 lakhs", "1.50%", "60 months", "cibil 600"]
+  },
+  {
+    "id": "MCC-064",
+    "title": "Housing Loan Eligibility and Property Valuation",
+    "category": "loan-products",
+    "content": "MCC Bank Housing Loan is available for purchase or construction of residential property. Loan amount up to Rs. 50 Lakhs for purchase and Rs. 30 Lakhs for construction. Interest rate for Housing Loan is 9.00% per annum floating. Repayment tenure up to 20 years. Borrower and co-borrower must be resident Indian citizens. Property must be in India and valued through bank-approved valuer. Maximum loan-to-value ratio is 80% of property value. Processing charges are 1% of loan amount. Legal documentation required including property title deed and property insurance. Disbursement after completion of legal formalities and property registration in bank's name.",
+    "tags": ["housing loan", "property", "purchase", "construction", "9.00", "50 lakhs", "80%", "20 years"]
+  },
+  {
+    "id": "MCC-065",
+    "title": "Two-Wheeler Loan Rate and Terms",
+    "category": "loan-products",
+    "content": "MCC Bank Two-Wheeler Loan is offered for purchase of new two-wheelers including motorcycles, scooters, and mopeds. Loan amount up to Rs. 2,00,000 based on two-wheeler cost and eligibility. Interest rate is 15.00% per annum for two-wheelers. Repayment tenure up to 5 years. Processing charges are 2% of loan amount. Two-wheeler must be insured comprehensively. Hypothecation of vehicle to bank is required as security. Loan eligibility requires minimum annual income of Rs. 2,00,000. Self-employed can apply with 2 years business ITR. Loan approval within 48 hours of document submission.",
+    "tags": ["two wheeler", "motorcycle", "scooter", "15.00", "2,00,000", "5 years", "2%", "hypothecation"]
+  },
+  {
+    "id": "MCC-066",
+    "title": "Home Improvement Loan and Renovation Benefits",
+    "category": "loan-products",
+    "content": "MCC Bank Home Improvement Loan is offered for renovation, remodeling, or extension of existing residential property. Loan amount up to Rs. 20 Lakhs based on property valuation. Interest rate is 12.50% per annum floating. Repayment tenure up to 15 years. Property valuation by bank-approved valuer is mandatory. Maximum loan-to-value ratio is 60% of property value. Processing charges are 1.25% of loan amount. Home improvement work must be done by approved contractors. Loan disbursement is made in stages based on completion milestones. Completion certificate from contractor is required for final disbursement.",
+    "tags": ["home improvement", "renovation", "12.50", "20 lakhs", "15 years", "60%", "contractor"]
+  },
+  {
+    "id": "MCC-067",
+    "title": "Agricultural Loan for Farming and Crop Production",
+    "category": "loan-products",
+    "content": "MCC Bank Agricultural Loan is provided to farmers and agricultural entrepreneurs for crop production and farming activities. Loan amount up to Rs. 25 Lakhs depending on land holding and income. Interest rate is 10.50% per annum for crop loans. Repayment tenure up to 7 years. Collateral security is land or agricultural assets. Crop insurance is mandatory under Pradhan Mantri Fasal Bima Yojana. Processing charges are 0.75% of loan amount. Margin requirement is 10% for crop loans. Post-harvest loan facility available at 10.00% for 6 months. Loan disbursement 7 days after approval and documentation.",
+    "tags": ["agricultural loan", "crop loan", "farmer", "10.50", "25 lakhs", "7 years", "pmfby"]
+  },
+  {
+    "id": "MCC-068",
+    "title": "Savings Account Features for Students and Youth",
+    "category": "savings-account",
+    "content": "MCC Bank Youth Savings Account is specially designed for students below 25 years age. Minimum opening balance is only Rs. 100 for student accounts. No minimum balance requirement for account maintenance. Interest rate is 4.00% per annum for student savings accounts. Free cheque book facility with 20 leaves annually. Free demand draft and standing instruction facility. Debit card with lower annual fee of Rs. 50 per year. SMS alerts for all transactions at no cost. Free internet banking and mobile banking access. Account can be converted to regular Savings Account on turning 25 years age.",
+    "tags": ["student account", "youth savings", "100", "4.00", "below 25 years", "free cheque", "free debit card"]
+  },
+  {
+    "id": "MCC-069",
+    "title": "Senior Citizen Account Benefits and Concessions",
+    "category": "senior-citizen",
+    "content": "MCC Bank Senior Citizen Savings Account is designed for individuals aged 60 years and above. Minimum opening balance is Rs. 500. Interest rate is 3.50% per annum with additional 0.50% concession for senior citizens. Monthly income pension account facility available with flexible deposit amount. Locker facility at 50% discount on locker rent. Additional Rs. 1500 term life insurance cover at no cost. Free cheque book facility throughout the year. No minimum balance penalty for senior citizen accounts. Dedicated senior citizen customer service desk at major branches. Free health check-up camps quarterly at branches.",
+    "tags": ["senior citizen", "60 years", "3.50", "pension account", "50% discount", "insurance", "health camp"]
+  },
+  {
+    "id": "MCC-070",
+    "title": "Woman Empowerment Savings Account and Benefits",
+    "category": "special-accounts",
+    "content": "MCC Bank Woman Empowerment Savings Account is offered to women for financial independence. Minimum opening balance is only Rs. 500. Interest rate is 3.75% per annum for woman's account. Woman can avail loan up to 150% of deposit value for income generation activities. Microfinance group loans available at 12.00% interest rate. Business counseling and entrepreneurship training programs free of cost. Preferential treatment in priority sector lending guidelines. Locker facility at discounted rate of Rs. 1000 annually. Women-only customer service team available at branches. Monthly financial literacy workshops conducted exclusively for women account holders.",
+    "tags": ["woman account", "women empowerment", "3.75", "500", "150%", "microfinance", "entrepreneurship"]
+  },
+  {
+    "id": "MCC-071",
+    "title": "Recurring Deposit for Regular Savings and Forced Savings",
+    "category": "deposits",
+    "content": "MCC Bank Recurring Deposit is suitable for customers wanting forced monthly savings habit. Monthly installment amount minimum Rs. 100 and maximum Rs. 50,000. Repayment tenure from 3 months to 10 years. Interest rate is 6.75% for 1-2 years and 6.50% for 2-5 years. Standing instruction facility accepted for automatic monthly deduction. Nomination facility for beneficiary protection. Loan facility available up to 85% of RD balance. RD can be premature closed with 1% interest reduction. Senior citizen gets additional 0.50% interest on RD. Monthly installment flexibility allows pause of one month per calendar year.",
+    "tags": ["recurring deposit", "rd", "forced savings", "100", "10 years", "6.75", "standing instruction"]
+  },
+  {
+    "id": "MCC-072",
+    "title": "Tax Saver Fixed Deposit and Section 80C Benefits",
+    "category": "tax-products",
+    "content": "MCC Bank Tax Saver Fixed Deposit (TSFD) is specially designed to avail income tax deduction under Section 80C. Minimum deposit amount is Rs. 10,000 and maximum Rs. 50,00,000. Lock-in period is fixed at 5 years with no withdrawal allowed before maturity. Interest rate is 6.75% per annum for Tax Saver FD. Interest is taxable annually even if not withdrawn. Joint holding of TSFD is not permitted. Nomination facility is available. Deposit amount qualifies for 100% deduction under Section 80C up to Rs. 1,50,000 per financial year. Maturity proceeds can be reinvested in fresh TSFD for continued tax benefit.",
+    "tags": ["tax saver fd", "section 80c", "5 years", "10,000", "6.75", "lock-in", "1,50,000"]
+  },
+  {
+    "id": "MCC-073",
+    "title": "Sweep Facility and Dynamic Interest Management",
+    "category": "account-features",
+    "content": "MCC Bank Sweep Facility automatically transfers excess balance from Savings Account to Fixed Deposit at better interest rate. Sweep limit can be set from Rs. 10,000 to any amount. When account balance exceeds sweep limit, excess amount is automatically converted to FD. When FD matures or balance falls below limit, FD amount is transferred back to Savings Account. Sweep frequency can be set as daily, weekly, or monthly. Interest rate on sweep FD is regular FD rate applicable for 30-45 days tenure. Sweep facility helps earn higher interest on idle balance. Sweep facility is absolutely free without any charges.",
+    "tags": ["sweep facility", "auto transfer", "fd", "savings", "interest rate", "excess balance", "free"]
+  },
+  {
+    "id": "MCC-074",
+    "title": "Emergency Loan Against Property Documentation",
+    "category": "emergency-services",
+    "content": "MCC Bank Emergency Loan Against Property is quick short-term credit against property documents. Loan amount up to Rs. 5,00,000 against property value. Interest rate is 18.00% per annum for emergency loans. Repayment tenure is 3 to 12 months only. Quick approval within 24 hours with minimal documentation. Property valuation by bank representative required. Loan can be availed for medical emergency, education, business crisis. Loan disbursement by cheque or fund transfer within 48 hours. No prepayment penalty if repaid before tenure. Personal guarantee required from borrower.",
+    "tags": ["emergency loan", "property", "18.00", "5 lakhs", "24 hours", "medical", "education"]
+  },
+  {
+    "id": "MCC-075",
+    "title": "Seasonal Agricultural Operations SAO Loan Scheme",
+    "category": "agricultural-schemes",
+    "content": "MCC Bank Seasonal Agricultural Operations (SAO) loan is provided for seasonal agricultural activities and input costs. Loan amount up to Rs. 10 Lakhs depending on acreage and crop type. Interest rate is 10.00% per annum floating. Repayment tenure up to 12 months aligned with crop cycle. Zero processing charges for loans up to Rs. 1 Lakh. Crop insurance is mandatory. Land records and crop details are required. Loan can be availed during pre-sowing season. Disbursement within 7 days of approval. Loan quantum can be increased annually based on loan performance history.",
+    "tags": ["sao", "seasonal loan", "agricultural", "10 lakhs", "crop cycle", "zero charges", "insurance"]
+  },
+  {
+    "id": "MCC-076",
+    "title": "Prime Minister Mudra Loan PMMY Scheme",
+    "category": "government-schemes",
+    "content": "MCC Bank participates in Prime Minister Mudra Yojana (PMMY) for micro-enterprise development. Three categories of Mudra loans: Shishu (up to Rs. 50,000), Kishor (Rs. 50,001 to Rs. 5,00,000), and Tarun (Rs. 5,00,001 to Rs. 10,00,000). Interest rate depends on loan category and borrower profile, typically 12.50% to 14.50%. Repayment tenure from 3 to 7 years. Collateral-free loans for Shishu and Kishor categories. Unsecured personal guarantee required. Loan for micro-enterprises engaged in manufacturing, trading, or service sector. Credit guarantee insurance available under CGTMSE. Business plan required for loan approval.",
+    "tags": ["mudra", "pmmy", "shishu", "kishor", "tarun", "10 lakhs", "micro enterprise", "collateral free"]
+  },
+  {
+    "id": "MCC-077",
+    "title": "Pradhan Mantri Jan Dhan Yojana PMJDY Account",
+    "category": "government-schemes",
+    "content": "MCC Bank offers Pradhan Mantri Jan Dhan Yojana (PMJDY) account for financial inclusion of unbanked population. PMJDY account can be opened with zero minimum balance. Basic account with limited transaction features. Free PMJDY RuPay debit card with 100,000 accident insurance. Free SMS alerts for all transactions. Overdraft facility up to Rs. 10,000 after 6 months of satisfactory operation. Interest rate on PMJDY savings is 2.50% per annum. Accidental death insurance of Rs. 1,00,000 included free. Online banking facility to access account. PMJDY account can be upgraded to regular Savings Account anytime.",
+    "tags": ["pmjdy", "jan dhan", "zero balance", "rupay", "financial inclusion", "overdraft", "insurance"]
+  },
+  {
+    "id": "MCC-078",
+    "title": "Sukanya Samriddhi Yojana Account SSY for Girls",
+    "category": "government-schemes",
+    "content": "MCC Bank offers Sukanya Samriddhi Yojana (SSY) account for girl child education and marriage fund accumulation. Account can be opened for girl child below 10 years age. Account holder becomes account-holder on attaining 18 years and can operate. Minimum annual deposit is Rs. 250 and maximum Rs. 1,50,000. Account maturity is 21 years from opening date. Interest rate is 7.60% per annum for FY 2025-26. Interest accrued is tax-free under Section 80C. Withdrawal allowed after 50% balance or 18 years, whichever is earlier. Nominee facility for beneficiary protection. Account can be opened only at bank branch.",
+    "tags": ["ssy", "sukanya samriddhi", "girl child", "education", "7.60", "21 years", "tax free", "80c"]
+  },
+  {
+    "id": "MCC-079",
+    "title": "Senior Citizen Savings Scheme SCSS Government Scheme",
+    "category": "government-schemes",
+    "content": "MCC Bank offers Senior Citizen Savings Scheme (SCSS) for senior citizens above 60 years. Account opening is restricted to senior citizens aged 60 years and above. Minimum deposit Rs. 1,000 and maximum Rs. 30,00,000. Account maturity is 5 years from opening date. Interest rate is 8.20% per annum for FY 2025-26 payable quarterly. Investment tax-free under Section 80C up to Rs. 1,50,000 limit. Interest earned is taxable as per income tax slab. Account can be extended for another 3 years. Monthly, quarterly, or annual interest payment options available. Withdrawal rules: No withdrawal for first year, maximum 50% from year 2.",
+    "tags": ["scss", "senior citizen savings", "60 years", "8.20", "5 years", "quarterly interest", "30 lakhs"]
+  },
+  {
+    "id": "MCC-080",
+    "title": "Kisan Credit Card KCC for Agricultural Production",
+    "category": "agricultural-schemes",
+    "content": "MCC Bank issues Kisan Credit Card (KCC) for agricultural credit requirements. KCC credit limit based on land holding and crop pattern up to Rs. 3,00,000. Interest rate is 4% per annum with government concession if timely repayment. Floating rate after concession period. Repayment tenure flexible from 12 to 36 months. Crop insurance mandatory under Pradhan Mantri Fasal Bima Yojana. KCC valid for 3 years with annual renewal. KCC can be used to procure agricultural inputs and for crop production. Zero processing charges for KCC up to Rs. 1 Lakh. Overdraft facility available up to KCC limit sanctioned.",
+    "tags": ["kcc", "kisan credit card", "agriculture", "3 lakhs", "4%", "crop insurance", "3 years"]
+  },
+  {
+    "id": "MCC-081",
+    "title": "NABARD National Bank Agriculture Rural Development",
+    "category": "agricultural-schemes",
+    "content": "MCC Bank acts as lending institution for NABARD-sponsored agricultural development schemes. NABARD funds subsidized agricultural loans for farmers' groups and cooperatives. Interest rate with NABARD concession is significantly lower for eligible schemes. Repayment tenure up to 10 years for long-term agricultural loans. Group lending model under NABARD promotes farmer cooperation. Subsidies and concessions directly credited by NABARD. Farmer training and capacity building supported by NABARD funds. MCC Bank coordinates with NABARD for fund disbursement and monitoring. Eligible farmer groups can borrow up to Rs. 10,00,000 under NABARD schemes.",
+    "tags": ["nabard", "agriculture", "subsidized", "farmer groups", "10 lakhs", "10 years", "cooperative"]
+  },
+  {
+    "id": "MCC-082",
+    "title": "SIDBI Small Industries Development Bank Participation",
+    "category": "msme-schemes",
+    "content": "MCC Bank as SIDBI participating bank provides MSME lending under SIDBI schemes. SIDBI provides refinance at concessional rates for eligible MSME loans. Credit guarantee and credit enhancement schemes available. MSME definition as per Government of India norms: Manufacturing - turnover up to Rs. 5 Crore; Service - turnover up to Rs. 2 Crore. SIDBI fund availability for working capital and fixed asset funding. Collateral-free lending up to Rs. 1 Crore under SIDBI Credit Guarantee Scheme. Business development services and counseling provided. Technology upgradation schemes supported through SIDBI funds.",
+    "tags": ["sidbi", "msme", "refinance", "small industries", "5 crore", "2 crore", "guarantee scheme"]
+  },
+  {
+    "id": "MCC-083",
+    "title": "Deposit Insurance and Credit Guarantee Corporation DICGC",
+    "category": "regulatory-protection",
+    "content": "MCC Bank deposits are insured under Deposit Insurance and Credit Guarantee Corporation (DICGC) scheme. Insurance coverage of Rs. 5,00,000 per depositor per bank covering principal and interest. DICGC insurance protection applies to all bank deposits including Savings, Current, Fixed, and Recurring Deposits. In case of bank failure, DICGC ensures depositor funds up to maximum Rs. 5,00,000 per bank. Joint account deposits are insured separately. Each account holder is covered individually. DICGC claim settlement within 30 days of bank failure notification. All MCC Bank deposit customers are automatically protected under DICGC.",
+    "tags": ["dicgc", "deposit insurance", "5 lakhs", "insurance", "protection", "depositor", "guarantee"]
+  },
+  {
+    "id": "MCC-084",
+    "title": "Reserve Bank of India RBI Monetary Policy Rate",
+    "category": "regulatory",
+    "content": "MCC Bank interest rates are aligned with RBI Monetary Policy Rate (Repo Rate). Current Repo Rate is 6.50% per annum. All MCC Bank lending rates are linked to MCLR (Marginal Cost of Funds-based Lending Rate) which moves with RBI Repo Rate. Deposits and loan rates adjusted within 30 days of RBI rate change announcement. RBI rate decisions made bi-monthly on first Wednesday of April and October. Rate changes are passed to customers through notifications and website updates. Fixed deposit rates remain constant as per contracted rate. Floating rate deposits and loans adjusted every quarter after rate reset.",
+    "tags": ["repo rate", "rbi", "6.50", "mclr", "monetary policy", "lending rate", "quarterly reset"]
+  },
+  {
+    "id": "MCC-085",
+    "title": "Cash Reserve Ratio CRR and Statutory Liquidity Ratio SLR",
+    "category": "regulatory",
+    "content": "MCC Bank maintains Cash Reserve Ratio (CRR) of 4.50% with RBI as per regulatory requirements. CRR is amount of deposits kept with RBI earning fixed rate. Statutory Liquidity Ratio (SLR) of 18% maintained in government securities and gold. SLR assets are kept as ready liquid resources to meet customer demands. SLR maintenance ensures bank stability and systemic safety. CRR and SLR combined form bank's statutory reserve requirements. Non-compliance with CRR/SLR requirements attracts penalty from RBI. RBI may adjust CRR/SLR to regulate money supply in economy. Higher CRR means less money available for customer lending.",
+    "tags": ["crr", "slr", "cash reserve ratio", "statutory liquidity", "4.50", "18%", "rbi requirement"]
+  },
+  {
+    "id": "MCC-086",
+    "title": "Priority Sector Lending PSL Achievement and Targets",
+    "category": "regulatory",
+    "content": "MCC Bank achieves Priority Sector Lending (PSL) target of 75% as per RBI guidelines. PSL includes lending to agriculture, small industries, MSME, education, and housing below Rs. 30 Lakhs. Agriculture advances target is 18% of net credit. MSME target is 15% of net credit. Housing loans for purchase up to Rs. 30 Lakhs count as PSL. Small traders and micro enterprises covered under PSL guidelines. Non-achievement of PSL target requires fund transfer to designated fund. Bank publishes quarterly PSL achievements in financial disclosures. PSL lending promotes financial inclusion and development.",
+    "tags": ["psl", "priority sector", "75%", "agriculture", "msme", "housing", "rbi guidelines"]
+  },
+  {
+    "id": "MCC-087",
+    "title": "Basel III Capital Adequacy Ratio CAR Compliance",
+    "category": "regulatory",
+    "content": "MCC Bank maintains Capital Adequacy Ratio (CAR) above 10.50% as per Basel III norms. CAR comprises Tier-1 capital (core capital) and Tier-2 capital (supplementary capital). Tier-1 capital includes paid-up capital, reserves, and retained earnings. Tier-2 capital includes subordinated borrowings and revaluation reserves. Higher CAR indicates stronger financial position and lending capacity. Minimum CAR requirement protects depositors and ensures stability. Basel III implementation strengthens banking system resilience. Bank raises capital through rights issue or bonus shares to maintain CAR above minimum.",
+    "tags": ["basel iii", "car", "capital adequacy", "10.50", "tier-1", "tier-2", "capital ratio"]
+  },
+  {
+    "id": "MCC-088",
+    "title": "Net Stable Funding Ratio NSFR and Liquidity Coverage",
+    "category": "regulatory",
+    "content": "MCC Bank maintains Net Stable Funding Ratio (NSFR) above 100% as per international standards. NSFR measures bank's ability to meet funding needs over one-year horizon. Stable funding sources include deposits, equity capital, and long-term borrowings. Available stable funding divided by required funding determines NSFR ratio. High NSFR indicates lower liquidity risk. Liquidity Coverage Ratio (LCR) measures short-term liquidity buffer for 30-day stress period. High-quality liquid assets maintained to cover outflows. Bank stress tests NSFR and LCR monthly for contingency planning.",
+    "tags": ["nsfr", "liquidity coverage", "lcR", "100%", "stable funding", "liquid assets", "stress test"]
+  },
+  {
+    "id": "MCC-089",
+    "title": "Asset Quality Non-Performing Assets NPA and Provisioning",
+    "category": "financial-health",
+    "content": "MCC Bank maintains Net NPA ratio below 1.50% indicating sound asset quality. Non-Performing Assets (NPA) are loans where payment is overdue by 90 days or more. NPAs are classified as Substandard (12-24 months overdue), Doubtful (24+ months overdue), or Loss (3+ years overdue). Provision coverage ratio of 70% maintained for NPA cover. Higher provision reduces net NPA and book value of assets. NPA ratio monitored quarterly and disclosed in financial statements. Collection efforts and recovery actions minimize NPA growth. Customer facing stress is accommodated through restructuring and loan modification schemes.",
+    "tags": ["npa", "non performing asset", "1.50", "substandard", "doubtful", "loss", "provision", "coverage"]
+  },
+  {
+    "id": "MCC-090",
+    "title": "Digital Payment Infrastructure and NEFT-RTGS IMPS",
+    "category": "payment-systems",
+    "content": "MCC Bank provides integrated payment infrastructure supporting NEFT, RTGS, IMPS, and UPI. IMPS (Immediate Payment Service) enables instant fund transfer up to Rs. 2,00,000 24x7. UPI (Unified Payments Interface) allows mobile number-based fund transfer. NACH (National Automated Clearing House) enables bulk recurring payments. Digital payments integration with National Payment Corporation of India (NPCI). Payment gateway integration for online merchant transactions. BHIM and Rupay card integration for digital payment ecosystem participation.",
+    "tags": ["digital payment", "imps", "upi", "neft", "rtgs", "nach", "bhim", "rupay", "24x7"]
+  },
+  {
+    "id": "MCC-091",
+    "title": "Branch Network and ATM Accessibility Across Karnataka",
+    "category": "infrastructure",
+    "content": "MCC Bank operates 85 branches across Karnataka serving Tier-1, Tier-2, and Tier-3 cities. Major branch presence in Mangalore, Bangalore, Udupi, Puttur, Karkala, Surathkal, and Belgaum. ATM network of 150+ machines accessible in all major locations. Any branch banking facility allows deposit and withdrawal from any branch. Core Banking System (CBS) integration enables real-time transaction visibility. Video conferencing facility available at head office and select branches. Dedicated grievance redressal centers at regional offices. Mobile branch vehicle for remote area banking access.",
+    "tags": ["branches", "atm", "network", "85 branches", "150 atm", "any branch", "core banking"]
+  },
+  {
+    "id": "MCC-092",
+    "title": "Customer Service Quality and Response Time Standards",
+    "category": "service-quality",
+    "content": "MCC Bank commits to prompt customer service with 24-hour response time for complaints. Customer service toll-free number 1800-425-1111 available 24x7. Email support available at help@mccbank.in with 2-hour response commitment. Live chat support on website and mobile app for real-time assistance. Branch walk-in customers served within 30 minutes average waiting time. Customer satisfaction survey conducted quarterly to measure service quality. NPS (Net Promoter Score) target of 50+ maintained through service excellence. Customer feedback incorporated in training programs for staff development.",
+    "tags": ["customer service", "24x7", "1800-425-1111", "help@mccbank.in", "live chat", "nps", "50"]
+  },
+  {
+    "id": "MCC-093",
+    "title": "Employee Training and Financial Literacy Programs",
+    "category": "customer-education",
+    "content": "MCC Bank conducts regular employee training on product knowledge and customer service. Financial literacy programs conducted quarterly at branch level for customer education. Programs cover topics like savings, investments, credit, insurance, and tax planning. Customer awareness campaigns on government schemes like PMJDY, SSY, SCSS. School education programs on financial inclusion and cooperative banking principles. Senior citizen workshops on digital banking, fund transfer, and security practices. Women entrepreneurship programs covering business planning, loan application, and fund management. Free webinars conducted on financial planning and investment strategies.",
+    "tags": ["training", "financial literacy", "employee", "customer education", "awareness", "workshop", "webinar"]
+  },
+  {
+    "id": "MCC-094",
+    "title": "Corporate Social Responsibility CSR and Community Development",
+    "category": "corporate-responsibility",
+    "content": "MCC Bank implements CSR initiatives for community development and social welfare. Education sponsorship program assists 500+ underprivileged students annually for school and college education. Healthcare camps provide free medical checkups in rural areas. Skill development training programs for unemployed youth in partnership with government agencies. Environmental conservation initiatives including tree plantation drives and water harvesting projects. Support to farmers through agricultural training and best practice dissemination. Women self-help group support with funding and training. Disaster relief programs providing financial assistance during natural calamities.",
+    "tags": ["csr", "community", "education", "healthcare", "skill development", "environment", "disaster relief"]
+  },
+  {
+    "id": "MCC-095",
+    "title": "Financial Year Calendar and Account Maintenance Period",
+    "category": "administration",
+    "content": "MCC Bank financial year runs from April 1 to March 31 annually. Account year for interest calculation aligns with calendar year January to December. Savings Bank account statement issued on 30th of March or 31st December accordingly. Half-yearly statement issued on September 30. Quarterly interest crediting on March 31, June 30, September 30, December 31. Annual General Meeting held within 4 months after financial year closure. Dividend distribution declared based on annual profit and member decision. Statutory reserve fund maintenance as per RBI guidelines. Public disclosure of financial results on bank website within timeline mandated by RBI.",
+    "tags": ["financial year", "april march", "calendar year", "agm", "statement", "dividend", "quarterly interest"]
+  },
+  {
+    "id": "MCC-096",
+    "title": "Code of Conduct and Ethical Banking Practices",
+    "category": "governance",
+    "content": "MCC Bank follows strict Code of Conduct for ethical banking practices and transparency. Anti-corruption policy ensures no unethical practices in lending or customer dealings. Know Your Customer (KYC) and Anti-Money Laundering (AML) compliance mandatory for all transactions. Interest rate disclosure and transparency in product pricing. Fair lending practices ensuring credit availability to eligible customers without discrimination. Customer data privacy protection under strict data security protocols. Whistleblower protection policy for reporting unethical practices confidentially. External audit by independent auditors ensures financial statement integrity and credibility.",
+    "tags": ["code of conduct", "ethics", "corruption", "kyc", "aml", "privacy", "transparency", "audit"]
+  },
+  {
+    "id": "MCC-097",
+    "title": "Technology and Cybersecurity Measures Implementation",
+    "category": "security",
+    "content": "MCC Bank invests in latest cybersecurity technology and data protection measures. SSL/TLS encryption for all online transactions and data transmission. Multi-layer firewall and intrusion detection systems against cyber threats. Regular security audits by external cyber security experts quarterly. Data center backup and disaster recovery systems for business continuity. Customer data encrypted with 256-bit AES encryption standards. Cyber insurance policy covering data breach and financial losses. Employee training on cyber awareness and data handling practices. Compliance with RBI cybersecurity guidelines and standards.",
+    "tags": ["cybersecurity", "ssl", "encryption", "firewall", "intrusion detection", "backup", "disaster recovery"]
+  },
+  {
+    "id": "MCC-098",
+    "title": "Future Growth Plan and Digital Transformation Strategy",
+    "category": "strategy",
+    "content": "MCC Bank plans expansion to 150 branches by 2030 covering tier-2 and tier-3 cities. Investment in fintech and digital banking platform enhancement targeted. AI-powered customer service chatbot deployment planned for 24x7 support. Mobile-first banking experience with voice-activated transactions in planning stage. Payment aggregator platform for merchant and retail customer transactions. Blockchain technology exploration for secure transaction settlement. Open banking API ecosystem development for partner integration. Green banking initiatives and sustainable finance products planned.",
+    "tags": ["growth plan", "expansion", "fintech", "digital", "ai", "blockchain", "api", "green banking"]
+  },
+  {
+    "id": "MCC-099",
+    "title": "Partnership and Strategic Alliances for Service Enhancement",
+    "category": "partnerships",
+    "content": "MCC Bank partners with NPCI for digital payment ecosystem participation. Partnership with CIBIL for credit information report integration. Tie-up with insurance companies for bancassurance products and solutions. Technology partnerships with leading software providers for digital infrastructure. Correspondent banking relationships with major international banks. Partnership with government agencies for social welfare scheme implementation. Collaboration with fintech companies for innovation in banking services. Joint ventures for specialized financing products and market expansion.",
+    "tags": ["partnership", "alliance", "npci", "cibil", "insurance", "fintech", "correspondent", "technology"]
+  },
+  {
+    "id": "MCC-100",
+    "title": "Contact Information and Office Locations",
+    "category": "contact",
+    "content": "MCC Bank Head Office: Hampankatta, Mangalore - 575001, Karnataka. Phone: 0824-2221900, Fax: 0824-2223600. Email: info@mccbank.in, gm@mccbank.in, chairman@mccbank.in. Regional offices in Bangalore, Kochi, Pune, and Delhi. Customer Care Toll-Free: 1800-425-1111 available 24x7. WhatsApp Support: 7090701104 for NRE account queries. Website: www.mccbank.in for online banking and service information. Official social media handles on Facebook, Twitter, and YouTube for updates and announcements. Branch locator tool on website to find nearest branch and ATM.",
+    "tags": ["contact", "head office", "mangalore", "helpline", "email", "website", "location", "branch"]
   }
 ]

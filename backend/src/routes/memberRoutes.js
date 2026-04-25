@@ -14,8 +14,23 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Detect if the message is asking about account-specific data (balance, transactions, card status, loan)
 function detectAccountQuery(message) {
   const text = message.toLowerCase();
+  const isSubmission = text.includes("reason:") || /\d{4}-\d{2}-\d{2}/.test(text);
+  
+  // If it's a submission (dispute detail), ALWAYS skip the shortcut logic 
+  // and let it go to the full AI/RAG pipeline for proper escalation.
+  if (isSubmission) return null;
+
+  // Account balance shortcut
   if (/\bbalance\b|how much.*account|available.*funds|account.*balance/.test(text)) return "balance";
+  
+  // Transaction dispute UI shortcut (initial request only)
+  const isDisputeFlag = /\bdispute\b|recognize|fraud|unauthorized|unknown charge/.test(text);
+  if (isDisputeFlag && text.length < 80) return "dispute";
+  
+  // Transaction history shortcut
   if (/transaction|statement|history|recent.*payment|last.*transaction/.test(text)) return "transactions";
+  
+  // Status shortcuts
   if (/loan.*status|application.*status|loan.*approved|loan.*pending/.test(text)) return "loan_status";
   if (/card.*status|card.*blocked|debit.*card|atm.*card.*status/.test(text)) return "card_status";
   return null;
@@ -28,27 +43,45 @@ function buildAccountResponse(queryType, ctx, language = "en") {
     const txSummary = ctx.recentTransactions.slice(0, 2)
       .map((t) => `• ${t.date}: ${t.desc} (${t.type === "credit" ? "+" : ""}${fmt(t.amount)})`)
       .join("\n");
-    return `Your current account balance is **${fmt(ctx.balance)}**.\n\nSavings balance: ${fmt(ctx.savingsBalance)}\nFD balance: ${fmt(ctx.fdBalance)}\n\nRecent transactions:\n${txSummary}`;
+    return {
+      reply: `Your current account balance is **${fmt(ctx.balance)}**.\n\nSavings balance: ${fmt(ctx.savingsBalance)}\nFD balance: ${fmt(ctx.fdBalance)}\n\nRecent transactions:\n${txSummary}`
+    };
+  }
+
+  if (queryType === "dispute") {
+    return {
+      reply: "Please select the transaction you wish to dispute from your recent history:",
+      ui: {
+        type: "transaction_dispute",
+        transactions: ctx.recentTransactions
+      }
+    };
   }
 
   if (queryType === "transactions") {
     const list = ctx.recentTransactions
       .map((t) => `• ${t.date}: ${t.desc} — ${t.type === "credit" ? "+" : ""}${fmt(t.amount)} (${t.type})`)
       .join("\n");
-    return `Here are your recent transactions:\n\n${list}`;
+    return {
+      reply: `Here are your recent transactions:\n\n${list}`
+    };
   }
 
   if (queryType === "loan_status") {
-    if (ctx.loanStatus === "none") return "You currently have no active or pending loan applications with MCC Bank.";
-    if (ctx.loanStatus === "pending") return `Your **${ctx.loanProduct}** application (₹${fmt(ctx.loanBalance)}) is currently **under review**. Our Loan Desk will contact you within 2 business days. Please keep your documents ready.`;
-    if (ctx.loanStatus === "active") return `Your **${ctx.loanProduct}** is active with an outstanding balance of **${fmt(ctx.loanBalance)}**. Please contact our Loan Desk for repayment schedule details.`;
-    return "Please visit your nearest MCC Bank branch for loan status details.";
+    let msg = "";
+    if (ctx.loanStatus === "none") msg = "You currently have no active or pending loan applications with MCC Bank.";
+    else if (ctx.loanStatus === "pending") msg = `Your **${ctx.loanProduct}** application (₹${fmt(ctx.loanBalance)}) is currently **under review**. Our Loan Desk will contact you within 2 business days. Please keep your documents ready.`;
+    else if (ctx.loanStatus === "active") msg = `Your **${ctx.loanProduct}** is active with an outstanding balance of **${fmt(ctx.loanBalance)}**. Please contact our Loan Desk for repayment schedule details.`;
+    else msg = "Please visit your nearest MCC Bank branch for loan status details.";
+    return { reply: msg };
   }
 
   if (queryType === "card_status") {
-    if (ctx.cardStatus === "active") return "Your debit/ATM card is **active** and ready to use.";
-    if (ctx.cardStatus === "blocked") return "Your debit/ATM card is currently **blocked**. Please visit the nearest branch or contact our ATM Card Desk to reactivate it. Bring a valid photo ID.";
-    return "Your card status could not be determined. Please contact Member Support.";
+    let msg = "";
+    if (ctx.cardStatus === "active") msg = "Your debit/ATM card is **active** and ready to use.";
+    else if (ctx.cardStatus === "blocked") msg = "Your debit/ATM card is currently **blocked**. Please visit the nearest branch or contact our ATM Card Desk to reactivate it. Bring a valid photo ID.";
+    else msg = "Your card status could not be determined. Please contact Member Support.";
+    return { reply: msg };
   }
 
   return null;
@@ -74,24 +107,35 @@ router.post("/message", async (req, res) => {
   const normalizedMessage = await normalizeMessageForAnalysis(message, language);
 
   // --- Account context shortcut ---
-  let accountReply = null;
+  let accountResult = null;
   if (userId) {
     const ctx = getAccountContext(userId);
     if (ctx) {
       const queryType = detectAccountQuery(normalizedMessage);
       if (queryType) {
-        accountReply = buildAccountResponse(queryType, ctx, language);
+        accountResult = buildAccountResponse(queryType, ctx, language);
       }
     }
   }
 
   // If we resolved it from account context, skip the AI pipeline for this query
-  if (accountReply) {
-    // Translate if needed
-    let finalReply = accountReply;
+  if (accountResult) {
+    let finalReply = accountResult.reply;
+    let finalUi = accountResult.ui;
+
     if (language !== "en") {
-      const { translated, used } = await translateWithSarvam(accountReply, language, "en");
-      if (used) finalReply = translated;
+      // Translate the text reply
+      const translation = await translateWithSarvam(accountResult.reply, language, "en");
+      if (translation.used) finalReply = translation.translated;
+
+      // Translate transaction descriptions if present
+      if (finalUi?.type === "transaction_dispute" && finalUi.transactions) {
+        const translatedTxs = await Promise.all(finalUi.transactions.map(async (tx) => {
+          const txTrans = await translateWithSarvam(tx.desc, language, "en");
+          return { ...tx, desc: txTrans.used ? txTrans.translated : tx.desc };
+        }));
+        finalUi = { ...finalUi, transactions: translatedTxs };
+      }
     }
 
     const caseRecord = await createCase({
@@ -104,7 +148,7 @@ router.post("/message", async (req, res) => {
       conversation: [...history, { role: "member", message }, { role: "assistant", message: finalReply }],
       contextSummary: {
         language,
-        topIntent: "balance_inquiry",
+        topIntent: finalUi?.type === "transaction_dispute" ? "transaction_dispute" : "balance_inquiry",
         confidence: 0.99,
         sentiment: { label: "neutral", probability: 0 },
         evidenceGrade: { label: "strong", topScore: 1 },
@@ -117,7 +161,7 @@ router.post("/message", async (req, res) => {
       escalationPacket: null
     });
 
-    return res.json({ reply: finalReply, case: caseRecord });
+    return res.json({ reply: finalReply, ui: finalUi, case: caseRecord });
   }
 
   // --- Standard AI pipeline ---

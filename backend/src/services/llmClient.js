@@ -28,13 +28,29 @@ function getLlmConfig() {
   loadEnvFile();
 
   const apiKey = process.env.MISTRAL_API_KEY || "";
-  const baseUrl = process.env.MISTRAL_API_BASE || "https://api.mistral.ai/v1/chat/completions";
-  const model = process.env.MISTRAL_MODEL || "mistral-small-latest";
+  const providerOverride = process.env.LLM_PROVIDER;
+  
+  // Auto-detect provider from key format if not explicitly set
+  let provider = providerOverride;
+  if (!provider) {
+    provider = apiKey.startsWith("sk-or-") ? "openrouter" : "mistral";
+  }
+  
+  let baseUrl, model;
+
+  if (provider === "openrouter") {
+    baseUrl = "https://openrouter.io/api/v1/chat/completions";
+    model = process.env.MISTRAL_MODEL || "mistralai/mistral-small-3.2-24b-instruct";
+  } else {
+    baseUrl = process.env.MISTRAL_API_BASE || "https://api.mistral.ai/v1/chat/completions";
+    model = process.env.MISTRAL_MODEL || "mistral-small";
+  }
 
   return {
     apiKey,
     baseUrl,
     model,
+    provider,
     enabled: Boolean(apiKey)
   };
 }
@@ -95,15 +111,21 @@ async function generateGroundedResponse(input) {
   const timeout = setTimeout(() => controller.abort(), Number(process.env.MISTRAL_TIMEOUT_MS || 15000));
 
   try {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${config.apiKey}`
+    };
+
+    // Add provider-specific headers
+    if (config.provider === "openrouter") {
+      headers["HTTP-Referer"] = process.env.APP_PUBLIC_URL || "http://localhost:5173";
+      headers["X-Title"] = "CreditAssist AI";
+    }
+
     const response = await fetch(config.baseUrl, {
       method: "POST",
       signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${config.apiKey}`,
-        "HTTP-Referer": process.env.APP_PUBLIC_URL || "http://localhost:5173",
-        "X-Title": "CreditAssist AI"
-      },
+      headers,
       body: JSON.stringify({
         model: config.model,
         messages: buildGroundedPrompt(input),

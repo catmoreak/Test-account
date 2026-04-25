@@ -1,5 +1,6 @@
 const { gradeEvidence, retrieveRelevantDocs, tokenize } = require("./ragEngine");
 const { generateGroundedResponse } = require("./llmClient");
+const { validateEvidenceQuality, extractAndValidateCitations, scoreTrustworthiness } = require("./ragConfig");
 
 const INTENT_RULES = {
   balance_inquiry: {
@@ -228,6 +229,15 @@ function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, de
 function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
   const text = message.toLowerCase();
   const intent = classification.topIntent;
+
+  // Check evidence quality first (NEW: stricter validation)
+  const evidenceValidation = validateEvidenceQuality(evidenceGrade, [], intent);
+  if (!evidenceValidation.canAnswer) {
+    return { 
+      escalate: true, 
+      reason: `Evidence quality insufficient (${evidenceGrade.label}): ${evidenceValidation.reason}` 
+    };
+  }
 
   // Explicit requests for human help
   const explicitEscalation = ["manager", "agent", "human", "escalate", "complaint", "speak to someone"].some((word) => text.includes(word));

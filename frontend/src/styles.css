@@ -2009,3 +2009,108 @@ button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
   .login-card { padding: 1.5rem 1.1rem; }
   .hero-user-info { padding: 0.4rem 0.6rem; }
 }
+/* -- Transaction Dispute UI ------------------------------------------ */
+.dispute-ui {
+  margin-top: 0.8rem;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 300ms ease;
+}
+
+.tx-selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.tx-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0.8rem;
+  background: rgba(10,17,28,0.6);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.tx-item:hover {
+  background: rgba(44,195,167,0.06);
+  border-color: rgba(44,195,167,0.2);
+}
+
+.tx-item.selected {
+  background: rgba(44,195,167,0.12);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(44,195,167,0.1);
+}
+
+.tx-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.tx-item-main span {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.tx-item-main strong {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.tx-item-amount {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.dispute-form {
+ display: flex;
+ flex-direction: column;
+ gap: 0.75rem;
+ padding-top: 0.75rem;
+ border-top: 1px solid var(--border-soft);
+ animation: slideDown 200ms ease;
+}
+
+.dispute-form textarea {
+ background: rgba(10,17,28,0.8);
+ border: 1px solid var(--border);
+ border-radius: 8px;
+ padding: 0.65rem;
+ color: var(--ink);
+ font-family: inherit;
+ font-size: 0.88rem;
+ min-height: 80px;
+ outline: none;
+}
+
+.dispute-form textarea:focus { border-color: var(--teal); }
+
+.dispute-ui.submitted {
+ background: var(--ok-dim);
+ border-color: rgba(74,222,128,0.25);
+ color: var(--ok);
+ font-weight: 500;
+ padding: 0.75rem;
+ text-align: center;
+}
+
+@keyframes slideDown {
+ from { opacity: 0; transform: translateY(-8px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+

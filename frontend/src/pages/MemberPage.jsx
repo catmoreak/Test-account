@@ -53,7 +53,11 @@ const copy = {
     escalated: "🔺 Escalated to Staff",
     autoResolved: "✅ Auto-resolved",
     language: "Language",
-    balanceHint: "Ask about your balance, transactions, or loan status."
+    balanceHint: "Ask about your balance, transactions, or loan status.",
+    disputeTitle: "Select the transaction to dispute:",
+    disputePlaceholder: "Why are you disputing this transaction?",
+    disputeSubmit: "Submit Dispute",
+    disputeSuccess: "✅ Dispute submitted and escalated to staff."
   },
   hi: {
     title: "सदस्य सहायता चैट",
@@ -67,7 +71,11 @@ const copy = {
     escalated: "🔺 स्टाफ को एस्केलेट",
     autoResolved: "✅ स्वतः हल",
     language: "भाषा",
-    balanceHint: "अपना शेष, लेनदेन या ऋण स्थिति पूछें।"
+    balanceHint: "अपना शेष, लेनदेन या ऋण स्थिति पूछें।",
+    disputeTitle: "विवाद के लिए लेनदेन चुनें:",
+    disputePlaceholder: "आप इस लेनदेन का विवाद क्यों कर रहे हैं?",
+    disputeSubmit: "विवाद सबमिट करें",
+    disputeSuccess: "✅ विवाद सबमिट कर दिया गया और स्टाफ को एस्केलेट कर दिया गया।"
   },
   kn: {
     title: "ಸದಸ್ಯ ಬೆಂಬಲ ಚಾಟ್",
@@ -81,7 +89,11 @@ const copy = {
     escalated: "🔺 ಸಿಬ್ಬಂದಿಗೆ ಎಸ್ಕಲೇಟ್",
     autoResolved: "✅ ಸ್ವಯಂ ಪರಿಹಾರ",
     language: "ಭಾಷೆ",
-    balanceHint: "ನಿಮ್ಮ ಬ್ಯಾಲೆನ್ಸ್, ವ್ಯವಹಾರ ಅಥವಾ ಸಾಲ ಸ್ಥಿತಿ ಕೇಳಿ."
+    balanceHint: "ನಿಮ್ಮ ಬ್ಯಾಲೆನ್ಸ್, ವ್ಯವಹಾರ ಅಥವಾ ಸಾಲ ಸ್ಥಿತಿ ಕೇಳಿ.",
+    disputeTitle: "ವಿವಾದದ ವ್ಯವಹಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
+    disputePlaceholder: "ನೀವು ಈ ವ್ಯವಹಾರವನ್ನು ಏಕೆ ವಿವಾದ ಮಾಡುತ್ತಿದ್ದೀರಿ?",
+    disputeSubmit: "ವಿವಾದವನ್ನು ಸಲ್ಲಿಸಿ",
+    disputeSuccess: "✅ ವಿವಾದವನ್ನು ಸಲ್ಲಿಸಲಾಗಿದೆ ಮತ್ತು ಸಿಬ್ಬಂದಿಗೆ ಎಸ್ಕಲೇಟ್ ಮಾಡಲಾಗಿದೆ."
   },
   ta: {
     title: "உறுப்பினர் ஆதரவு",
@@ -95,8 +107,12 @@ const copy = {
     escalated: "🔺 பணியாளர்களுக்கு மாற்றப்பட்டது",
     autoResolved: "✅ தானாகத் தீர்க்கப்பட்டது",
     language: "மொழி",
-    balanceHint: "உங்கள் கணக்கு இருப்பு, பரிவர்த்தனைகள் அல்லது கடன் நிலை பற்றி கேளுங்கள்."
-  }
+    balanceHint: "உங்கள் கணக்கு இருப்பு, பரிவர்த்தனைகள் அல்லது கடன் நிலை பற்றி கேளுங்கள்.",
+    disputeTitle: "தகராறு செய்ய பரிவர்த்தனையைத் தேர்ந்தெடுக்கவும்:",
+    disputePlaceholder: "இந்த பரிவர்த்தனையை நீங்கள் ஏன் மறுக்கிறீர்கள்?",
+    disputeSubmit: "தகராறை சமர்ப்பிக்கவும்",
+    disputeSuccess: "✅ தகராறு சமர்ப்பிக்கப்பட்டு பணியாளர்களுக்கு அனுப்பப்பட்டது."
+  },
 };
 
 function TypingIndicator() {
@@ -134,6 +150,64 @@ function AccountBanner({ user }) {
           <span className="account-loan-pending">⏳ Loan Pending</span>
         )}
       </div>
+    </div>
+  );
+}
+
+function TransactionDisputeUI({ transactions, onSubmit, t }) {
+  const [selectedTx, setSelectedTx] = useState(null);
+  const [reason, setReason] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const fmt = (n) => `₹${Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+
+  if (submitted) {
+    return (
+      <div className="dispute-ui submitted">
+        <p>{t.disputeSuccess}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="dispute-ui" onClick={(e) => e.stopPropagation()}>
+      <div className="tx-selection-list">
+        {transactions.map((tx, idx) => (
+          <div
+            key={idx}
+            className={`tx-item ${selectedTx === tx ? "selected" : ""}`}
+            onClick={() => setSelectedTx(tx)}
+          >
+            <div className="tx-item-main">
+              <span>{tx.date}</span>
+              <strong>{tx.desc}</strong>
+            </div>
+            <div className="tx-item-amount">
+              {tx.type === "credit" ? "+" : ""}{fmt(tx.amount)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {selectedTx && (
+        <div className="dispute-form">
+          <textarea
+            placeholder={t.disputePlaceholder}
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          />
+          <button
+            className="send-btn"
+            disabled={!reason.trim()}
+            onClick={() => {
+              onSubmit(selectedTx, reason);
+              setSubmitted(true);
+            }}
+          >
+            {t.disputeSubmit} ↗
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -189,7 +263,11 @@ export default function MemberPage({ language = "en" }) {
         language
       });
 
-      setHistory((prev) => [...prev, { role: "assistant", message: response.reply }]);
+      setHistory((prev) => [...prev, {
+        role: "assistant",
+        message: response.reply,
+        ui: response.ui
+      }]);
       setCaseResult(response.case);
     } catch (requestError) {
       setError("Could not process request. Please try again.");
@@ -254,6 +332,11 @@ export default function MemberPage({ language = "en" }) {
     }
   }
 
+  function handleDisputeSubmit(tx, reason) {
+    const msg = `I want to dispute this transaction: ${tx.date} - ${tx.desc} (${tx.amount}). Reason: ${reason}`;
+    submitMessage(msg);
+  }
+
   return (
     <section className="member-layout">
       {/* ── Chat panel ───────────────────────────────────────────── */}
@@ -289,7 +372,16 @@ export default function MemberPage({ language = "en" }) {
                 {item.role === "member" ? `👤 ${user?.name || "You"}` : "🤖 CreditAssist AI"}
               </div>
               <div className="bubble-content-row">
-                <span style={{ whiteSpace: "pre-wrap", flex: 1 }}>{item.message}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ whiteSpace: "pre-wrap" }}>{item.message}</div>
+                  {item.ui?.type === "transaction_dispute" && (
+                    <TransactionDisputeUI
+                      transactions={item.ui.transactions}
+                      onSubmit={handleDisputeSubmit}
+                      t={t}
+                    />
+                  )}
+                </div>
                 {item.role === "assistant" && (
                   <button
                     type="button"

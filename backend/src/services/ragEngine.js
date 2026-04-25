@@ -57,12 +57,19 @@ const QUERY_EXPANSION = {
 function expandQuery(query) {
   const lowerQuery = query.toLowerCase();
   const expansions = [];
-  for (const [trigger, expansion] of Object.entries(QUERY_EXPANSION)) {
-    if (lowerQuery.includes(trigger)) {
-      expansions.push(expansion);
-    }
-  }
-  return expansions.length > 0 ? `${query} ${expansions.join(" ")}` : query;
+  // Limit expansions to max 2 most relevant to avoid query drift
+  const sortedTriggers = Object.entries(QUERY_EXPANSION)
+    .filter(([trigger]) => lowerQuery.includes(trigger))
+    .sort((a, b) => b[0].length - a[0].length) // prefer longer triggers
+    .slice(0, 2);
+  
+  sortedTriggers.forEach(([, expansion]) => {
+    expansions.push(expansion);
+  });
+  
+  const expandedQuery = expansions.length > 0 ? `${query} ${expansions.join(" ")}` : query;
+  // Limit expansion length to prevent query bloat
+  return expandedQuery.length > 200 ? query : expandedQuery;
 }
 
 let pcClient = null;
@@ -195,13 +202,17 @@ async function retrieveRelevantDocs(query, options = {}) {
     const { index } = getClients();
     const vector = await embedText(expandedQuery);
 
+    // Request more results to filter for quality
     const queryResponse = await index.query({
       vector,
-      topK,
+      topK: Math.min(topK + 3, 10),
       includeMetadata: true
     });
 
-    return queryResponse.matches.map(match => {
+    // FILTER: Only keep documents with score >= 0.70 (strong enough to consider)
+    const qualityMatches = queryResponse.matches.filter(m => (m.score || 0) >= 0.70);
+
+    return qualityMatches.slice(0, topK).map(match => {
       // Find full doc from local knowledge base for complete content
       const localDoc = knowledgeBase.find(d => d.id === match.id) || {};
       return {
@@ -232,18 +243,28 @@ function gradeEvidence(docs) {
   const [first, second] = docs;
   const topScore = first?.score || 0;
   const margin = topScore - (second?.score || 0);
+  const secondScore = second?.score || 0;
 
-  // Cosine similarity: 0.82+ = strong, 0.72+ = usable, below = weak
-  const label = topScore >= 0.82 && margin >= 0.015
+  // STRICTER thresholds to reduce hallucination:
+  // strong: 0.85+ with clear margin (0.10+) = high confidence
+  // usable: 0.78+ with margin 0.08+ = moderate confidence 
+  // weak: below threshold = escalate or refuse
+  const label = topScore >= 0.85 && margin >= 0.10
     ? "strong"
-    : topScore >= 0.72
+    : topScore >= 0.78 && margin >= 0.08 && topScore - Math.max(secondScore, 0.1) >= 0.08
       ? "usable"
       : "weak";
+
+  const confidence = topScore >= 0.85 ? 0.95 : topScore >= 0.78 ? 0.75 : 0.4;
+  const documentCount = docs.filter(d => d.score >= 0.75).length;
 
   return {
     label,
     topScore: Number(topScore.toFixed(4)),
-    margin: Number(margin.toFixed(4))
+    margin: Number(margin.toFixed(4)),
+    confidence: Number(confidence.toFixed(3)),
+    documentCount,
+    documentCountLabel: documentCount >= 2 ? "multiple-sources" : "single-source"
   };
 }
 
