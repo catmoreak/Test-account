@@ -91,15 +91,13 @@ export default function LoginPage() {
           <div>
             <p className="eyebrow">MCC Bank</p>
             <h1 className="login-title">CreditAssist AI</h1>
-            <p className="login-subtitle">Secure Member Portal</p>
+            
           </div>
         </div>
 
         {/* Feature pills */}
         <div className="login-feature-pills">
-          <span className="login-pill">🤖 AI-Powered Support</span>
-          <span className="login-pill">🌐 Multilingual</span>
-          <span className="login-pill">🔒 Secure</span>
+          Please use the Demo login credentials below 
         </div>
 
         {/* Form */}
