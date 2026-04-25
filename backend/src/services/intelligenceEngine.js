@@ -211,8 +211,8 @@ function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, de
 
   if (decision.escalate) {
     const reason = decision.reason;
-    // Only include a policy snippet if the evidence is strong enough to be relevant
-    const snippet = (topDoc?.score >= 0.75 && topDoc?.snippet)
+    // Only include a policy snippet if the evidence is strong enough to be relevant (lowered to 0.65)
+    const snippet = (topDoc?.score >= 0.65 && topDoc?.snippet)
       ? `\n\nFor context, here is a relevant MCC Bank policy [${topDoc.id}]: ${topDoc.snippet.substring(0, 200)}...`
       : "";
     return `${label.escalationPrefix}: Your request is being escalated to our ${queue} team. ${reason}.${snippet}\n\nA specialist will follow up with you shortly. Please keep your Member ID ready.`;
@@ -226,12 +226,12 @@ function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, de
   return `${label.responsePrefix}: Based on MCC Bank policy [${topDoc.id}] — ${snippet}\n\nGrounded in: ${docs.slice(0, 2).map(d => `${d.id}: ${d.title}`).join("; ")}`;
 }
 
-function shouldEscalate({ classification, sentiment, evidenceGrade, message }) {
+function shouldEscalate({ classification, sentiment, evidenceGrade, message, docs }) {
   const text = message.toLowerCase();
   const intent = classification.topIntent;
 
   // Check evidence quality first (NEW: stricter validation)
-  const evidenceValidation = validateEvidenceQuality(evidenceGrade, [], intent);
+  const evidenceValidation = validateEvidenceQuality(evidenceGrade, docs || [], intent);
   if (!evidenceValidation.canAnswer) {
     return { 
       escalate: true, 
@@ -316,7 +316,7 @@ async function processMemberMessageWithLanguage(message, history = [], language 
   const docs = await retrieveRelevantDocs(retrievalQuery, { intent: classification.topIntent, topK: 4 });
   const evidenceGrade = gradeEvidence(docs);
   const sentiment = detectSentiment(message, history);
-  const decision = shouldEscalate({ classification, sentiment, evidenceGrade, message });
+  const decision = shouldEscalate({ classification, sentiment, evidenceGrade, message, docs });
 
   const llmResult = await generateGroundedResponse({
     message,

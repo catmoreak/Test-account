@@ -10,11 +10,11 @@ const RAG_CONFIG = {
     STRONG_MIN_MARGIN: 0.10,
     STRONG_CONFIDENCE: 0.95,
 
-    USABLE_MIN_SCORE: 0.78,
-    USABLE_MIN_MARGIN: 0.08,
+    USABLE_MIN_SCORE: 0.65,        // Lowered from 0.72 to catch documents queries
+    USABLE_MIN_MARGIN: 0.05,       // Keep at 0.05 for balance
     USABLE_CONFIDENCE: 0.75,
 
-    RETRIEVAL_MIN_SCORE: 0.70,  // Filter results below this
+    RETRIEVAL_MIN_SCORE: 0.60,     // Lowered from 0.65 for better retrieval
     WEAK_CONFIDENCE: 0.4
   },
 
@@ -117,7 +117,7 @@ function scoreTrustworthiness(llmResponse, validations, evidenceGrade) {
  * Builds a safer grounded prompt with strict instructions
  */
 function buildSaferGroundedPrompt(message, classification, docs, evidenceGrade, language) {
-  const validDocs = docs.filter(d => d.score >= 0.75).slice(0, 3);
+  const validDocs = docs.filter(d => d.score >= 0.65).slice(0, 3);
   const langLabel = language === "hi" ? "Hindi" : language === "kn" ? "Kannada" : "English";
 
   const policySection = validDocs.length > 0

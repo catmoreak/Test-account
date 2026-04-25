@@ -115,6 +115,44 @@ const copy = {
   },
 };
 
+const TTS_MAX_CHARS = 480;
+
+function cleanTextForTts(text) {
+  return (text || "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function splitTextForTts(text, maxChars = TTS_MAX_CHARS) {
+  const cleaned = cleanTextForTts(text);
+  if (!cleaned) return [];
+  if (cleaned.length <= maxChars) return [cleaned];
+
+  const chunks = [];
+  let remaining = cleaned;
+
+  while (remaining.length > maxChars) {
+    const window = remaining.slice(0, maxChars);
+    const splitAt = Math.max(
+      window.lastIndexOf(". "),
+      window.lastIndexOf("? "),
+      window.lastIndexOf("! "),
+      window.lastIndexOf(", "),
+      window.lastIndexOf(" ")
+    );
+
+    const cut = splitAt > 120 ? splitAt + 1 : maxChars;
+    chunks.push(remaining.slice(0, cut).trim());
+    remaining = remaining.slice(cut).trim();
+  }
+
+  if (remaining) chunks.push(remaining);
+  return chunks;
+}
+
 function TypingIndicator() {
   return (
     <div className="bubble bot typing-bubble">
@@ -226,6 +264,7 @@ export default function MemberPage({ language = "en" }) {
   const [speakingIndex, setSpeakingIndex] = useState(null);
   const historyRef                = useRef(null);
   const audioRef = useRef(null);
+  const playbackTokenRef = useRef(0);
 
   const canSend = useMemo(() => draft.trim().length > 0 && !loading, [draft, loading]);
 
@@ -305,26 +344,44 @@ export default function MemberPage({ language = "en" }) {
 
     setVoiceError("");
     setSpeakingIndex(index);
+    const playbackToken = ++playbackTokenRef.current;
 
     try {
-      const result = await synthesizeSpeech(text, language);
-      if (!result?.audioBase64) {
-        throw new Error("No audio returned");
-      }
-
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
 
-      const audio = new Audio(`data:${result.mimeType || "audio/wav"};base64,${result.audioBase64}`);
-      audioRef.current = audio;
+      const chunks = splitTextForTts(text);
+      if (!chunks.length) {
+        throw new Error("No text available for speech");
+      }
 
-      audio.onended = () => {
+      const playAudio = (result) =>
+        new Promise((resolve, reject) => {
+          const audio = new Audio(`data:${result.mimeType || "audio/wav"};base64,${result.audioBase64}`);
+          audioRef.current = audio;
+
+          audio.onended = () => resolve();
+          audio.onerror = () => reject(new Error("Audio playback failed"));
+
+          audio.play().catch(reject);
+        });
+
+      for (const chunk of chunks) {
+        if (playbackTokenRef.current !== playbackToken) break;
+
+        const result = await synthesizeSpeech(chunk, language);
+        if (!result?.audioBase64) {
+          throw new Error("No audio returned");
+        }
+
+        await playAudio(result);
+      }
+
+      if (playbackTokenRef.current === playbackToken) {
         setSpeakingIndex(null);
-      };
-
-      await audio.play();
+      }
     } catch (ttsError) {
       console.warn("[TTS] Playback failed:", ttsError);
       setVoiceError("Text-to-speech is unavailable right now. Please try again.");

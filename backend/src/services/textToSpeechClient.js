@@ -19,6 +19,25 @@ const DEFAULT_SPEAKER_BY_MODEL = {
   "bulbul:v3-beta": "priya"
 };
 
+const MAX_TTS_INPUT_CHARS = Number(process.env.SARVAM_TTS_MAX_INPUT_CHARS || 500);
+
+function clampTextForTts(text, maxChars = MAX_TTS_INPUT_CHARS) {
+  const normalized = (text || "").replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+
+  const window = normalized.slice(0, maxChars);
+  const splitAt = Math.max(
+    window.lastIndexOf(". "),
+    window.lastIndexOf("? "),
+    window.lastIndexOf("! "),
+    window.lastIndexOf(", "),
+    window.lastIndexOf(" ")
+  );
+
+  const cut = splitAt > 120 ? splitAt + 1 : maxChars;
+  return normalized.slice(0, cut).trim();
+}
+
 function normalizeAudioFromJson(data) {
   if (!data || typeof data !== "object") {
     return null;
@@ -39,7 +58,7 @@ function normalizeAudioFromJson(data) {
 }
 
 async function synthesizeWithSarvam(text, language = "en") {
-  const cleanedText = (text || "").trim();
+  const cleanedText = clampTextForTts(text);
 
   if (!cleanedText) {
     return { used: false, error: "text is required" };

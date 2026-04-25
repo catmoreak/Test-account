@@ -25,14 +25,23 @@ const QUERY_EXPANSION = {
   "block my account": "account freeze deactivation suspended",
   "freeze account": "account block suspended restricted",
   "account blocked": "account freeze deactivation suspended",
-  "card blocked": "ATM card blocked declined reactivation PIN",
-  "block card": "ATM card block decline reactivation",
+  "block card": "block card disable freeze debit atm card security temporary permanent",
+  "block my card": "disable card freeze atm debit card security lock",
+  "card blocked": "ATM card blocked declined reactivation PIN unblock",
+  "unblock card": "unblock reactivate card atm debit pin reset",
+  "how to block": "block disable freeze card method process steps",
+  "how to unblock": "unblock reactivate card pin reset process method",
   "close account": "account closure charges savings current",
   "atm pin": "ATM card PIN replacement annual fee",
   "stop payment": "stop payment cheque issued charges SB CA CCL",
-  "fixed deposit": "FD interest rate maturity tenure",
-  "fd rate": "fixed deposit interest rate 456 days senior citizen",
-  "rd rate": "recurring deposit installment interest",
+  "fixed deposit": "FD interest rate maturity tenure 456 days current rates",
+  "fd rate": "fixed deposit interest rate 456 days senior citizen 7.00 7.50",
+  "456 days": "fixed deposit interest rate 7.00 senior citizen 7.50 premium tenor",
+  "fd interest": "fixed deposit interest rate 456 days maturity tenure current 7.00",
+  "what is fd rate": "fixed deposit interest rate 456 days 7.00 7.50 maturity",
+  "how much interest": "interest rate fixed deposit fd 456 days current rates",
+  "fd rates": "fixed deposit interest rate all tenors 456 days 7.00 7.50 senior citizen",
+  "recurring deposit": "recurring deposit RD monthly installment interest 6.75 6.50",
   "education loan": "education loan higher studies CIBIL moratorium rate",
   "gold loan": "jewel gold loan market value 10.75",
   "vehicle loan": "private vehicle four wheeler two wheeler rate",
@@ -45,9 +54,24 @@ const QUERY_EXPANSION = {
   "passbook": "passbook duplicate statement charge",
   "nre account": "NRE account WhatsApp query",
   "e-stamp": "e-stamp branches facility",
-  "savings account": "savings bank SB interest 3.00 5.00 SSB",
+  "savings account": "savings bank SB interest 3.00 5.00 SSB open procedure how to documents",
   "savings interest": "savings bank SB interest 3.00 SSB 5.00",
-  "recurring deposit": "recurring deposit RD monthly installment interest",
+  "open savings account": "savings account procedure online branch how to open step-by-step documents",
+  "how to open savings": "savings account opening procedure documents required minimum balance aadhaar pan",
+  "savings account opening": "open savings account how to procedure documents eligibility aadhaar",
+  "savings account procedure": "open savings account steps documents required minimum balance cheque book aadhaar pan",
+  "documents needed savings": "documents required savings account aadhaar pan opening",
+  "documents for savings": "documents required savings account aadhaar identity pan address",
+  "what documents savings": "documents required savings account opening aadhaar pan identity proof",
+  "documents required": "documents needed opening account aadhaar pan kyc identity proof",
+  "what documents needed": "documents required opening account aadhaar pan address proof identity",
+  "documents for account": "documents required account opening aadhaar pan identity proof address kyc",
+  "loan documents": "loan documents required aadhaar pan identity collateral security",
+  "documents for loan": "documents required loan opening aadhaar pan income proof",
+  "current account documents": "documents required current account business registration pan gst address",
+  "fd documents": "documents fixed deposit aadhaar pan opening",
+  "deposit documents": "documents required deposit opening aadhaar pan identity address",
+  "recurring deposit": "recurring deposit RD monthly installment interest 6.75 6.50 documents",
   "loan against deposit": "loan deposit 85% interest",
   "dormant account": "dormant account activation NIL",
   "duplicate receipt": "duplicate deposit receipt charges",
@@ -209,8 +233,8 @@ async function retrieveRelevantDocs(query, options = {}) {
       includeMetadata: true
     });
 
-    // FILTER: Only keep documents with score >= 0.70 (strong enough to consider)
-    const qualityMatches = queryResponse.matches.filter(m => (m.score || 0) >= 0.70);
+    // FILTER: Only keep documents with score >= 0.60 (lowered for better documents retrieval)
+    const qualityMatches = queryResponse.matches.filter(m => (m.score || 0) >= 0.60);
 
     return qualityMatches.slice(0, topK).map(match => {
       // Find full doc from local knowledge base for complete content
@@ -245,18 +269,19 @@ function gradeEvidence(docs) {
   const margin = topScore - (second?.score || 0);
   const secondScore = second?.score || 0;
 
-  // STRICTER thresholds to reduce hallucination:
+  // BALANCED thresholds - strict but achievable:
   // strong: 0.85+ with clear margin (0.10+) = high confidence
-  // usable: 0.78+ with margin 0.08+ = moderate confidence 
+  // usable: either clear margin OR two high-scoring corroborating sources
   // weak: below threshold = escalate or refuse
+  const corroboratedHighScore = topScore >= 0.75 && secondScore >= 0.70;
   const label = topScore >= 0.85 && margin >= 0.10
     ? "strong"
-    : topScore >= 0.78 && margin >= 0.08 && topScore - Math.max(secondScore, 0.1) >= 0.08
+    : (topScore >= 0.65 && margin >= 0.05 && topScore - Math.max(secondScore, 0.1) >= 0.05) || corroboratedHighScore
       ? "usable"
       : "weak";
 
-  const confidence = topScore >= 0.85 ? 0.95 : topScore >= 0.78 ? 0.75 : 0.4;
-  const documentCount = docs.filter(d => d.score >= 0.75).length;
+  const confidence = topScore >= 0.85 ? 0.95 : label === "usable" ? 0.75 : 0.4;
+  const documentCount = docs.filter(d => d.score >= 0.65).length;
 
   return {
     label,
