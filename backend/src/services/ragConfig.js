@@ -148,7 +148,7 @@ Evidence strength: ${evidenceGrade.label}`;
 
   const userPrompt = validDocs.length > 0
     ? `Policy sources:\\n\\n${policySection}\\n\\n---\\nAnswer using ONLY these sources. Cite each fact. If sources are insufficient, offer escalation.`
-    : `No matching policies found. Politely tell the member you'll escalate to our team for specialized help.`;
+    : `Sources are insufficient for a precise answer. Politely offer to escalate to the appropriate specialist team.`;
 
   return [
     { role: "system", content: systemPrompt },

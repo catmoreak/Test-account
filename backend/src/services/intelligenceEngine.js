@@ -219,7 +219,7 @@ function buildGroundedFallbackResponse({ classification, docs, evidenceGrade, de
   }
 
   if (evidenceGrade.label === "weak" || !topDoc) {
-    return `${label.responsePrefix}: Based on available MCC Bank policies — I found limited direct guidance on your specific query. Here's what I can share: For comprehensive support on this topic, please visit your nearest branch or use our mobile app for additional resources.\n\nQueue: ${queue}`;
+    return `${label.responsePrefix}: I want to make sure you get an accurate answer.\n\nWhat I can do next:\n• Escalate this to our ${queue}\n• Help you phrase the exact request for faster branch support\n\nPlease contact MCC Bank directly, or ask me to escalate this now.`;
   }
 
   const snippet = topDoc.snippet || topDoc.content?.substring(0, 300) || "";

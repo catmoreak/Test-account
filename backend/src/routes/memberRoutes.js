@@ -40,11 +40,12 @@ function buildAccountResponse(queryType, ctx, language = "en") {
   const fmt = (n) => `₹${Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
 
   if (queryType === "balance") {
+    const totalAcrossAccounts = Number(ctx.balance || 0) + Number(ctx.savingsBalance || 0) + Number(ctx.fdBalance || 0);
     const txSummary = ctx.recentTransactions.slice(0, 2)
       .map((t) => `• ${t.date}: ${t.desc} (${t.type === "credit" ? "+" : ""}${fmt(t.amount)})`)
       .join("\n");
     return {
-      reply: `Your current account balance is **${fmt(ctx.balance)}**.\n\nSavings balance: ${fmt(ctx.savingsBalance)}\nFD balance: ${fmt(ctx.fdBalance)}\n\nRecent transactions:\n${txSummary}`
+      reply: `Here is your account snapshot:\n\n• Current account (spendable): ${fmt(ctx.balance)}\n• Savings account: ${fmt(ctx.savingsBalance)}\n• Fixed deposit (FD): ${fmt(ctx.fdBalance)}\n• Total across shown accounts: ${fmt(totalAcrossAccounts)}\n\nNote: Current account balance is separate from savings and FD balances.\n\nRecent transactions (latest 2):\n${txSummary}`
     };
   }
 
