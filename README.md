@@ -2,11 +2,6 @@
 
 CreditAssist AI is a full-stack, AI-powered member support and resolution assistant built for credit unions. This README focuses on quick local setup, key configuration, and deployment notes so reviewers can run and evaluate the PR quickly.
 
-## TL;DR
-
-- Install dependencies at the repo root and for `backend` and `frontend`.
-- Configure required environment variables (listed below) in `.env`.
-- Run `npm run dev` to start the frontend and backend in development.
 
 ## What this project contains
 
