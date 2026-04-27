@@ -1,100 +1,24 @@
 # CreditAssist AI
 
-CreditAssist AI is a full-stack, AI-powered member support and resolution assistant for credit unions.
+CreditAssist AI is a full-stack, AI-powered member support and resolution assistant built for credit unions. This README focuses on quick local setup, key configuration, and deployment notes so reviewers can run and evaluate the PR quickly.
 
-## What This Build Includes
+## TL;DR
 
-- Member interface (chat-based UI) for issue intake and responses.
-- AI resolution engine with:
-  - intent classification with probability distribution,
-  - sentiment probability scoring,
-  - RAG retrieval over a mock credit union knowledge base,
-  - optional Mistral/OpenRouter grounded response generation,
-  - structured escalation packets for unresolved cases.
-- Staff dashboard to:
-  - view all incoming cases,
-  - filter auto-resolved vs needs-attention,
-  - inspect full conversation + intent/sentiment context,
-  - update case status.
-- Mock knowledge base with 12 policy/product/procedure entries.
+- Install dependencies at the repo root and for `backend` and `frontend`.
+- Configure required environment variables (listed below) in `.env`.
+- Run `npm run dev` to start the frontend and backend in development.
 
-## Required Scenarios Supported
+## What this project contains
 
-- Balance inquiry
-- Transaction dispute
-- Loan status inquiry
-- Card block / unblock guidance
-- Account profile update guidance
-- Policy question (fixed deposit early closure penalty)
-- Unresolved complaint escalation
+- Member-facing chat UI with optional voice input/output.
+- Staff dashboard for reviewing, filtering, and updating cases.
+- RAG-powered answer engine (local TF‑IDF retrieval + generator fallback).
+- Case store with auto-resolution logic and escalation packets for unresolved issues.
 
-## Tech Stack
+## Quickstart (local)
 
-- Frontend: React + Vite
-- Backend: Node.js + Express
-- RAG: in-memory retrieval with TF-IDF + cosine similarity over mock KB docs
-- Data store: PostgreSQL (Neon via `DATABASE_URL`), with in-memory fallback if unset
-
-## Project Structure
-
-- `frontend/`: Member UI + Staff dashboard
-- `backend/`: API, RAG retrieval, intelligence engine, case routing
-- `backend/src/data/knowledgeBase.json`: mock KB (12 entries)
-
-## Optional Mistral / OpenRouter Setup
-
-Create a local `.env` file from `.env.example` and set `MISTRAL_API_KEY`.
-
-The app never needs the key in source code. If the key starts with `sk-or`, the backend uses OpenRouter's chat completions endpoint and a Mistral model. With a direct Mistral key, set:
-
-```powershell
-LLM_PROVIDER=mistral
-MISTRAL_API_BASE=https://api.mistral.ai/v1/chat/completions
-MISTRAL_MODEL=mistral-small-latest
-```
-
-If no key is configured, CreditAssist falls back to the deterministic RAG answer generator.
-
-## Sarvam Voice Setup (STT + TTS)
-
-To enable voice input (speech-to-text) and spoken responses (text-to-speech), add Sarvam env vars in `.env`:
-
-```powershell
-# Shared key (already used for translation/STT)
-SARVAM_API_KEY=<your_sarvam_key>
-
-# Optional dedicated key for TTS (preferred)
-SARVAM_TTS_API_KEY=<your_tts_key>
-
-# Alias supported for compatibility with existing naming
-SARM_TTS_API=<your_tts_key>
-
-# Optional TTS tuning
-SARVAM_TTS_MODEL=bulbul:v1
-SARVAM_TTS_SPEAKER=anushka
-SARVAM_TTS_SAMPLE_RATE=22050
-SARVAM_TTS_URL=https://api.sarvam.ai/text-to-speech
-```
-
-Use `SARVAM_TTS_MODEL=bulbul:v3` (or `bulbul:v3-beta`).
-
-If `SARVAM_TTS_API_KEY` is not set, the backend falls back to `SARM_TTS_API`, then `SARVAM_API_KEY`.
-
-## PostgreSQL (Neon) Setup For Hosting
-
-Set `DATABASE_URL` in the backend environment (Render service env vars or root `.env` for local runs).
-
-Example format:
-
-```powershell
-DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require&channel_binding=require
-```
-
-The backend auto-creates the `support_cases` table at startup and stores all member/staff case data there.
-
-## Local Run
-
-1. Install dependencies:
+1. Install Node.js (LTS) and npm.
+2. From the repository root install dependencies:
 
 ```powershell
 npm install
@@ -102,40 +26,110 @@ npm install --prefix backend
 npm install --prefix frontend
 ```
 
-2. Start both apps:
+3. Create a `.env` file in the `backend/` folder (copy from `.env.example` if present) and set the required keys below.
+
+4. Start the app for development:
 
 ```powershell
 npm run dev
 ```
 
-3. Open:
+5. Open the apps:
 
-- UI: http://localhost:5173
-- API: http://localhost:8787/api/health
+- Member UI: http://localhost:5173
+- API health: http://localhost:8787/api/health
 
-## API Endpoints
+## Project layout
 
-- `POST /api/member/message`
-- `POST /api/member/voice-to-text`
-- `POST /api/member/text-to-speech`
-- `GET /api/staff/cases?status=all|auto-resolved|needs-attention`
-- `GET /api/staff/cases/:id`
-- `PATCH /api/staff/cases/:id/status`
+- frontend/ — React + Vite UI (member + staff dashboards)
+- backend/ — Express API, RAG retrieval, intelligence engine, case store
+- backend/src/data/knowledgeBase.json — mock knowledge base used for retrieval
 
-## Live Hosting (Public Demo)
+Key source files:
 
-Use Render with the included `render.yaml`.
+- Backend server: [backend/src/server.js](backend/src/server.js)
+- RAG engine and connectors: [backend/src/services/ragEngine.js](backend/src/services/ragEngine.js)
+- LLM client(s): [backend/src/services/llmClient.js](backend/src/services/llmClient.js)
+- Text-to-speech / Speech-to-text: [backend/src/services/textToSpeechClient.js](backend/src/services/textToSpeechClient.js)
 
-1. Push this repo to GitHub.
-2. In Render, create new Blueprint from your repo.
-3. Render provisions:
-   - `creditassist-api` (backend service)
-   - `creditassist-ui` (static frontend)
-4. After deploy, update API rewrite target in `render.yaml` if your backend URL differs.
+## Environment variables
 
-You will get a public URL judges can use interactively.
+Set these in `backend/.env` or in your deployment environment. Values shown are examples or fallbacks used by the code.
 
-## Notes
+- `MISTRAL_API_KEY` — optional; API key for Mistral or OpenRouter. If unset, the app falls back to RAG-only responses.
+- `LLM_PROVIDER` — optional override for the LLM provider (e.g. `mistral`).
+- `MISTRAL_MODEL` — model name (default in code if unset).
+- `MISTRAL_API_BASE` — base URL for Mistral/OpenRouter endpoints.
+- `MISTRAL_TIMEOUT_MS` — request timeout for LLM calls (ms).
+- `PINECONE_API_KEY` — optional: used by `embed_data.js` for vector indexing if you choose to persist embeddings.
+- `SARVAM_API_KEY` — shared Sarvam API key used by STT and other Sarvam endpoints.
+- `SARVAM_TTS_API_KEY` — optional dedicated key for TTS (preferred).
+- `SARM_TTS_API` — compatibility alias checked by the backend if `SARVAM_TTS_API_KEY` is not set.
+- `SARVAM_TTS_URL` — TTS endpoint (defaults to https://api.sarvam.ai/text-to-speech).
+- `SARVAM_TTS_MODEL` — TTS model (e.g. `bulbul:v3`).
+- `SARVAM_TTS_SPEAKER` — optional speaker name.
+- `SARVAM_TTS_SAMPLE_RATE` — numeric sample rate for generated audio (e.g. 22050).
+- `APP_PUBLIC_URL` — frontend public URL used by some headers and callbacks (defaults to http://localhost:5173).
+- `DATABASE_URL` — optional PostgreSQL (Neon) connection string; if unset, the backend may use an in-memory fallback for demo.
 
-- This project is intentionally designed for 24-hour build constraints.
-- For production hardening, add auth, persistent storage, audit logs, encryption, and model monitoring.
+Example `.env` snippet (backend):
+
+```ini
+MISTRAL_API_KEY=sk-...
+LLM_PROVIDER=mistral
+MISTRAL_MODEL=mistral-small
+SARVAM_API_KEY=sk-...
+SARVAM_TTS_API_KEY=sk-...
+DATABASE_URL=postgresql://user:pass@host/dbname
+```
+
+## Running the data embed script
+
+If you want to regenerate embeddings or push them to an index (Pinecone), use:
+
+```powershell
+node backend/embed_data.js
+```
+
+This script uses `PINECONE_API_KEY` and `MISTRAL_API_KEY` when present.
+
+## API (quick reference)
+
+- `POST /api/member/message` — send a chat message from a member
+- `POST /api/member/voice-to-text` — upload audio for speech-to-text
+- `POST /api/member/text-to-speech` — request generated audio for a text reply
+- `GET /api/staff/cases` — list cases (supports `?status=` filter)
+- `GET /api/staff/cases/:id` — get case details
+- `PATCH /api/staff/cases/:id/status` — update case status
+
+See route implementations in [backend/src/routes](backend/src/routes) for full request/response shapes.
+
+## Deploying (Render)
+
+This repo includes `render.yaml` for a two-service deployment: API and UI. Basic steps:
+
+1. Push the repo to GitHub.
+2. Create services on Render using `render.yaml` or import the repo.
+3. Add required environment variables to the Render service settings.
+
+Adjust `render.yaml` API rewrite targets if Render assigns different hostnames.
+
+## Notes for reviewers / maintainers
+
+- The codebase is intentionally compact for rapid review; production hardening (auth, logging, monitoring, rate limits, secrets rotation) is not included in the PR.
+- The mock KB in `backend/src/data/knowledgeBase.json` is small by design; replace with a real KB for more realistic retrieval results.
+
+## Next steps / suggestions
+
+- Add a `.env.example` in `backend/` listing the variables above (if missing).
+- Add a short Postman collection or OpenAPI spec for the API surface.
+- Add automated dev start scripts (concurrently) if you want a single `npm run dev` to reliably start both services.
+
+---
+
+If you'd like, I can also:
+
+- add a `backend/.env.example` file with the variables above,
+- generate a short Postman/OpenAPI spec for the main endpoints,
+- or create a single `dev` script that reliably starts both apps.
+
