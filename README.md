@@ -1,6 +1,6 @@
 # CreditAssist AI
 
-CreditAssist AI is a full-stack, AI-powered member support and resolution assistant built for credit unions. This README focuses on quick local setup, key configuration, and deployment notes so reviewers can run and evaluate the PR quickly.
+CreditAssist AI is a full-stack, AI-powered member support and resolution assistant built for credit unions. This README focuses on quick local setup, key configuration, and deployment notes so that reviewers can run and evaluate the PR quickly.
 
 
 ## What this project contains
